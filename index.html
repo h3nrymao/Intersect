@@ -10,327 +10,113 @@
     font-family: 'Century Schoolbook';
     src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
   }
-
   :root {
-    --ink: #1a1a1a;
-    --cream: #fafaf7;
-    --accent: #c45830;
-    --muted: #999;
-    --border: #e8e5de;
-    --parchment: #eeeae3;
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
     --body-font: 'Century Schoolbook', Georgia, serif;
     --ui-font: 'DM Sans', sans-serif;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: var(--body-font);
-    background: var(--cream);
-    color: var(--ink);
-    line-height: 1.75;
-  }
+  body { font-family: var(--body-font); background: var(--cream); color: var(--ink); line-height: 1.75; }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,250,247,0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: 1100px; margin: auto;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 1.5rem;
-  }
-  .logo {
-    font-family: var(--body-font);
-    font-size: 1.5rem; font-weight: 800;
-    color: var(--ink); cursor: pointer;
-    letter-spacing: -0.02em; text-decoration: none;
-  }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; }
+  .logo { font-family: var(--body-font); font-size: 1.5rem; font-weight: 800; color: var(--ink); cursor: pointer; letter-spacing: -0.02em; text-decoration: none; }
   .logo-sub { color: var(--accent); font-weight: 400; font-style: italic; margin-left: 6px; font-size: 1.1rem; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
-  .nav-link {
-    font-family: var(--ui-font);
-    font-size: 0.82rem; font-weight: 700;
-    text-decoration: none; color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.1em;
-    cursor: pointer; background: none; border: none; padding: 0;
-    transition: color 0.2s;
-  }
+  .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
   .nav-link:hover { color: var(--accent); }
 
-  /* HERO */
-  .hero {
-    padding: 7rem 1.5rem 5rem;
-    text-align: center;
-    position: relative; overflow: hidden;
-    background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%);
-  }
-  .hero-line-h {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; max-width: 900px;
-    height: 1px; background: #ddd8cf; opacity: 0.5;
-  }
-  .hero-line-v {
-    position: absolute; top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 1px; height: 100%;
-    background: #ddd8cf; opacity: 0.3;
-  }
+  .hero { padding: 7rem 1.5rem 5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
   .hero-content { position: relative; z-index: 1; }
-  .hero-tagline {
-    font-family: var(--ui-font);
-    font-size: 0.75rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.3em;
-    color: var(--accent); margin-bottom: 1.8rem;
-  }
-  .hero h1 {
-    font-family: var(--body-font);
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    font-weight: 800; line-height: 1.0;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.04em; color: var(--ink);
-  }
-  .hero h1 .byline {
-    display: block; font-weight: 400; font-style: italic;
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-    color: var(--accent); margin-top: 0.6rem;
-    padding-bottom: 0.5rem; letter-spacing: -0.01em;
-  }
-  .hero-desc {
-    font-family: var(--body-font);
-    font-size: 1.2rem; color: #888;
-    max-width: 520px; margin: 0 auto 3rem;
-    line-height: 1.7; font-style: italic;
-  }
+  .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
+  .hero h1 { font-family: var(--body-font); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 0.5rem; letter-spacing: -0.04em; color: var(--ink); }
+  .hero h1 .byline { display: block; font-weight: 400; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--accent); margin-top: 0.6rem; padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .hero-desc { font-family: var(--body-font); font-size: 1.2rem; color: #888; max-width: 520px; margin: 0 auto 3rem; line-height: 1.7; font-style: italic; }
   .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
-  .hero-tag {
-    font-family: var(--ui-font);
-    font-size: 0.72rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    padding: 0.4rem 1rem;
-    border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted);
-  }
+  .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
 
-  /* SECTIONS */
   .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
-  .section-label {
-    font-family: var(--ui-font);
-    font-size: 0.75rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.2em;
-    color: var(--accent); margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
+  .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
 
-  /* CARDS */
-  .card {
-    background: white; border-radius: 6px; overflow: hidden;
-    border: 1px solid var(--border);
-    transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease;
-    cursor: pointer;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  }
+  .card { background: white; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease; cursor: pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .card-static { background: white; border-radius: 6px; overflow: hidden; border: 2px dashed #ddd; }
 
-  .tag-pill {
-    font-family: var(--ui-font);
-    font-size: 0.7rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.14em;
-    padding: 0.4rem 1rem; border-radius: 2px;
-    display: inline-block;
-  }
-  .meta-text {
-    font-family: var(--ui-font);
-    font-size: 0.82rem; color: var(--muted); font-weight: 600;
-  }
+  .tag-pill { font-family: var(--ui-font); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 0.4rem 1rem; border-radius: 2px; display: inline-block; }
+  .meta-text { font-family: var(--ui-font); font-size: 0.82rem; color: var(--muted); font-weight: 600; }
   .meta-text .author { font-weight: 800; color: #555; }
   .meta-text .divider { color: #ddd; margin: 0 0.5rem; }
 
-  /* FEATURED CARD */
   .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; }
-  .featured-thumb {
-    min-height: 340px; position: relative;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; }
-  .featured-thumb .icon { font-size: 5.5rem; opacity: 0.1; }
+  .featured-thumb { min-height: 340px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .featured-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; z-index: 1; }
   .featured-body { padding: 2.8rem; }
-  .featured-body h2 {
-    font-family: var(--body-font);
-    font-size: 1.7rem; font-weight: 800;
-    line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em;
-  }
+  .featured-body h2 { font-family: var(--body-font); font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
   .featured-body p { color: #777; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.8; }
 
-  /* ARTICLE GRID */
   .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
-  .article-thumb {
-    height: 180px; position: relative;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .article-thumb .tag-pill {
-    position: absolute; top: 1rem; left: 1rem;
-    background: rgba(255,255,255,0.92); color: var(--ink);
-  }
-  .article-thumb .icon { font-size: 3rem; opacity: 0.12; }
+  .article-thumb { height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .article-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .article-thumb .tag-pill { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); color: var(--ink); z-index: 1; }
   .article-body { padding: 1.8rem; }
-  .article-body h3 {
-    font-family: var(--body-font);
-    font-size: 1.2rem; font-weight: 800;
-    line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em;
-  }
+  .article-body h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
   .article-body p { font-size: 0.9rem; color: #888; line-height: 1.7; margin-bottom: 1rem; }
 
-  /* NEWSLETTER */
-  .newsletter {
-    max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem;
-  }
-  .newsletter-inner {
-    background: var(--ink); border-radius: 6px;
-    padding: 4rem 2.5rem; text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .newsletter-grid {
-    position: absolute; inset: 0; opacity: 0.03;
-    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
-    background-size: 44px 44px;
-  }
+  .newsletter { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem; }
+  .newsletter-inner { background: var(--ink); border-radius: 6px; padding: 4rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .newsletter-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 44px 44px; }
   .newsletter-content { position: relative; }
-  .newsletter-content h2 {
-    font-family: var(--body-font);
-    color: var(--cream); font-size: 2rem;
-    font-weight: 800; margin-bottom: 0.5rem;
-  }
-  .newsletter-content p {
-    color: rgba(250,250,247,0.45);
-    font-size: 0.95rem; margin-bottom: 2rem;
-    font-family: var(--body-font);
-  }
+  .newsletter-content h2 { font-family: var(--body-font); color: var(--cream); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .newsletter-content p { color: rgba(250,250,247,0.45); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--body-font); }
   .newsletter-form { display: flex; gap: 0.7rem; max-width: 440px; margin: auto; }
-  .newsletter-form input {
-    flex: 1; padding: 0.9rem 1.2rem;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.06);
-    color: var(--cream);
-    font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600;
-    border-radius: 3px; outline: none;
-  }
+  .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--cream); font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; border-radius: 3px; outline: none; }
   .newsletter-form input::placeholder { color: rgba(250,250,247,0.35); }
   .newsletter-form input:focus { border-color: var(--accent); }
-  .newsletter-form button {
-    padding: 0.9rem 1.8rem;
-    background: var(--accent); color: white; border: none;
-    font-family: var(--ui-font);
-    font-size: 0.85rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    border-radius: 3px; cursor: pointer;
-    transition: background 0.2s;
-  }
+  .newsletter-form button { padding: 0.9rem 1.8rem; background: var(--accent); color: white; border: none; font-family: var(--ui-font); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
   .newsletter-form button:hover { background: #a84a28; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 1.5rem; text-align: center;
-  }
-  .footer-title {
-    font-family: var(--body-font);
-    font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem;
-  }
-  .footer-copy {
-    font-family: var(--ui-font);
-    font-size: 0.72rem; color: #bbb; font-weight: 600;
-  }
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; }
+  .footer-title { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .footer-copy { font-family: var(--ui-font); font-size: 0.72rem; color: #bbb; font-weight: 600; }
 
-  /* ARTICLE PAGE */
   .article-page { max-width: 720px; margin: auto; padding: 3rem 1.5rem 5rem; display: none; }
-  .back-btn {
-    background: none; border: none; cursor: pointer;
-    font-family: var(--ui-font);
-    font-size: 0.88rem; font-weight: 700;
-    color: #888; display: flex; align-items: center; gap: 0.5rem;
-    padding: 0; margin-bottom: 2.5rem; transition: color 0.2s;
-  }
+  .back-btn { background: none; border: none; cursor: pointer; font-family: var(--ui-font); font-size: 0.88rem; font-weight: 700; color: #888; display: flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 2.5rem; transition: color 0.2s; text-decoration: none; }
   .back-btn:hover { color: var(--accent); }
-  .article-page h1 {
-    font-family: var(--body-font);
-    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
-    font-weight: 800; line-height: 1.15;
-    margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em;
-  }
+  .article-page h1 { font-family: var(--body-font); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em; }
   .article-page .accent-bar { height: 4px; width: 55px; background: var(--accent); border-radius: 2px; margin-bottom: 2.5rem; }
-  .article-content h2 {
-    font-family: var(--body-font);
-    font-size: 1.6rem; font-weight: 800;
-    margin: 3rem 0 1.2rem; color: var(--ink);
-    letter-spacing: -0.02em; line-height: 1.25;
-  }
+  .article-hero-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; margin-bottom: 2rem; }
+  .article-content h2 { font-family: var(--body-font); font-size: 1.6rem; font-weight: 800; margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
   .article-content h2:first-child { margin-top: 0; }
-  .article-content p {
-    font-family: var(--body-font);
-    font-size: 1.1rem; line-height: 1.95;
-    color: #2a2a2a; margin-bottom: 1.4rem;
-  }
+  .article-content p { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; color: #2a2a2a; margin-bottom: 1.4rem; }
   .article-content strong { font-weight: 800; color: var(--ink); }
   .article-content em { font-style: italic; }
-  .article-content blockquote {
-    border-left: 4px solid var(--accent);
-    padding: 1.2rem 1.5rem; margin: 2rem 0;
-    background: rgba(196,88,48,0.04);
-    border-radius: 0 5px 5px 0;
-    font-style: italic; color: #4a4a4a; font-size: 1.1rem;
-  }
+  .article-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .article-content a:hover { color: #a84a28; }
+  .article-content blockquote { border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(196,88,48,0.04); border-radius: 0 5px 5px 0; font-style: italic; color: #4a4a4a; font-size: 1.1rem; }
   .article-content ol, .article-content ul { padding-left: 1.5rem; margin-bottom: 1.4rem; }
-  .article-content li {
-    font-family: var(--body-font);
-    font-size: 1.1rem; line-height: 1.95;
-    margin-bottom: 0.5rem; color: #2a2a2a;
-  }
-  .article-footer {
-    margin-top: 3.5rem; padding-top: 2rem;
-    border-top: 1px solid var(--border); text-align: center;
-  }
+  .article-content li { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; margin-bottom: 0.5rem; color: #2a2a2a; }
+  .article-footer { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; }
 
-  /* ABOUT PAGE */
   .about-page { max-width: 800px; margin: auto; padding: 4rem 1.5rem 5rem; display: none; }
   .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
-  .about-photo {
-    width: 220px; height: 220px; object-fit: cover;
-    border-radius: 6px; border: 3px solid var(--border); display: block;
-  }
-  .about-name {
-    font-family: var(--body-font);
-    font-size: 2.4rem; font-weight: 800;
-    line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em;
-  }
-  .about-role {
-    font-family: var(--ui-font);
-    font-size: 0.78rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.18em;
-    color: var(--accent); margin-bottom: 1.5rem;
-  }
-  .about-text {
-    font-family: var(--body-font);
-    font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem;
-  }
+  .about-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; border: 3px solid var(--border); display: block; }
+  .about-name { font-family: var(--body-font); font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .about-role { font-family: var(--ui-font); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+  .about-text { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem; }
 
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 0; transform: translateY(20px);
-    animation: fadeUp 0.6s ease forwards;
-  }
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.2s; }
-  .delay-3 { animation-delay: 0.3s; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
 
-  /* RESPONSIVE */
+  .coming-soon-body { padding: 2.5rem 1.8rem; text-align: center; }
+  .coming-soon-body .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .coming-soon-body h3 { font-family: var(--body-font); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .coming-soon-body p { font-size: 0.88rem; color: #bbb; }
+
   @media (max-width: 768px) {
     .featured-grid { grid-template-columns: 1fr; }
     .articles-grid { grid-template-columns: 1fr; }
@@ -342,7 +128,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a class="logo" onclick="showHome()">Intersect<span class="logo-sub">by Henry Mao</span></a>
@@ -353,7 +138,7 @@
   </div>
 </nav>
 
-<!-- ═══ HOME ═══ -->
+<!-- HOME -->
 <div id="home-page">
   <section class="hero">
     <div class="hero-line-v"></div>
@@ -370,22 +155,24 @@
     </div>
   </section>
 
-  <!-- FEATURED -->
+  <!-- FEATURED (May) -->
   <section class="section">
     <div class="section-label fade-up">Featured</div>
-    <div class="card fade-up delay-1" onclick="showArticle('tariff-wars')">
+    <div class="card fade-up delay-1" onclick="showArticle('dutch-disease')">
       <div class="featured-grid">
-        <div class="featured-thumb" style="background: linear-gradient(135deg, #1a2a3a 0%, #2a4a5a 50%, #0f1f2f 100%);">
-          <span class="tag-pill">Geopolitics &amp; Economics</span>
-          <span class="icon">📊</span>
+        <div class="featured-thumb" style="background-image: url('https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=800&q=80'); background-size: cover; background-position: center;">
+          <div class="overlay"></div>
+          <span class="tag-pill">Economics &amp; Geopolitics</span>
         </div>
         <div class="featured-body">
-          <h2>The New Tariff Wars: How Protectionism Is Reshaping Global Trade in 2026</h2>
-          <p>As major economies double down on tariffs and trade barriers, the post-war consensus on free trade is fracturing. What does this mean for global supply chains and everyday consumers?</p>
+          <h2>From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency</h2>
+          <p>Walking through Groningen, it is hard to imagine this quiet Dutch city was the epicentre of an economic phenomenon that now has striking parallels in Taiwan's chip-dominated economy.</p>
           <div class="meta-text">
             <span class="author">Henry Mao</span>
             <span class="divider">|</span>
             <span>9 min read</span>
+            <span class="divider">|</span>
+            <span>1 May 2026</span>
           </div>
         </div>
       </div>
@@ -396,37 +183,36 @@
   <section class="section" style="padding-top: 2.5rem;">
     <div class="section-label fade-up delay-1">Latest Articles</div>
     <div class="articles-grid">
-      <div class="card fade-up delay-1" onclick="showArticle('ai-governance')">
-        <div class="article-thumb" style="background: linear-gradient(135deg, #2a1a3a 0%, #4a3a5a 50%, #1a0f2a 100%);">
-          <span class="tag-pill">Corporate Law</span>
-          <span class="icon">⚖️</span>
+      <!-- April -->
+      <div class="card fade-up delay-1" onclick="showArticle('ai-geopolitics')">
+        <div class="article-thumb" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80'); background-size: cover; background-position: center;">
+          <div class="overlay"></div>
+          <span class="tag-pill">Geopolitics &amp; Technology</span>
         </div>
         <div class="article-body">
-          <h3>When Algorithms Sit in the Boardroom: AI and the Future of Corporate Governance</h3>
-          <p>As AI systems increasingly influence corporate decision-making, the legal frameworks governing director duties are being tested like never before.</p>
-          <div class="meta-text"><span class="author">Henry Mao</span><span class="divider">|</span>8 min read</div>
+          <h3>The AI Arms Race: How Artificial Intelligence Is Redrawing the Geopolitical Map</h3>
+          <p>The nations that control AI development are positioning themselves to shape the global order for decades. This is no longer a technology story.</p>
+          <div class="meta-text"><span class="author">Henry Mao</span><span class="divider">|</span>8 min<span class="divider">|</span>1 Apr 2026</div>
         </div>
       </div>
-      <div class="card fade-up delay-2" onclick="showArticle('south-china-sea')">
-        <div class="article-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #2e3a5a 50%, #0f0f1e 100%);">
-          <span class="tag-pill">Geopolitics &amp; Law</span>
-          <span class="icon">🌏</span>
+      <!-- March -->
+      <div class="card fade-up delay-2" onclick="showArticle('notary-hk')">
+        <div class="article-thumb" style="background-image: url('https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=600&q=80'); background-size: cover; background-position: center;">
+          <div class="overlay"></div>
+          <span class="tag-pill">Law</span>
         </div>
         <div class="article-body">
-          <h3>Sovereignty, Strategy, and the South China Sea: A Legal and Geopolitical Analysis</h3>
-          <p>The South China Sea remains one of the world's most contested waterways. We examine the intersection of international law and great power competition.</p>
-          <div class="meta-text"><span class="author">Henry Mao</span><span class="divider">|</span>10 min read</div>
+          <h3>Inside Hong Kong's Notarial System: How Documents Cross Borders</h3>
+          <p>Having worked as a notary clerk in Hong Kong, I've seen firsthand how notarization creates trust between strangers separated by borders.</p>
+          <div class="meta-text"><span class="author">Henry Mao</span><span class="divider">|</span>5 min<span class="divider">|</span>1 Mar 2026</div>
         </div>
       </div>
-      <div class="card fade-up delay-3" onclick="showArticle('template')">
-        <div class="article-thumb" style="background: linear-gradient(135deg, #3a3a3a 0%, #5a5a5a 50%, #2a2a2a 100%);">
-          <span class="tag-pill">Template</span>
-          <span class="icon">📝</span>
-        </div>
-        <div class="article-body">
-          <h3>[Your Article Title Here]</h3>
-          <p>This is a template article showing you the structure of a post. Duplicate this and replace the content with your own writing.</p>
-          <div class="meta-text"><span class="author">Henry Mao</span><span class="divider">|</span>X min read</div>
+      <!-- Coming Soon -->
+      <div class="card-static fade-up delay-3">
+        <div class="coming-soon-body">
+          <div class="emoji">📝</div>
+          <h3>Next Article: 1 June 2026</h3>
+          <p>A new article will be available on the 1st of each month. Stay tuned.</p>
         </div>
       </div>
     </div>
@@ -438,7 +224,7 @@
       <div class="newsletter-grid"></div>
       <div class="newsletter-content">
         <h2>Stay at the intersection.</h2>
-        <p>New articles delivered to your inbox.</p>
+        <p>Monthly new articles delivered to your inbox.</p>
         <form name="subscribers" method="POST" data-netlify="true" class="newsletter-form">
           <input type="email" name="email" placeholder="your@email.com" required>
           <button type="submit">Subscribe</button>
@@ -453,7 +239,7 @@
   </footer>
 </div>
 
-<!-- ═══ ABOUT PAGE ═══ -->
+<!-- ABOUT -->
 <div id="about-page" class="about-page">
   <button class="back-btn" onclick="showHome()">&larr; Home</button>
   <div class="about-grid">
@@ -470,126 +256,113 @@
   </div>
 </div>
 
-<!-- ═══ ARTICLE PAGES ═══ -->
-
-<!-- Tariff Wars -->
-<div id="article-tariff-wars" class="article-page">
+<!-- ARTICLE: Dutch Disease (May) -->
+<div id="article-dutch-disease" class="article-page">
   <button class="back-btn" onclick="showHome()">&larr; All articles</button>
-  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Geopolitics &amp; Economics</span>
-  <h1>The New Tariff Wars: How Protectionism Is Reshaping Global Trade in 2026</h1>
-  <div class="meta-text" style="margin-bottom:2.5rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-    <span class="author">Henry Mao</span><span class="divider">|</span><span>5 May 2026</span><span class="divider">|</span><span>9 min read</span>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Economics &amp; Geopolitics</span>
+  <h1>From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 May 2026</span><span class="divider">|</span><span>9 min read</span>
   </div>
   <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=1200&q=80" alt="Groningen, Netherlands">
   <div class="article-content">
-    <h2>The End of Free Trade Consensus</h2>
-    <p>For decades, the global economic order rested on a shared assumption: free trade makes everyone better off. The World Trade Organisation, regional trade agreements, and bilateral deals all reflected this consensus. But in 2026, that assumption is under siege from virtually every direction.</p>
-    <p>The United States, European Union, and China, the three largest economic blocs, are now engaged in overlapping tariff disputes that have fundamentally altered the landscape of international commerce. What began as targeted measures against specific industries has metastasised into a broader ideological shift: the return of protectionism as mainstream economic policy.</p>
-    <h2>The Domino Effect of Tariffs</h2>
-    <p>When one nation imposes tariffs, the consequences rarely stay contained. Consider the steel industry. When the US first imposed significant tariffs on steel imports, the immediate effect was predictable: domestic steel prices rose, benefiting American producers but hurting manufacturers who relied on cheaper imported steel. But the second-order effects were far more complex.</p>
-    <p>Countries that could no longer export steel to the US redirected their supply to other markets, depressing prices in Europe and Asia. European steelmakers, now facing a flood of cheap diverted steel, lobbied their own governments for protection. The EU responded with safeguard measures of its own. And so the dominoes fell.</p>
-    <p>This pattern of initial tariff, trade diversion, and retaliatory protection has now played out across dozens of industries, from semiconductors to agricultural products to electric vehicles. Each round of protection begets another, creating a self-reinforcing cycle that is extraordinarily difficult to reverse.</p>
-    <h2>The Legal Architecture of Trade Wars</h2>
-    <p>From a legal perspective, trade wars expose the tensions within the WTO framework. The WTO's dispute settlement mechanism was designed for a world where trade liberalisation was the norm and protectionism the exception. But when major economies treat tariffs as a tool of industrial policy rather than an aberration, the system struggles to keep pace.</p>
-    <p>Article XXI of the GATT, commonly known as the national security exception, has become the most contested provision in international trade law. Originally intended as a narrow carve-out for genuine security concerns, it has been invoked with increasing frequency to justify tariffs on everything from steel to semiconductors to electric vehicles. The question of whether these invocations are justiciable, that is, whether the WTO can review them at all, remains deeply contentious.</p>
-    <h2>Winners and Losers</h2>
-    <p>The distributional effects of the new protectionism are profoundly uneven. In advanced economies, certain domestic industries benefit from reduced foreign competition. But consumers pay higher prices, and export-oriented firms face retaliation in their key markets.</p>
-    <p>For developing economies, the picture is even more concerning. Countries that built their development strategies around export-led growth by integrating into global supply chains, attracting foreign direct investment, and building manufacturing capacity now find the rules of the game changing beneath them. When major economies turn inward, the countries most dependent on access to those markets suffer disproportionately.</p>
-    <h2>The Management Consulting Perspective</h2>
-    <p>For businesses navigating this landscape, the strategic implications are significant. Supply chain diversification, once a theoretical exercise for most firms, has become an operational imperative. Companies are rethinking where they manufacture, where they source inputs, and how they structure their operations to minimise exposure to tariff risk.</p>
-    <p>This has given rise to concepts like "friend-shoring" (concentrating supply chains in allied nations) and "near-shoring" (moving production closer to end markets). Both strategies reduce tariff exposure but come with their own costs, including higher labour costs, less established infrastructure, and the logistical complexity of restructuring global operations.</p>
-    <h2>Where This Is Heading</h2>
-    <p>Three key developments will shape the trajectory of global trade in the coming years. First, whether the WTO can reform its dispute settlement mechanism to handle the new reality of strategic competition between major economies. Second, whether regional trade agreements such as the CPTPP or RCEP can partially compensate for the erosion of multilateral rules. And third, whether the political incentives driving protectionism will shift as consumers begin to feel the price effects of sustained tariff escalation.</p>
-    <p>The answers to these questions will determine whether the current moment represents a temporary deviation from the free trade consensus or a permanent structural shift in how the global economy operates.</p>
+    <h2>Standing in Groningen</h2>
+    <p>Walking through the streets of Groningen earlier this year, it is hard to imagine that this quiet university city in the north of the Netherlands was once the epicentre of an economic phenomenon so significant that it gave rise to its own term in economics: the Dutch Disease.</p>
+    <p>Beneath the cobblestones and canals lies what was once the largest natural gas field in western Europe, estimated at 2,800 billion cubic metres. The Groningen gas field, discovered in 1959, generated over 363 billion euros in revenue for the Dutch state over six decades. It transformed the Netherlands from a modest post-war economy into one of Europe's wealthiest nations. But it also hollowed out Dutch manufacturing, inflated the currency, and created a dependency that took decades to unwind.</p>
+    <p>Now, with the field officially shut down and decommissioning underway at an estimated cost of 2 billion euros, the question is no longer about Groningen. It is about who might be next.</p>
+    <h2>The Dutch Disease, Explained</h2>
+    <p>The term "Dutch Disease" was coined by <em>The Economist</em> in 1977 to describe a counterintuitive problem: how the discovery of a valuable natural resource can actually harm an economy. The mechanism is straightforward. When a country begins exporting a high-value resource, foreign currency flows in. This strengthens the domestic currency, making the country's other exports, such as manufactured goods, more expensive on the global market. Those industries lose competitiveness, shrink, and eventually decline.</p>
+    <p>In the Netherlands, gas revenues funded an expansion of the welfare state and public spending through the 1970s. Dutch labour costs rose, the guilder strengthened, and manufacturing firms found themselves unable to compete internationally. By the early 1980s, the country was in a deep financial crisis. The disease was named retrospectively, but the pattern was unmistakable: a one-dimensional economy built on a single dominant export sector, vulnerable to the moment that sector falters.</p>
+    <h2>Taiwan's Silicon Shield</h2>
+    <p>Six thousand kilometres east of Groningen, Taiwan presents a strikingly parallel situation, though with silicon wafers rather than natural gas.</p>
+    <p>Taiwan Semiconductor Manufacturing Company (TSMC) is responsible for approximately 8% of Taiwan's total economic output and 12% of its exports. The company produces over 90% of the world's most advanced semiconductors, the chips that power everything from smartphones to artificial intelligence systems. Taiwan's stock market has surged to repeated record highs on the back of the AI boom, with TSMC at the centre of the rally.</p>
+    <p>This dominance has been described as Taiwan's "Silicon Shield," the theory that the world's dependence on Taiwanese chips provides a form of strategic protection against Chinese aggression, since any disruption to TSMC's operations would send shockwaves through the entire global economy.</p>
+    <p>But there is another way to read Taiwan's situation: as a textbook case of resource concentration risk, not unlike the Netherlands in the 1970s.</p>
+    <h2>The Two-Dimensional Problem</h2>
+    <p>Taiwan's economy is increasingly two-dimensional. On one side sits a globally dominant semiconductor sector, attracting investment, talent, and government attention. On the other sits everything else: traditional manufacturing, services, agriculture, and small businesses that struggle to compete for resources and skilled workers in an economy oriented around one industry.</p>
+    <p>The parallels to the Dutch Disease are not exact. Taiwan's "resource" is not extracted from the ground but manufactured through extraordinary technological capability. TSMC's dominance is the product of decades of strategic investment, engineering excellence, and government policy, not geological luck. But the structural vulnerability is similar.</p>
+    <p>When a single sector dominates an economy to this degree, several risks emerge. Talent concentration means the best engineers and graduates are drawn to semiconductors, starving other industries of human capital. Currency effects mirror the classic Dutch Disease: strong demand for Taiwanese exports in semiconductors strengthens the New Taiwan Dollar, making other exports less competitive. And strategic dependency means that any disruption, whether from geopolitical conflict, technological disruption, or a shift in global supply chains, would have outsized consequences for the entire economy.</p>
+    <h2>The Geopolitical Dimension</h2>
+    <p>What makes Taiwan's situation more acute than the Netherlands' is the geopolitical overlay. The Dutch Disease was an economic problem with economic consequences. Taiwan's semiconductor concentration is both an economic vulnerability and a geopolitical flashpoint.</p>
+    <p>China's claims over Taiwan are not merely territorial; they are geoeconomic. Control of TSMC's fabrication facilities would give Beijing extraordinary leverage over the global technology supply chain. Meanwhile, the United States has responded by investing heavily in domestic chip manufacturing through the CHIPS Act, seeking to reduce dependence on Taiwanese production. Both moves, in different ways, threaten to erode Taiwan's position.</p>
+    <p>If the world successfully diversifies semiconductor manufacturing away from Taiwan, the Silicon Shield weakens. And if China were ever to disrupt TSMC's operations, even through measures short of invasion such as a naval quarantine, the economic shock would cascade through every sector of the global economy that depends on advanced computing.</p>
+    <h2>Lessons from Groningen</h2>
+    <p>Standing in Groningen, you can see what happens when a one-resource economy reaches the end of its cycle. The gas is gone. The earthquakes caused by extraction have damaged thousands of homes. The region that produced the wealth is now one of the poorest in the Netherlands, awaiting compensation and reinvention.</p>
+    <p>Taiwan is not there yet. Its semiconductor industry is thriving, and TSMC's technological lead remains formidable. But the lesson from Groningen is that the time to diversify is when the resource is still flowing, not after it stops. The Netherlands spent its gas revenues on welfare rather than building alternative industries. The question for Taiwan is whether it will use its semiconductor boom to build economic resilience or allow the same structural dependency to calcify.</p>
+    <p>The Dutch Disease teaches us that economic strength built on a single pillar is not strength at all. It is fragility dressed up as prosperity. Whether that lesson applies to silicon as much as it did to natural gas is a question Taiwan cannot afford to answer too late.</p>
   </div>
   <div class="article-footer">
     <button class="back-btn" onclick="showHome()" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</button>
   </div>
 </div>
 
-<!-- AI Governance -->
-<div id="article-ai-governance" class="article-page">
+<!-- ARTICLE: AI Geopolitics (April) -->
+<div id="article-ai-geopolitics" class="article-page">
   <button class="back-btn" onclick="showHome()">&larr; All articles</button>
-  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Corporate Law</span>
-  <h1>When Algorithms Sit in the Boardroom: AI and the Future of Corporate Governance</h1>
-  <div class="meta-text" style="margin-bottom:2.5rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-    <span class="author">Henry Mao</span><span class="divider">|</span><span>28 Apr 2026</span><span class="divider">|</span><span>8 min read</span>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Geopolitics &amp; Technology</span>
+  <h1>The AI Arms Race: How Artificial Intelligence Is Redrawing the Geopolitical Map</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 April 2026</span><span class="divider">|</span><span>8 min read</span>
   </div>
   <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80" alt="Artificial Intelligence">
   <div class="article-content">
-    <h2>The Governance Gap</h2>
-    <p>Corporate law has always assumed that decisions are made by humans. The Corporations Act 2001 (Cth) imposes duties on directors to act with care and diligence, in good faith, and in the best interests of the corporation. These duties were designed for a world where a person sits at the head of the table, weighs the evidence, and exercises judgment.</p>
-    <p>But what happens when that judgment is augmented, or even replaced, by an algorithm?</p>
-    <h2>Delegation and Its Limits</h2>
-    <p>Directors have always been permitted to delegate. The business judgment rule provides a safe harbour for informed, rational decisions made in good faith. But delegation assumes a delegatee who can exercise judgment in a legally meaningful sense.</p>
-    <p>An AI system does not exercise judgment. It optimises for an objective function based on patterns in training data. If that function is poorly specified, or if the data introduces systemic bias, the resulting "decision" may be one no reasonable director would endorse. Yet the speed and scale at which AI operates means that by the time a human reviews the output, significant consequences may have already materialised.</p>
-    <h2>The Fiduciary Question</h2>
-    <p>The deeper legal question is whether reliance on AI constitutes a breach of fiduciary duty. If a director delegates a material decision to an AI system without understanding how that system reaches its conclusions (the so-called "black box" problem), can they be said to have exercised the care and diligence the law requires?</p>
-    <p>The answer likely depends on what steps the director took before and after deployment. Did they commission an algorithmic impact assessment? Did they establish human-in-the-loop review processes for high-stakes decisions? Did they ensure the board had sufficient technical literacy to oversee the system meaningfully?</p>
-    <h2>Emerging Frameworks</h2>
-    <p>Several governance frameworks have emerged to address these questions. AI oversight committees, which are dedicated board sub-committees with technical expertise, are becoming more common in large corporations. Algorithmic impact assessments, analogous to environmental impact assessments, provide a structured way to evaluate the potential consequences of AI-driven decisions before deployment.</p>
-    <p>Perhaps most importantly, regulators are beginning to signal that existing director duties may already require active AI governance. The Australian Securities and Investments Commission has indicated that directors who fail to understand the AI systems their companies deploy may be exposed to liability under existing law, with no new legislation required.</p>
+    <h2>A New Kind of Strategic Competition</h2>
+    <p>For most of the twentieth century, geopolitical power was measured in warheads, aircraft carriers, and barrels of oil. In 2026, a new metric has emerged: compute. The nations that control the development, deployment, and governance of artificial intelligence are positioning themselves to shape the global order for decades to come.</p>
+    <p>The AI race is no longer a technology story. It is a geopolitical one. And the implications extend far beyond Silicon Valley and Shenzhen.</p>
+    <h2>The US-China AI Rivalry</h2>
+    <p>At the centre of this competition sits the US-China rivalry. The United States maintains a significant lead in frontier AI research, driven by companies like OpenAI, Anthropic, Google DeepMind, and Meta. American firms benefit from access to the world's most advanced semiconductor manufacturing (primarily through Taiwan's TSMC), deep capital markets, and a research ecosystem that attracts global talent.</p>
+    <p>China, meanwhile, has pursued a different strategy. Beijing's "New Generation Artificial Intelligence Development Plan," first published in 2017, set the explicit goal of becoming the world leader in AI by 2030. The Chinese government has backed this ambition with massive state investment, access to vast domestic datasets, and integration of AI into military and surveillance applications at a scale unmatched elsewhere.</p>
+    <p>The result is a bifurcating AI ecosystem. American export controls on advanced chips, particularly the restrictions on NVIDIA's high-end GPUs and ASML's extreme ultraviolet lithography machines, have sought to limit China's access to the computational infrastructure required for training frontier models. China has responded by accelerating domestic chip development and finding creative workarounds, including stockpiling chips before restrictions took effect and developing architectures optimised for less advanced hardware.</p>
+    <h2>AI as a Tool of Statecraft</h2>
+    <p>Beyond the bilateral rivalry, AI is reshaping how states project power. Three areas stand out.</p>
+    <p>First, intelligence and surveillance. AI-powered facial recognition, natural language processing, and satellite imagery analysis have transformed the capabilities of intelligence agencies worldwide. Nations with advanced AI can monitor adversaries, predict political instability, and detect military movements with unprecedented speed and precision.</p>
+    <p>Second, information warfare. Generative AI has dramatically lowered the cost of producing convincing disinformation. Deepfakes, synthetic news articles, and AI-generated social media personas can be deployed at scale to influence elections, undermine trust in institutions, and destabilise adversaries.</p>
+    <p>Third, autonomous military systems. The development of AI-powered drones, autonomous weapons, and AI-assisted command systems is changing the calculus of military conflict. The use of AI-guided drones in recent conflicts has provided a glimpse of how future warfare may be fought, raising profound legal and ethical questions about accountability and the laws of armed conflict.</p>
+    <h2>The Governance Vacuum</h2>
+    <p>Perhaps the most consequential dimension of AI geopolitics is the absence of a coherent global governance framework. Unlike nuclear weapons, which are governed by a web of treaties and norms, AI development operates in a regulatory vacuum at the international level.</p>
+    <p>The European Union has moved furthest with the EU AI Act, establishing a risk-based regulatory framework that categorises AI applications by their potential for harm. The United States has taken a more industry-led approach, relying on executive orders and voluntary commitments from major AI companies. China has implemented its own regulations, including rules on deepfakes and algorithmic recommendation systems, though these serve both consumer protection and state control objectives.</p>
+    <p>The fundamental challenge is that AI governance requires international cooperation between nations that view AI as a strategic competition. The tension between collaboration (needed to manage shared risks like autonomous weapons and AI-driven misinformation) and competition (driven by the economic and military advantages AI confers) remains unresolved.</p>
+    <h2>What This Means for the Rest of the World</h2>
+    <p>For nations outside the US-China duopoly, the AI revolution presents a difficult strategic question. Middle powers like Australia, the United Kingdom, Japan, and the EU member states must decide how to position themselves: whether to align closely with the American AI ecosystem, pursue strategic autonomy, or attempt to play a bridging role.</p>
+    <p>For developing economies, the stakes are equally high but the options more constrained. AI threatens to automate precisely the kinds of manufacturing and service-sector jobs that have historically driven economic development. At the same time, AI could leapfrog traditional development pathways in areas like healthcare, agriculture, and education, but only if the infrastructure, skills, and institutional frameworks are in place.</p>
     <h2>The Road Ahead</h2>
-    <p>The intersection of AI and corporate governance is still in its early stages. No Australian court has yet delivered a definitive ruling on director liability for AI-driven harm. But given the pace of deployment across financial services, healthcare, and consumer markets, it is a matter of when, not if. Directors who wait for precedent before acting on AI governance may find themselves becoming the precedent.</p>
+    <p>The AI arms race is still in its early stages. The models being trained today will look primitive within a decade. But the geopolitical structures being built around AI, the alliances, the export controls, the regulatory frameworks, and the military doctrines, will prove far more durable than any particular technology. The decisions being made now about who controls AI, who governs it, and who benefits from it will shape the balance of power for a generation.</p>
   </div>
   <div class="article-footer">
     <button class="back-btn" onclick="showHome()" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</button>
   </div>
 </div>
 
-<!-- South China Sea -->
-<div id="article-south-china-sea" class="article-page">
+<!-- ARTICLE: Notary HK (March) -->
+<div id="article-notary-hk" class="article-page">
   <button class="back-btn" onclick="showHome()">&larr; All articles</button>
-  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Geopolitics &amp; Law</span>
-  <h1>Sovereignty, Strategy, and the South China Sea: A Legal and Geopolitical Analysis</h1>
-  <div class="meta-text" style="margin-bottom:2.5rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-    <span class="author">Henry Mao</span><span class="divider">|</span><span>20 Apr 2026</span><span class="divider">|</span><span>10 min read</span>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Law</span>
+  <h1>Inside Hong Kong's Notarial System: How Documents Cross Borders</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 March 2026</span><span class="divider">|</span><span>5 min read</span>
   </div>
   <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1200&q=80" alt="Hong Kong skyline">
   <div class="article-content">
-    <h2>A Contested Waterway</h2>
-    <p>The South China Sea is arguably the most strategically significant body of water on Earth. Through it passes roughly one-third of global shipping, an estimated $3.4 trillion in trade annually. It contains significant oil and gas reserves, rich fishing grounds, and sits at the crossroads of the Indo-Pacific.</p>
-    <p>It is also the site of overlapping territorial claims by six states: China, Vietnam, the Philippines, Malaysia, Brunei, and Taiwan. These claims involve not only sovereignty over islands, reefs, and rocks, but also the maritime zones, and the resources, that flow from them under international law.</p>
-    <h2>The Nine-Dash Line and UNCLOS</h2>
-    <p>China's claim to the South China Sea is based on what it calls "historic rights" within its nine-dash line, a boundary that encompasses approximately 90% of the sea. This claim was comprehensively rejected by the Permanent Court of Arbitration in the 2016 <em>Philippines v. China</em> ruling.</p>
-    <p>The tribunal held that China's historic rights claim had no legal basis under the United Nations Convention on the Law of the Sea (UNCLOS), and that many of the features China had built artificial islands on were not entitled to exclusive economic zones. China refused to participate in the proceedings and has rejected the ruling as "null and void."</p>
-    <h2>Law versus Power</h2>
-    <p>The South China Sea dispute illustrates a fundamental tension in international law: the gap between legal rules and the power to enforce them. The 2016 arbitral award is legally binding. But without an enforcement mechanism, and with China as a permanent member of the UN Security Council, the practical effect of the ruling has been limited.</p>
-    <p>China has continued to expand its military presence in the region, constructing airstrips, radar installations, and missile batteries on artificial islands. Meanwhile, the United States has conducted freedom of navigation operations to challenge what it views as excessive maritime claims, while regional states have pursued a mix of diplomatic engagement, legal action, and military modernisation.</p>
-    <h2>The Economic Dimension</h2>
-    <p>Beyond sovereignty and security, the South China Sea dispute has significant economic implications. The fishing grounds in the sea are a critical food source for hundreds of millions of people across Southeast Asia. The potential hydrocarbon reserves, estimated at 11 billion barrels of oil and 190 trillion cubic feet of natural gas, represent enormous economic value.</p>
-    <p>Control over these resources is not merely a matter of national prestige. For smaller claimant states, access to fishing grounds and energy reserves is directly linked to food security and economic development. The stakes, in other words, are existential as well as strategic.</p>
-    <h2>Implications for Australia</h2>
-    <p>Australia's interest in the South China Sea is both strategic and economic. As a trading nation heavily dependent on sea lanes through the region, any disruption to freedom of navigation directly affects Australian commerce. Australia has consistently called for disputes to be resolved in accordance with international law, including UNCLOS, and has participated in freedom of navigation operations alongside the United States.</p>
-    <p>The challenge for Australian policymakers is balancing economic ties with China, Australia's largest trading partner, against security commitments to the United States and the broader rules-based international order. This balancing act will only become more difficult as competition in the region intensifies.</p>
-  </div>
-  <div class="article-footer">
-    <button class="back-btn" onclick="showHome()" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</button>
-  </div>
-</div>
-
-<!-- Template -->
-<div id="article-template" class="article-page">
-  <button class="back-btn" onclick="showHome()">&larr; All articles</button>
-  <span class="tag-pill" style="background:#888;color:white;margin-bottom:1.2rem;">Template</span>
-  <h1>[Your Article Title Here]</h1>
-  <div class="meta-text" style="margin-bottom:2.5rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
-    <span class="author">Henry Mao</span><span class="divider">|</span><span>DD MMM YYYY</span><span class="divider">|</span><span>X min read</span>
-  </div>
-  <div class="accent-bar"></div>
-  <div class="article-content">
-    <h2>Your First Section Heading</h2>
-    <p>Start writing your article here. This is regular paragraph text. Just write naturally and it will be formatted automatically. You can use <strong>bold text</strong> for emphasis and <em>italic text</em> for titles of cases, books, or publications.</p>
-    <blockquote>This is a block quote. Use these for notable quotes, key statistics, or important callouts.</blockquote>
-    <h2>Your Second Section Heading</h2>
-    <p>Continue your article with as many sections as you need. Each section should have a clear heading.</p>
-    <ol>
-      <li>First point you want to make</li>
-      <li>Second point that builds on the first</li>
-      <li>Third point that ties it all together</li>
-    </ol>
-    <h2>Your Conclusion</h2>
-    <p>Wrap up with a strong conclusion. Summarise the key takeaways and leave the reader with something to think about.</p>
+    <h2>Why Notarization Matters in a Globalised Economy</h2>
+    <p>In a world where parties transact across borders without ever meeting, how do you trust that a document is genuine? That question sits at the heart of notarial practice, and having worked as a notary clerk at Ravenscroft &amp; Schmierer in Hong Kong, I've seen firsthand how the answer plays out daily.</p>
+    <p>A notary public is fundamentally an authenticator. They verify that a document was genuinely executed, voluntarily and with full understanding, then certify its authenticity for international use. It sounds straightforward, but in a financial hub like Hong Kong where international business is the lifeblood of the economy, this function is critical infrastructure.</p>
+    <p><em>This article is adapted from a longer piece I wrote for Ravenscroft &amp; Schmierer. You can read the <a href="https://www.rs-lawyers.com.hk/post/what-is-a-notary-public-in-hong-kong-and-why-do-you-need-one" target="_blank">full original article here</a>.</em></p>
+    <h2>The Practical Reality</h2>
+    <p>Consider the most common scenario: a Hong Kong resident needs to sell property overseas. Their foreign lawyer needs proof that the power of attorney is genuine and was executed by the actual property owner. A Hong Kong notary public provides exactly that assurance.</p>
+    <p>Similarly, individuals opening bank accounts abroad must prove their identity and address. As a clerk, I've helped certify proofs of address through bank statements and utility receipts, and I've witnessed signatures by creating authenticated records that foreign financial institutions recognise and trust. Beyond individual transactions, notaries authenticate business documents, witness agreements, and take statutory declarations for legal proceedings abroad.</p>
+    <p>What distinguishes notaries from lawyers in the traditional sense is their impartiality. Notaries do not represent clients or appear in court. As neutral third parties, they serve all parties equally, which is foundational to their credibility.</p>
+    <h2>How Documents Go Global: The Apostille Process</h2>
+    <p>After notarization, documents destined for use in another country often require an additional layer of authentication called an apostille. This is a certificate issued by the High Court Registry confirming that the notary is licensed to practice in Hong Kong. It applies to countries that are signatories to the Hague Convention of 1961, covering over 120 jurisdictions worldwide.</p>
+    <p>The traditional process involves submitting the notarized document to the High Court Registry, paying a fee of HK$125 per document, and allowing two working days for processing. For documents destined for non-Convention countries such as the UAE or Saudi Arabia, a more complex legalisation process through consulates is required.</p>
+    <h2>Hong Kong's Digital Evolution: The E-Apostille</h2>
+    <p>Perhaps the most significant recent development is Hong Kong's adoption of the electronic Apostille Programme. Starting in September 2025, notarized documents can be submitted, processed, and received entirely online. Users can apply for apostille certification through a digital platform, make payments electronically, and receive apostilled documents without visiting the High Court in person.</p>
+    <p>The e-apostille carries the same legal weight as traditional apostilles across all Hague Convention member countries, ensuring that digital authentication provides complete international recognition. This shift represents a broader trend in legal practice: the digitisation of processes that have remained largely unchanged for decades.</p>
+    <h2>Why This Matters Beyond Hong Kong</h2>
+    <p>The need for notaries reflects a simple reality: distance creates risk in international transactions. Whether you're executing a power of attorney for overseas property, establishing international business agreements, or navigating cross-border personal documents, notarization provides the authentication framework that makes these transactions possible.</p>
+    <p>In an era of increasing digital fraud and cross-border complexity, the role of the notary, far from becoming obsolete, is arguably more important than ever. The shift toward e-apostilles suggests the profession is adapting rather than declining, modernising its tools while preserving its core function: creating trust between strangers separated by borders.</p>
   </div>
   <div class="article-footer">
     <button class="back-btn" onclick="showHome()" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</button>
@@ -597,50 +370,13 @@
 </div>
 
 <script>
-  const pages = ['home-page', 'about-page', 'article-tariff-wars', 'article-ai-governance', 'article-south-china-sea', 'article-template'];
-
-  function hideAll() {
-    pages.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-  }
-
-  function showHome() {
-    hideAll();
-    document.getElementById('home-page').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-
-  function showAbout() {
-    hideAll();
-    document.getElementById('about-page').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-
-  function showArticle(slug) {
-    hideAll();
-    const el = document.getElementById('article-' + slug);
-    if (el) {
-      el.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-  }
-
-  // Scroll animation observer
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.animationPlayState = 'running';
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => {
-    el.style.animationPlayState = 'paused';
-    obs.observe(el);
-  });
+  const pages = ['home-page', 'about-page', 'article-dutch-disease', 'article-ai-geopolitics', 'article-notary-hk'];
+  function hideAll() { pages.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; }); }
+  function showHome() { hideAll(); document.getElementById('home-page').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); }
+  function showAbout() { hideAll(); document.getElementById('about-page').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); }
+  function showArticle(slug) { hideAll(); const el = document.getElementById('article-' + slug); if (el) { el.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); } }
+  const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; obs.unobserve(e.target); } }); }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => { el.style.animationPlayState = 'paused'; obs.observe(el); });
 </script>
-
 </body>
 </html>
