@@ -356,7 +356,6 @@
 <!-- ═══ HOME ═══ -->
 <div id="home-page">
   <section class="hero">
-    <div class="hero-line-h"></div>
     <div class="hero-line-v"></div>
     <div class="hero-content fade-up">
       <p class="hero-tagline">Where perspectives meet</p>
@@ -440,10 +439,10 @@
       <div class="newsletter-content">
         <h2>Stay at the intersection.</h2>
         <p>New articles delivered to your inbox.</p>
-        <div class="newsletter-form">
-          <input type="email" placeholder="your@email.com">
-          <button>Subscribe</button>
-        </div>
+        <form name="subscribers" method="POST" data-netlify="true" class="newsletter-form">
+          <input type="email" name="email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
       </div>
     </div>
   </section>
