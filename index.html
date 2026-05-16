@@ -37,6 +37,11 @@
   .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
   .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
 
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 0; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
   .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
   .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
@@ -146,19 +151,22 @@
       <p class="hero-tagline">Where perspectives meet</p>
       <h1>Intersect<span class="byline">by Henry Mao</span></h1>
       <p class="hero-desc">Law, economics, and geopolitics. Exploring the crossroads of the forces that shape our world.</p>
-      <div class="hero-tags">
-        <span class="hero-tag">Corporate Law</span>
-        <span class="hero-tag">Economics</span>
-        <span class="hero-tag">Geopolitics</span>
-        <span class="hero-tag">Trade</span>
-      </div>
     </div>
   </section>
 
+  <!-- CATEGORY FILTER -->
+  <div class="cat-bar fade-up">
+    <button class="cat-btn active" data-cat="all" onclick="filterCategory('all', this)">All</button>
+    <button class="cat-btn" data-cat="law" onclick="filterCategory('law', this)">Law</button>
+    <button class="cat-btn" data-cat="economics" onclick="filterCategory('economics', this)">Economics</button>
+    <button class="cat-btn" data-cat="geopolitics" onclick="filterCategory('geopolitics', this)">Geopolitics</button>
+    <button class="cat-btn" data-cat="technology" onclick="filterCategory('technology', this)">Technology</button>
+  </div>
+
   <!-- FEATURED (May) -->
-  <section class="section">
+  <section class="section" id="featured-section">
     <div class="section-label fade-up">Featured</div>
-    <div class="card fade-up delay-1" onclick="showArticle('dutch-disease')">
+    <div class="card fade-up delay-1" data-category="economics geopolitics" onclick="showArticle('dutch-disease')">
       <div class="featured-grid">
         <div class="featured-thumb" style="background-image: url('https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=800&q=80'); background-size: cover; background-position: center;">
           <div class="overlay"></div>
@@ -180,11 +188,11 @@
   </section>
 
   <!-- LATEST -->
-  <section class="section" style="padding-top: 2.5rem;">
+  <section class="section" id="latest-section" style="padding-top: 2.5rem;">
     <div class="section-label fade-up delay-1">Latest Articles</div>
     <div class="articles-grid">
       <!-- April -->
-      <div class="card fade-up delay-1" onclick="showArticle('ai-geopolitics')">
+      <div class="card fade-up delay-1" data-category="geopolitics technology" onclick="showArticle('ai-geopolitics')">
         <div class="article-thumb" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80'); background-size: cover; background-position: center;">
           <div class="overlay"></div>
           <span class="tag-pill">Geopolitics &amp; Technology</span>
@@ -196,7 +204,7 @@
         </div>
       </div>
       <!-- March -->
-      <div class="card fade-up delay-2" onclick="showArticle('notary-hk')">
+      <div class="card fade-up delay-2" data-category="law" onclick="showArticle('notary-hk')">
         <div class="article-thumb" style="background-image: url('https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=600&q=80'); background-size: cover; background-position: center;">
           <div class="overlay"></div>
           <span class="tag-pill">Law</span>
@@ -208,7 +216,7 @@
         </div>
       </div>
       <!-- Coming Soon -->
-      <div class="card-static fade-up delay-3">
+      <div class="card-static fade-up delay-3" data-coming-soon>
         <div class="coming-soon-body">
           <div class="emoji">📝</div>
           <h3>Next Article: 1 June 2026</h3>
@@ -375,6 +383,28 @@
   function showHome() { hideAll(); document.getElementById('home-page').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); }
   function showAbout() { hideAll(); document.getElementById('about-page').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); }
   function showArticle(slug) { hideAll(); const el = document.getElementById('article-' + slug); if (el) { el.style.display = 'block'; window.scrollTo({ top: 0, behavior: 'instant' }); } }
+  function filterCategory(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    document.querySelectorAll('[data-category]').forEach(card => {
+      const cats = card.getAttribute('data-category').split(' ');
+      card.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
+    });
+
+    document.querySelectorAll('[data-coming-soon]').forEach(card => {
+      card.style.display = (cat === 'all') ? '' : 'none';
+    });
+
+    ['featured-section', 'latest-section'].forEach(id => {
+      const section = document.getElementById(id);
+      if (!section) return;
+      const hasVisible = [...section.querySelectorAll('[data-category]')]
+        .some(card => card.style.display !== 'none');
+      section.style.display = hasVisible ? '' : 'none';
+    });
+  }
+
   const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; obs.unobserve(e.target); } }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => { el.style.animationPlayState = 'paused'; obs.observe(el); });
 </script>
