@@ -27,7 +27,7 @@
   .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
   .nav-link:hover { color: var(--accent); }
 
-  .hero { padding: 7rem 1.5rem 5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero { padding: 7rem 1.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
   .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
   .hero-content { position: relative; z-index: 1; }
   .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
@@ -37,7 +37,7 @@
   .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
   .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
 
-  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1.5rem 1.75rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
   .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
   .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
   .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -164,7 +164,7 @@
   </div>
 
   <!-- FEATURED (May) -->
-  <section class="section" id="featured-section">
+  <section class="section" id="featured-section" style="padding-top: 1.5rem;">
     <div class="section-label fade-up">Featured</div>
     <div class="card fade-up delay-1" data-category="economics geopolitics" onclick="showArticle('dutch-disease')">
       <div class="featured-grid">
