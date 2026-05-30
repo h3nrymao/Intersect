@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intersect by Henry Mao</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Century Schoolbook';
+    src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
+  }
+  :root {
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
+    --body-font: 'Century Schoolbook', Georgia, serif;
+    --ui-font: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--body-font); background: var(--cream); color: var(--ink); line-height: 1.75; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; }
+  .logo { font-family: var(--body-font); font-size: 1.5rem; font-weight: 800; color: var(--ink); cursor: pointer; letter-spacing: -0.02em; text-decoration: none; }
+  .logo-sub { color: var(--accent); font-weight: 400; font-style: italic; margin-left: 6px; font-size: 1.1rem; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
+  .nav-link:hover { color: var(--accent); }
+
+  .hero { padding: 7rem 1.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
+  .hero h1 { font-family: var(--body-font); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 0.5rem; letter-spacing: -0.04em; color: var(--ink); }
+  .hero h1 .byline { display: block; font-weight: 400; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--accent); margin-top: 0.6rem; padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .hero-desc { font-family: var(--body-font); font-size: 1.2rem; color: #888; max-width: 520px; margin: 0 auto 3rem; line-height: 1.7; font-style: italic; }
+  .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
+
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
+  .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
+
+  .card { background: white; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease; cursor: pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .card-static { background: white; border-radius: 6px; overflow: hidden; border: 2px dashed #ddd; }
+
+  .tag-pill { font-family: var(--ui-font); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 0.4rem 1rem; border-radius: 2px; display: inline-block; }
+  .meta-text { font-family: var(--ui-font); font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .meta-text .author { font-weight: 800; color: #555; }
+  .meta-text .divider { color: #ddd; margin: 0 0.5rem; }
+
+  .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .featured-thumb { min-height: 340px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .featured-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; z-index: 1; }
+  .featured-body { padding: 2.8rem; }
+  .featured-body h2 { font-family: var(--body-font); font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .featured-body p { color: #777; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.8; }
+
+  .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .article-thumb { height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .article-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .article-thumb .tag-pill { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); color: var(--ink); z-index: 1; }
+  .article-body { padding: 1.8rem; }
+  .article-body h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .article-body p { font-size: 0.9rem; color: #888; line-height: 1.7; margin-bottom: 1rem; }
+
+  .newsletter { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem; }
+  .newsletter-inner { background: var(--ink); border-radius: 6px; padding: 4rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .newsletter-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 44px 44px; }
+  .newsletter-content { position: relative; }
+  .newsletter-content h2 { font-family: var(--body-font); color: var(--cream); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .newsletter-content p { color: rgba(250,250,247,0.45); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--body-font); }
+  .newsletter-form { display: flex; gap: 0.7rem; max-width: 440px; margin: auto; }
+  .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--cream); font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; border-radius: 3px; outline: none; }
+  .newsletter-form input::placeholder { color: rgba(250,250,247,0.35); }
+  .newsletter-form input:focus { border-color: var(--accent); }
+  .newsletter-form button { padding: 0.9rem 1.8rem; background: var(--accent); color: white; border: none; font-family: var(--ui-font); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .newsletter-form button:hover { background: #a84a28; }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; }
+  .footer-title { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .footer-copy { font-family: var(--ui-font); font-size: 0.72rem; color: #bbb; font-weight: 600; }
+
+  .article-page { max-width: 720px; margin: auto; padding: 3rem 1.5rem 5rem; display: none; }
+  .back-btn { background: none; border: none; cursor: pointer; font-family: var(--ui-font); font-size: 0.88rem; font-weight: 700; color: #888; display: flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 2.5rem; transition: color 0.2s; text-decoration: none; }
+  .back-btn:hover { color: var(--accent); }
+  .article-page h1 { font-family: var(--body-font); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em; }
+  .article-page .accent-bar { height: 4px; width: 55px; background: var(--accent); border-radius: 2px; margin-bottom: 2.5rem; }
+  .article-hero-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; margin-bottom: 2rem; }
+  .article-content h2 { font-family: var(--body-font); font-size: 1.6rem; font-weight: 800; margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
+  .article-content h2:first-child { margin-top: 0; }
+  .article-content p { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; color: #2a2a2a; margin-bottom: 1.4rem; }
+  .article-content strong { font-weight: 800; color: var(--ink); }
+  .article-content em { font-style: italic; }
+  .article-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .article-content a:hover { color: #a84a28; }
+  .article-content blockquote { border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(196,88,48,0.04); border-radius: 0 5px 5px 0; font-style: italic; color: #4a4a4a; font-size: 1.1rem; }
+  .article-content ol, .article-content ul { padding-left: 1.5rem; margin-bottom: 1.4rem; }
+  .article-content li { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; margin-bottom: 0.5rem; color: #2a2a2a; }
+  .article-footer { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; }
+
+  .about-page { max-width: 800px; margin: auto; padding: 4rem 1.5rem 5rem; display: none; }
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
+  .about-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; border: 3px solid var(--border); display: block; }
+  .about-name { font-family: var(--body-font); font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .about-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .about-header .about-name { margin-bottom: 0; }
+  .about-socials { display: flex; gap: 0.55rem; }
+  .about-socials a { display: flex; color: var(--muted); transition: color 0.2s; }
+  .about-socials a:hover { color: var(--accent); }
+  .about-socials svg { width: 22px; height: 22px; }
+  .about-role { font-family: var(--ui-font); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+  .about-text { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem; }
+
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+
+  .coming-soon-body { padding: 2.5rem 1.8rem; text-align: center; }
+  .coming-soon-body .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .coming-soon-body h3 { font-family: var(--body-font); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .coming-soon-body p { font-size: 0.88rem; color: #bbb; }
+
+  @media (max-width: 768px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .about-photo { margin: 0 auto 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">Intersect<span class="logo-sub">by Henry Mao</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="/" style="color:var(--accent)">Articles</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+  </div>
+</nav>
+
+<div id="article-ai-geopolitics" class="article-page" style="display:block">
+  <a class="back-btn" href="/">&larr; All articles</a>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Geopolitics &amp; Technology</span>
+  <h1>The AI Arms Race: How Artificial Intelligence Is Redrawing the Geopolitical Map</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 April 2026</span><span class="divider">|</span><span>8 min read</span>
+  </div>
+  <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80" alt="Artificial Intelligence">
+  <div class="article-content">
+    <h2>A New Kind of Strategic Competition</h2>
+    <p>For most of the twentieth century, geopolitical power was measured in warheads, aircraft carriers, and barrels of oil. In 2026, a new metric has emerged: compute. The nations that control the development, deployment, and governance of artificial intelligence are positioning themselves to shape the global order for decades to come.</p>
+    <p>The AI race is no longer a technology story. It is a geopolitical one. And the implications extend far beyond Silicon Valley and Shenzhen.</p>
+    <h2>The US-China AI Rivalry</h2>
+    <p>At the centre of this competition sits the US-China rivalry. The United States maintains a significant lead in frontier AI research, driven by companies like OpenAI, Anthropic, Google DeepMind, and Meta. American firms benefit from access to the world's most advanced semiconductor manufacturing (primarily through Taiwan's TSMC), deep capital markets, and a research ecosystem that attracts global talent.</p>
+    <p>China, meanwhile, has pursued a different strategy. Beijing's "New Generation Artificial Intelligence Development Plan," first published in 2017, set the explicit goal of becoming the world leader in AI by 2030. The Chinese government has backed this ambition with massive state investment, access to vast domestic datasets, and integration of AI into military and surveillance applications at a scale unmatched elsewhere.</p>
+    <p>The result is a bifurcating AI ecosystem. American export controls on advanced chips, particularly the restrictions on NVIDIA's high-end GPUs and ASML's extreme ultraviolet lithography machines, have sought to limit China's access to the computational infrastructure required for training frontier models. China has responded by accelerating domestic chip development and finding creative workarounds, including stockpiling chips before restrictions took effect and developing architectures optimised for less advanced hardware.</p>
+    <h2>AI as a Tool of Statecraft</h2>
+    <p>Beyond the bilateral rivalry, AI is reshaping how states project power. Three areas stand out.</p>
+    <p>First, intelligence and surveillance. AI-powered facial recognition, natural language processing, and satellite imagery analysis have transformed the capabilities of intelligence agencies worldwide. Nations with advanced AI can monitor adversaries, predict political instability, and detect military movements with unprecedented speed and precision.</p>
+    <p>Second, information warfare. Generative AI has dramatically lowered the cost of producing convincing disinformation. Deepfakes, synthetic news articles, and AI-generated social media personas can be deployed at scale to influence elections, undermine trust in institutions, and destabilise adversaries.</p>
+    <p>Third, autonomous military systems. The development of AI-powered drones, autonomous weapons, and AI-assisted command systems is changing the calculus of military conflict. The use of AI-guided drones in recent conflicts has provided a glimpse of how future warfare may be fought, raising profound legal and ethical questions about accountability and the laws of armed conflict.</p>
+    <h2>The Governance Vacuum</h2>
+    <p>Perhaps the most consequential dimension of AI geopolitics is the absence of a coherent global governance framework. Unlike nuclear weapons, which are governed by a web of treaties and norms, AI development operates in a regulatory vacuum at the international level.</p>
+    <p>The European Union has moved furthest with the EU AI Act, establishing a risk-based regulatory framework that categorises AI applications by their potential for harm. The United States has taken a more industry-led approach, relying on executive orders and voluntary commitments from major AI companies. China has implemented its own regulations, including rules on deepfakes and algorithmic recommendation systems, though these serve both consumer protection and state control objectives.</p>
+    <p>The fundamental challenge is that AI governance requires international cooperation between nations that view AI as a strategic competition. The tension between collaboration (needed to manage shared risks like autonomous weapons and AI-driven misinformation) and competition (driven by the economic and military advantages AI confers) remains unresolved.</p>
+    <h2>What This Means for the Rest of the World</h2>
+    <p>For nations outside the US-China duopoly, the AI revolution presents a difficult strategic question. Middle powers like Australia, the United Kingdom, Japan, and the EU member states must decide how to position themselves: whether to align closely with the American AI ecosystem, pursue strategic autonomy, or attempt to play a bridging role.</p>
+    <p>For developing economies, the stakes are equally high but the options more constrained. AI threatens to automate precisely the kinds of manufacturing and service-sector jobs that have historically driven economic development. At the same time, AI could leapfrog traditional development pathways in areas like healthcare, agriculture, and education, but only if the infrastructure, skills, and institutional frameworks are in place.</p>
+    <h2>The Road Ahead</h2>
+    <p>The AI arms race is still in its early stages. The models being trained today will look primitive within a decade. But the geopolitical structures being built around AI, the alliances, the export controls, the regulatory frameworks, and the military doctrines, will prove far more durable than any particular technology. The decisions being made now about who controls AI, who governs it, and who benefits from it will shape the balance of power for a generation.</p>
+  </div>
+  <div class="article-footer">
+    <a class="back-btn" href="/" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</a>
+  </div>
+</div>
+
+  <footer>
+    <p class="footer-title">Intersect<span class="logo-sub">by Henry Mao</span></p>
+    <p class="footer-copy">&copy; 2026 Henry Mao. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
