@@ -136,6 +136,16 @@
     .newsletter-form { flex-direction: column; }
   }
 </style>
+
+<!-- MailerLite Universal -->
+<script>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', '2391125');
+</script>
+<!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -150,10 +160,11 @@
 </nav>
 
 <section class="hero">
+    <div class="hero-line-v"></div>
     <div class="hero-content fade-up">
       <p class="hero-tagline">Where perspectives meet</p>
       <h1>Intersect<span class="byline">by Henry Mao</span></h1>
-      <p class="hero-desc">Law, economics, geopolitics and technology.<br>Exploring the crossroads of the forces that shape our world.</p>
+      <p class="hero-desc">Law, economics, and geopolitics. Exploring the crossroads of the forces that shape our world.</p>
     </div>
   </section>
 
@@ -183,10 +194,8 @@
       <div class="newsletter-content">
         <h2>Stay at the intersection.</h2>
         <p>Monthly new articles delivered to your inbox.</p>
-        <form name="subscribers" method="POST" data-netlify="true" class="newsletter-form">
-          <input type="email" name="email" placeholder="your@email.com" required>
-          <button type="submit">Subscribe</button>
-        </form>
+        <!-- MailerLite embedded form -->
+        <div class="ml-embedded" data-form="Hhd4vK"></div>
       </div>
     </div>
   </section>
