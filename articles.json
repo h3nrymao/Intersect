@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "dutch-disease",
+    "url": "/articles/dutch-disease",
+    "title": "From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency",
+    "blurb": "Walking through Groningen, it is hard to imagine this quiet Dutch city was the epicentre of an economic phenomenon that now has striking parallels in Taiwan's chip-dominated economy.",
+    "image": "https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=800&q=80",
+    "tag": "Economics & Geopolitics",
+    "category": "economics geopolitics",
+    "author": "Henry Mao",
+    "readTime": "9 min read",
+    "date": "2026-05-01"
+  },
+  {
+    "slug": "ai-geopolitics",
+    "url": "/articles/ai-geopolitics",
+    "title": "The AI Arms Race: How Artificial Intelligence Is Redrawing the Geopolitical Map",
+    "blurb": "The nations that control AI development are positioning themselves to shape the global order for decades. This is no longer a technology story.",
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    "tag": "Geopolitics & Technology",
+    "category": "geopolitics technology",
+    "author": "Henry Mao",
+    "readTime": "8 min read",
+    "date": "2026-04-01"
+  },
+  {
+    "slug": "notary-hk",
+    "url": "/articles/notary-hk",
+    "title": "Inside Hong Kong's Notarial System: How Documents Cross Borders",
+    "blurb": "Having worked as a notary clerk in Hong Kong, I've seen firsthand how notarization creates trust between strangers separated by borders.",
+    "image": "https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=800&q=80",
+    "tag": "Law",
+    "category": "law",
+    "author": "Henry Mao",
+    "readTime": "5 min read",
+    "date": "2026-03-01"
+  }
+]
