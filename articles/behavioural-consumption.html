@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intersect by Henry Mao</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Century Schoolbook';
+    src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
+  }
+  :root {
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
+    --body-font: 'Century Schoolbook', Georgia, serif;
+    --ui-font: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--body-font); background: var(--cream); color: var(--ink); line-height: 1.75; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; }
+  .logo { font-family: var(--body-font); font-size: 1.5rem; font-weight: 800; color: var(--ink); cursor: pointer; letter-spacing: -0.02em; text-decoration: none; }
+  .logo-sub { color: var(--accent); font-weight: 400; font-style: italic; margin-left: 6px; font-size: 1.1rem; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
+  .nav-link:hover { color: var(--accent); }
+
+  .hero { padding: 7rem 1.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
+  .hero h1 { font-family: var(--body-font); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 0.5rem; letter-spacing: -0.04em; color: var(--ink); }
+  .hero h1 .byline { display: block; font-weight: 400; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--accent); margin-top: 0.6rem; padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .hero-desc { font-family: var(--body-font); font-size: 1.2rem; color: #888; max-width: 520px; margin: 0 auto 3rem; line-height: 1.7; font-style: italic; }
+  .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
+
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
+  .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
+
+  .card { background: white; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease; cursor: pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .card-static { background: white; border-radius: 6px; overflow: hidden; border: 2px dashed #ddd; }
+
+  .tag-pill { font-family: var(--ui-font); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 0.4rem 1rem; border-radius: 2px; display: inline-block; }
+  .meta-text { font-family: var(--ui-font); font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .meta-text .author { font-weight: 800; color: #555; }
+  .meta-text .divider { color: #ddd; margin: 0 0.5rem; }
+
+  .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .featured-thumb { min-height: 340px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .featured-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; z-index: 1; }
+  .featured-body { padding: 2.8rem; }
+  .featured-body h2 { font-family: var(--body-font); font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .featured-body p { color: #777; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.8; }
+
+  .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .article-thumb { height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .article-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .article-thumb .tag-pill { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); color: var(--ink); z-index: 1; }
+  .article-body { padding: 1.8rem; }
+  .article-body h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .article-body p { font-size: 0.9rem; color: #888; line-height: 1.7; margin-bottom: 1rem; }
+
+  .newsletter { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem; }
+  .newsletter-inner { background: var(--ink); border-radius: 6px; padding: 4rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .newsletter-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 44px 44px; }
+  .newsletter-content { position: relative; }
+  .newsletter-content h2 { font-family: var(--body-font); color: var(--cream); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .newsletter-content p { color: rgba(250,250,247,0.45); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--body-font); }
+  .newsletter-form { display: flex; gap: 0.7rem; max-width: 440px; margin: auto; }
+  .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--cream); font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; border-radius: 3px; outline: none; }
+  .newsletter-form input::placeholder { color: rgba(250,250,247,0.35); }
+  .newsletter-form input:focus { border-color: var(--accent); }
+  .newsletter-form button { padding: 0.9rem 1.8rem; background: var(--accent); color: white; border: none; font-family: var(--ui-font); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .newsletter-form button:hover { background: #a84a28; }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; }
+  .footer-title { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .footer-copy { font-family: var(--ui-font); font-size: 0.72rem; color: #bbb; font-weight: 600; }
+
+  .article-page { max-width: 720px; margin: auto; padding: 3rem 1.5rem 5rem; display: none; }
+  .back-btn { background: none; border: none; cursor: pointer; font-family: var(--ui-font); font-size: 0.88rem; font-weight: 700; color: #888; display: flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 2.5rem; transition: color 0.2s; text-decoration: none; }
+  .back-btn:hover { color: var(--accent); }
+  .article-page h1 { font-family: var(--body-font); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em; }
+  .article-page .accent-bar { height: 4px; width: 55px; background: var(--accent); border-radius: 2px; margin-bottom: 2.5rem; }
+  .article-hero-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; margin-bottom: 2rem; }
+  .article-content h2 { font-family: var(--body-font); font-size: 1.6rem; font-weight: 800; margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
+  .article-content h2:first-child { margin-top: 0; }
+  .article-content p { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; color: #2a2a2a; margin-bottom: 1.4rem; }
+  .article-content strong { font-weight: 800; color: var(--ink); }
+  .article-content em { font-style: italic; }
+  .article-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .article-content a:hover { color: #a84a28; }
+  .article-content blockquote { border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(196,88,48,0.04); border-radius: 0 5px 5px 0; font-style: italic; color: #4a4a4a; font-size: 1.1rem; }
+  .article-content ol, .article-content ul { padding-left: 1.5rem; margin-bottom: 1.4rem; }
+  .article-content li { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; margin-bottom: 0.5rem; color: #2a2a2a; }
+  .article-footer { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; }
+
+  .about-page { max-width: 800px; margin: auto; padding: 4rem 1.5rem 5rem; display: none; }
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
+  .about-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; border: 3px solid var(--border); display: block; }
+  .about-name { font-family: var(--body-font); font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .about-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .about-header .about-name { margin-bottom: 0; }
+  .about-socials { display: flex; gap: 0.55rem; }
+  .about-socials a { display: flex; color: var(--muted); transition: color 0.2s; }
+  .about-socials a:hover { color: var(--accent); }
+  .about-socials svg { width: 22px; height: 22px; }
+  .about-role { font-family: var(--ui-font); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+  .about-text { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem; }
+
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+
+  .coming-soon-body { padding: 2.5rem 1.8rem; text-align: center; }
+  .coming-soon-body .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .coming-soon-body h3 { font-family: var(--body-font); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .coming-soon-body p { font-size: 0.88rem; color: #bbb; }
+
+  @media (max-width: 768px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .about-photo { margin: 0 auto 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">Intersect<span class="logo-sub">by Henry Mao</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="/" style="color:var(--accent)">Articles</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+  </div>
+</nav>
+
+<div id="article-behavioural-consumption" class="article-page" style="display:block">
+  <a class="back-btn" href="/">&larr; All articles</a>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Behavioural Economics</span>
+  <h1>Behavioural Determinants of Consumption</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 April 2026</span><span class="divider">|</span><span>9 min read</span>
+  </div>
+  <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1200&q=80" alt="A person carrying shopping bags">
+  <div class="article-content">
+    <p>Recent headlines show that young people are taking out loans to spend on lavish overseas holidays because they are succumbing to the pressure of their peers travelling while they are still in their early 20s (Perrie, 2025). This brings up the question of how young people consume and its behavioural determinants. The foundational economic model of consumption postulates that spending is a simple function of permanent income and relative prices, but this is increasingly challenged by the powerful influence of social context. New literature demonstrates that consumption is not only a private economic calculation, but a social behaviour shaped by the economic status and spending habits of others. While traditional methodologies focused on geographical proximity and income inequality as key drivers, the rise of digital social networks has created a social channel as a potential reason for consumption.</p>
+
+    <p>This essay argues that to fully understand contemporary consumption patterns, particularly among young people, it is necessary to synthesise the established findings on geographical reference groups with emerging evidence on the rise of social network effects. The existing literature contains a critical gap where digital platforms could transform these behavioural pressures, effectively creating a digital neighbourhood that amplifies financial vulnerability. This synthesis is important because the resulting consumption-driven debt poses significant risks not only to individual financial resilience but also to macroeconomic stability, especially when facilitated by readily available credit from financial institutions. This essay will first analyse how geographical proximity, as examined by Bertrand and Morse (2016) and Bricker et al. (2020), establishes local reference points for consumption. It will then argue that the mechanisms of social networks, detailed by De Giorgi et al. (2020), represent a more potent and pervasive force in the digital age, creating more financial pressure for young adults.</p>
+
+    <h2>How Geographical Proximity Affects Consumption Behaviour</h2>
+    <p>Neighbours' economic status has a clear geographical influence on our own spending habits. Recent economic literature has revitalised this inquiry, moving beyond broad national trends to focus on the powerful, micro-level effects of geographical proximity. Two papers, Bertrand and Morse (2016)'s <em>"Trickle-Down Consumption"</em> and Bricker et al. (2020)'s <em>"Signalling Status"</em>, tackle this issue with distinct methodological lenses, focusing on state-level income inequality and on neighbourhood-level income rank to reveal how consumption is profoundly shaped by local reference groups through geographical proximity, with young people likely being the most susceptible to these pressures.</p>
+
+    <p>Bertrand and Morse (2016) adopt a macro-to-micro perspective. Their primary methodology exploits variation in state-level income distribution over nearly three decades, using data from the Consumer Expenditure Survey. It investigates whether rising income and consumption at the top 20% in a state cause middle-income households to consume a larger share of their own income. It found that, holding a household's own income constant, a 10% rise in the top 20% of state income leads to a 2.8% increase in consumption for the middle class. Their analysis suggests that by the mid-2000s, middle-income households would have saved 2.6&ndash;3.2% more had top incomes grown at the median rate. To explain this "trickle-down" effect, they systematically rule out traditional explanations like the permanent income hypothesis or wealth effects. Instead, they reason that behavioural channels, like an increased local supply of "rich" goods and, to a lesser extent, status-driven "conspicuous consumption", are particularly strong for income-elastic goods, with more mixed evidence for the role of visibility.</p>
+
+    <p>In contrast, Bricker et al. (2020) zoom in with a micro-level lens, focusing on the census tract, neighbourhood-level as the relevant geographical landscape. By linking the Survey of Consumer Finances to neighbourhood income data, they investigate how a household's income rank within its immediate proximity influences its financial decisions. Their methodology is built around testing a clear signalling model: individuals consume visible status goods to signal their relative standing to their closest neighbours. The results powerfully support this. A one standard deviation increase in a household's neighbourhood income rank, which is about 25 percentiles, is associated with a 0.38 standard deviation increase in credit card balances, a $3,254 rise at the mean. This status signalling is shown most clearly in car purchases, the undisputed status good, with a similar rank increase raising the probability of owning a luxury car like a BMW by 3.4 percentage points.</p>
+
+    <p>The methodological chasm between these geographical approaches gives them their unique contributions. Bertrand and Morse (2016) capture a broad pressure from the rich in a state, likely operating through changed local environments and aspirational benchmarks seen in media and public spaces. However, Bricker et al. (2020) capture a more intimate peer-to-peer competition, where the direct comparison is with the family next door. This is a crucial distinction: one studies the effect of top-level inequality, the other the effect of local rank. The mechanisms also differ subtly, with Bertrand and Morse (2016) emphasising a "supply-driven demand" where new high-end stores appear, while Bricker et al. (2020) focus purely on a demand for "signalling" to a known audience.</p>
+
+    <p>Linking these findings to young people reveals a potent and concerning trend. Young adults are particularly vulnerable to geographical proximity of influence. Simultaneously, they are often geographically sorted into expensive urban centres or university towns where they are directly exposed to the high consumption levels of the affluent. This exposure can force a trade-off. To "keep up", young people may resort to the financial instruments identified in both papers, like increased credit card debt, which carries a higher likelihood of financial distress and bankruptcy. With lower wealth and higher marginal propensities to consume, young people lack the flexibility to absorb these social pressures without potentially compromising their long-term financial health. Additionally, they are at a stage in life where social identity is extremely important, making them highly sensitive to the status signalling pressures identified by Bricker et al. (2020) within their immediate social circles. Furthermore, young people use social media prominently, a platform that amplifies the visibility of consumption, effectively creating a digital neighbourhood where high-income displays are constant. This is further explained in the literature of De Giorgi et al. (2020), which shows how consumption behaviour is affected by social networks.</p>
+
+    <h2>How Consumption Behaviour is Affected by Social Networks</h2>
+    <p>The influence of social networks on consumption represents a shift in understanding economic behaviour, revealing how our spending is shaped not just by income, but by powerful and invisible social proximity. In De Giorgi et al. (2020)'s <em>"Consumption Network Effects"</em>, it provides some evidence of this phenomenon. By leveraging detailed Danish administrative data and an ingenious identification strategy using firm-level shocks to the co-workers of spouses, they isolate a causal peer effect that is both significant and economically meaningful. The analysis reveals a consumption elasticity of approximately 0.3, which means that a 10% increase in the average consumption of one's peers leads to a 3% rise in a household's own spending.</p>
+
+    <p>De Giorgi et al. (2020) investigate the reason behind this effect, finding it operates primarily through intertemporal distortions. Individuals do not fund this increased spending by working more or shifting their budget between different goods, but instead they reduce their savings or take on debt. This finding underscores that the pressure to conform alters financial planning, prioritising present consumption at the expense of future financial security. The study further notes that these effects are not uniform; they may be stronger during economic booms and among employees with longer tenure. This last point highlights a process of increased social assimilation within a professional network.</p>
+
+    <p>This network-driven pressure finds a powerful parallel and amplifier in the findings of Bertrand and Morse (2016)'s <em>"Trickle-Down Consumption"</em>. While their study uses a different methodology, focusing on state-level income inequality, it converges on a similar behavioural conclusion: that non-rich households increase their consumption when exposed to higher spending at the top of the distribution. They quantitatively link this pressure to tangible financial distress, showing that higher income levels predict both increased personal bankruptcy filings and self-reported financial duress. This provides a critical macro-level consequence to the micro-level behaviour identified in "Consumption Network Effects". Bertrand and Morse (2016) also reinforce the role of visibility, finding more conspicuous consumption in income-elastic goods like dining out and personal care, particularly responsive to top-tier consumption.</p>
+
+    <p>For young people, these networks and "trickle-down" pressures create a perfect storm of financial vulnerability. The workplace is a central arena for social comparison and identity formation for young adults, who are in the critical early stages of building their careers. De Giorgi et al. (2020)'s finding that network effects strengthen with tenure indicates a process of socialisation: as young workers become more embedded in a firm, they increasingly align their lifestyle with that of their colleagues, often through the dangerous channel of reduced savings identified in the study.</p>
+
+    <p>This pressure is significantly amplified by the digital dimension of social networks. Platforms like Instagram and TikTok act as a relentless broadcast system for the consumption patterns of one's entire social and professional circle. This creates a digital workplace where the line between a colleague and an influencer blurs, making the curated consumption of peers extremely visible and the pressure to participate immediate. When a co-worker's holiday or a university friend's car purchase becomes a daily fixture in a social media feed, the intertemporal distortion of opting for consumption today at the cost of saving for tomorrow feels like a necessity for social inclusion (De Giorgi et al., 2020).</p>
+
+    <p>Compounding this, young people are often the target of the credit expansion that facilitates such behaviour. Bertrand and Morse (2016)'s political economy analysis suggests that the political process may have internalised these consumption pressures, leading to policies that eased access to credit. For a generation already grappling with student debt and soaring living costs, this combination of network pressure, visible "trickle-down" benchmarks, and readily available credit creates a magnifying trap. The drive for social and professional belonging within their networks, fuelled by the mechanisms revealed in both studies, directly threatens their long-term economic resilience, making young people the most vulnerable casualties of consumption network effects.</p>
+
+    <h2>Conclusion</h2>
+    <p>In conclusion, the evidence firmly establishes that consumption is a social behaviour, driven by more than individual budget constraints. The literature presents two primary methodological lenses for understanding this, focusing on the geographical proximity of influence and on the effects of social networks. While the research on geographical proximity by Bertrand and Morse (2016) and Bricker et al. (2020) provides a crucial foundation demonstrating how state-level inequality and neighbourhood rank create aspirational benchmarks and status competition, it is the evidence on social network effects that offers the most persuasive and powerful explanation for modern consumption dynamics, especially among the young. De Giorgi et al. (2020)'s finding of a significant consumption elasticity driven by peers, operating primarily through intertemporal distortion and debt, captures the fundamental mechanism. Social media acts as a relentless force multiplier, dissolving the boundaries between geographical and social proximity and making the pressure to consume immediate to young people.</p>
+
+    <p>This evaluation leads to clear policy implications. Firstly, current financial literacy education is insufficient as it fails to address these powerful social and behavioural pressures directly. School curriculums must be updated to include the social aspect of household finance education, teaching individuals to recognise and navigate consumption pressures from peers and digital media. Secondly, regulators should consider policies that protect young, vulnerable people from predatory lending practices that exploit their behavioural biases. This could involve tightening lending obligations for financial institutions to ensure loans are suitable for a borrower's circumstances, and imposing stricter regulations on the targeted advertising of credit to younger demographics on digital platforms. Thirdly, there should be a public campaign highlighting the importance of saving and curated online displays that could help shift social norms. By moving beyond traditional economic models and acknowledging the profound role of social networks, policymakers can develop more effective tools to safeguard individual financial well-being and foster better consumption behaviour, especially for the youth.</p>
+
+    <h2>References</h2>
+    <p>Bertrand, M., &amp; Morse, A. (2016). Trickle-Down Consumption. <em>The Review of Economics and Statistics</em>, 98(5), 863&ndash;879. <a href="https://www.jstor.org/stable/24917120" target="_blank" rel="noopener">jstor.org/stable/24917120</a></p>
+    <p>Bricker, J., Krimmel, J., &amp; Ramcharan, R. (2020). Signaling Status: The Impact of Relative Income on Household Consumption and Financial Decisions. <em>Management Science</em>, 67(4). <a href="https://doi.org/10.1287/mnsc.2019.3577" target="_blank" rel="noopener">doi.org/10.1287/mnsc.2019.3577</a></p>
+    <p>De Giorgi, G., Frederiksen, A., &amp; Pistaferri, L. (2020). Consumption Network Effects. <em>The Review of Economic Studies</em>, 87(1), 130&ndash;163. <a href="https://www.jstor.org/stable/26875473" target="_blank" rel="noopener">jstor.org/stable/26875473</a></p>
+    <p>Perrie, S. (2025, June 21). Major warning over $50,000 act during popular Aussie travel period: "Risky." <em>Yahoo Finance</em>. <a href="https://au.finance.yahoo.com/news/major-warning-over-50000-act-during-popular-aussie-travel-period-risky-200026147.html" target="_blank" rel="noopener">Yahoo Finance</a></p>
+  </div>
+
+  <div class="article-footer">
+    <a class="back-btn" href="/" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</a>
+  </div>
+</div>
+
+  <footer>
+    <p class="footer-title">Intersect<span class="logo-sub">by Henry Mao</span></p>
+    <p class="footer-copy">&copy; 2026 Henry Mao. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
