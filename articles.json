@@ -1,17 +1,5 @@
 [
   {
-    "slug": "dutch-disease",
-    "url": "/articles/dutch-disease",
-    "title": "From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency",
-    "blurb": "Walking through Groningen, it is hard to imagine this quiet Dutch city was the epicentre of an economic phenomenon that now has striking parallels in Taiwan's chip-dominated economy.",
-    "image": "https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=800&q=80",
-    "tag": "Economics & Geopolitics",
-    "category": "economics geopolitics",
-    "author": "Henry Mao",
-    "readTime": "9 min read",
-    "date": "2026-05-01"
-  },
-  {
     "slug": "behavioural-consumption",
     "url": "/articles/behavioural-consumption",
     "title": "Behavioural Determinants of Consumption",
@@ -21,7 +9,7 @@
     "category": "economics",
     "author": "Henry Mao",
     "readTime": "10 min read",
-    "date": "2026-04-01"
+    "date": "2026-05-01"
   },
   {
     "slug": "notary-hk",
@@ -33,6 +21,6 @@
     "category": "law",
     "author": "Henry Mao",
     "readTime": "3 min read",
-    "date": "2026-03-01"
+    "date": "2026-04-01"
   }
 ]
