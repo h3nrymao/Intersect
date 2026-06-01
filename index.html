@@ -213,13 +213,28 @@
   //  this file again. To publish: add an entry to articles.json and
   //  upload the matching article .html file. Newest = top = featured.
   // ====================================================================
-  const NEXT_ARTICLE_DATE = '1 June 2026';   // edit the "coming soon" card text here
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
 
   function fmtDate(iso) {
     const [y, m, d] = iso.split('-').map(Number);
     return `${d} ${MONTHS[m - 1]} ${y}`;
+  }
+
+  // "Next article" label = 1st of the month after the newest article's date.
+  // Falls back to the month after today if no articles exist yet.
+  function nextArticleLabel(latestIso) {
+    let y, m;
+    if (latestIso) {
+      const [ly, lm] = latestIso.split('-').map(Number);
+      y = ly; m = lm;
+    } else {
+      const now = new Date();
+      y = now.getFullYear(); m = now.getMonth() + 1;
+    }
+    m += 1;
+    if (m > 12) { m = 1; y += 1; }
+    return `1 ${MONTHS[m - 1]} ${y}`;
   }
 
   function featuredCard(a) {
@@ -258,11 +273,11 @@
     </div>`;
   }
 
-  function comingSoonCard() {
+  function comingSoonCard(latestIso) {
     return `<div class="card-static fade-up" data-coming-soon>
       <div class="coming-soon-body">
         <div class="emoji">📝</div>
-        <h3>Next Article: ${NEXT_ARTICLE_DATE}</h3>
+        <h3>Next Article: ${nextArticleLabel(latestIso)}</h3>
         <p>A new article will be available on the 1st of each month. Stay tuned.</p>
       </div>
     </div>`;
@@ -277,7 +292,7 @@
       const featured = list[0];
       const rest = list.slice(1);
       document.getElementById('featured-mount').innerHTML = featured ? featuredCard(featured) : '';
-      document.getElementById('latest-mount').innerHTML = rest.map(gridCard).join('') + comingSoonCard();
+      document.getElementById('latest-mount').innerHTML = rest.map(gridCard).join('') + comingSoonCard(featured && featured.date);
     } catch (e) {
       console.error('Could not load articles.json', e);
       document.getElementById('latest-mount').innerHTML =
