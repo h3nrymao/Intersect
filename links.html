@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Links — Henry Mao</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Century Schoolbook';
+    src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
+  }
+  :root {
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
+    --body-font: 'Century Schoolbook', Georgia, serif;
+    --ui-font: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--body-font);
+    background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 60%);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+  .wrap { width: 100%; max-width: 460px; text-align: center; }
+
+  .eyebrow {
+    font-family: var(--ui-font);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 1.4rem;
+  }
+  h1 {
+    font-family: var(--body-font);
+    font-size: clamp(2.4rem, 6vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 0.6rem;
+  }
+  h1 .byline {
+    display: block;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-top: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: #d8d3c8;
+    margin: 2rem auto 2.2rem;
+  }
+
+  .links { display: flex; flex-direction: column; gap: 0.7rem; }
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.3rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--ui-font);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease;
+  }
+  .link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .link .arrow {
+    font-family: var(--body-font);
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.5;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .link:hover .arrow { transform: translateX(4px); opacity: 1; }
+
+  footer {
+    margin-top: 2.6rem;
+    font-family: var(--ui-font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid #e0ddd6; }
+  footer a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow">Find Me</div>
+    <h1>Henry Mao<span class="byline">a small collection of links</span></h1>
+    <div class="divider"></div>
+
+    <div class="links">
+      <a class="link" href="mailto:henrymaohl@gmail.com">Email <span class="arrow">→</span></a>
+      <a class="link" href="https://www.linkedin.com/in/maohenry/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow">→</span></a>
+      <a class="link" href="https://x.com/h3nrymao" target="_blank" rel="noopener noreferrer">X / Twitter <span class="arrow">→</span></a>
+      <a class="link" href="https://github.com/h3nrymao" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow">→</span></a>
+      <a class="link" href="https://www.instagram.com/h3nrymao/" target="_blank" rel="noopener noreferrer">Instagram <span class="arrow">→</span></a>
+      <a class="link" href="https://www.tiktok.com/@maohenry" target="_blank" rel="noopener noreferrer">TikTok <span class="arrow">→</span></a>
+      <a class="link" href="https://www.youtube.com/@h3nrymao" target="_blank" rel="noopener noreferrer">YouTube <span class="arrow">→</span></a>
+      <a class="link" href="https://open.spotify.com/user/21fjkyrp24vy6mwiizjf4xiqq" target="_blank" rel="noopener noreferrer">Spotify <span class="arrow">→</span></a>
+      <a class="link" href="https://letterboxd.com/henrymao/" target="_blank" rel="noopener noreferrer">Letterboxd <span class="arrow">→</span></a>
+      <a class="link" href="https://www.strava.com/athletes/henrymao" target="_blank" rel="noopener noreferrer">Strava <span class="arrow">→</span></a>
+      <a class="link" href="https://au.pinterest.com/h3nrymao/" target="_blank" rel="noopener noreferrer">Pinterest <span class="arrow">→</span></a>
+      <a class="link" href="https://www.facebook.com/henry.mao.975010/" target="_blank" rel="noopener noreferrer">Facebook <span class="arrow">→</span></a>
+      <a class="link" href="https://snapchat.com/t/nwby3CkC" target="_blank" rel="noopener noreferrer">Snapchat <span class="arrow">→</span></a>
+    </div>
+
+    <footer>© Henry Mao</footer>
+  </main>
+</body>
+</html>
