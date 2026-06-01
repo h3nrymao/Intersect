@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intersect by Henry Mao</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Century Schoolbook';
+    src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
+  }
+  :root {
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
+    --body-font: 'Century Schoolbook', Georgia, serif;
+    --ui-font: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--body-font); background: var(--cream); color: var(--ink); line-height: 1.75; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; }
+  .logo { font-family: var(--body-font); font-size: 1.5rem; font-weight: 800; color: var(--ink); cursor: pointer; letter-spacing: -0.02em; text-decoration: none; }
+  .logo-sub { color: var(--accent); font-weight: 400; font-style: italic; margin-left: 6px; font-size: 1.1rem; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
+  .nav-link:hover { color: var(--accent); }
+
+  .hero { padding: 7rem 1.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
+  .hero h1 { font-family: var(--body-font); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 0.5rem; letter-spacing: -0.04em; color: var(--ink); }
+  .hero h1 .byline { display: block; font-weight: 400; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--accent); margin-top: 0.6rem; padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .hero-desc { font-family: var(--body-font); font-size: 1.2rem; color: #888; max-width: 520px; margin: 0 auto 3rem; line-height: 1.7; font-style: italic; }
+  .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
+
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
+  .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
+
+  .card { background: white; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease; cursor: pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .card-static { background: white; border-radius: 6px; overflow: hidden; border: 2px dashed #ddd; }
+
+  .tag-pill { font-family: var(--ui-font); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 0.4rem 1rem; border-radius: 2px; display: inline-block; }
+  .meta-text { font-family: var(--ui-font); font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .meta-text .author { font-weight: 800; color: #555; }
+  .meta-text .divider { color: #ddd; margin: 0 0.5rem; }
+
+  .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .featured-thumb { min-height: 340px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .featured-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; z-index: 1; }
+  .featured-body { padding: 2.8rem; }
+  .featured-body h2 { font-family: var(--body-font); font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .featured-body p { color: #777; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.8; }
+
+  .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .article-thumb { height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .article-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .article-thumb .tag-pill { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); color: var(--ink); z-index: 1; }
+  .article-body { padding: 1.8rem; }
+  .article-body h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .article-body p { font-size: 0.9rem; color: #888; line-height: 1.7; margin-bottom: 1rem; }
+
+  .newsletter { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem; }
+  .newsletter-inner { background: var(--ink); border-radius: 6px; padding: 4rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .newsletter-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 44px 44px; }
+  .newsletter-content { position: relative; }
+  .newsletter-content h2 { font-family: var(--body-font); color: var(--cream); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .newsletter-content p { color: rgba(250,250,247,0.45); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--body-font); }
+  .newsletter-form { display: flex; gap: 0.7rem; max-width: 440px; margin: auto; }
+  .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--cream); font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; border-radius: 3px; outline: none; }
+  .newsletter-form input::placeholder { color: rgba(250,250,247,0.35); }
+  .newsletter-form input:focus { border-color: var(--accent); }
+  .newsletter-form button { padding: 0.9rem 1.8rem; background: var(--accent); color: white; border: none; font-family: var(--ui-font); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .newsletter-form button:hover { background: #a84a28; }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; }
+  .footer-title { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .footer-copy { font-family: var(--ui-font); font-size: 0.72rem; color: #bbb; font-weight: 600; }
+
+  .article-page { max-width: 720px; margin: auto; padding: 3rem 1.5rem 5rem; display: none; }
+  .back-btn { background: none; border: none; cursor: pointer; font-family: var(--ui-font); font-size: 0.88rem; font-weight: 700; color: #888; display: flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 2.5rem; transition: color 0.2s; text-decoration: none; }
+  .back-btn:hover { color: var(--accent); }
+  .article-page h1 { font-family: var(--body-font); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em; }
+  .article-page .accent-bar { height: 4px; width: 55px; background: var(--accent); border-radius: 2px; margin-bottom: 2.5rem; }
+  .article-hero-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; margin-bottom: 2rem; }
+  .article-content h2 { font-family: var(--body-font); font-size: 1.6rem; font-weight: 800; margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
+  .article-content h2:first-child { margin-top: 0; }
+  .article-content p { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; color: #2a2a2a; margin-bottom: 1.4rem; }
+  .article-content strong { font-weight: 800; color: var(--ink); }
+  .article-content em { font-style: italic; }
+  .article-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .article-content a:hover { color: #a84a28; }
+  .article-content blockquote { border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(196,88,48,0.04); border-radius: 0 5px 5px 0; font-style: italic; color: #4a4a4a; font-size: 1.1rem; }
+  .article-content ol, .article-content ul { padding-left: 1.5rem; margin-bottom: 1.4rem; }
+  .article-content li { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; margin-bottom: 0.5rem; color: #2a2a2a; }
+  .article-footer { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; }
+
+  .about-page { max-width: 800px; margin: auto; padding: 4rem 1.5rem 5rem; display: none; }
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
+  .about-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; border: 3px solid var(--border); display: block; }
+  .about-name { font-family: var(--body-font); font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .about-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .about-header .about-name { margin-bottom: 0; }
+  .about-socials { display: flex; gap: 0.55rem; }
+  .about-socials a { display: flex; color: var(--muted); transition: color 0.2s; }
+  .about-socials a:hover { color: var(--accent); }
+  .about-socials svg { width: 22px; height: 22px; }
+  .about-role { font-family: var(--ui-font); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+  .about-text { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem; }
+
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+
+  .coming-soon-body { padding: 2.5rem 1.8rem; text-align: center; }
+  .coming-soon-body .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .coming-soon-body h3 { font-family: var(--body-font); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .coming-soon-body p { font-size: 0.88rem; color: #bbb; }
+
+  @media (max-width: 768px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .about-photo { margin: 0 auto 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">Intersect<span class="logo-sub">by Henry Mao</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="/" style="color:var(--accent)">Articles</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+  </div>
+</nav>
+
+<div id="article-dutch-disease" class="article-page" style="display:block">
+  <a class="back-btn" href="/">&larr; All articles</a>
+  <span class="tag-pill" style="background:#c45830;color:white;margin-bottom:1.2rem;">Economics &amp; Geopolitics</span>
+  <h1>From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency</h1>
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 May 2026</span><span class="divider">|</span><span>9 min read</span>
+  </div>
+  <div class="accent-bar"></div>
+  <img class="article-hero-img" src="https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=1200&q=80" alt="Groningen, Netherlands">
+  <div class="article-content">
+    <h2>Standing in Groningen</h2>
+    <p>Walking through the streets of Groningen earlier this year, it is hard to imagine that this quiet university city in the north of the Netherlands was once the epicentre of an economic phenomenon so significant that it gave rise to its own term in economics: the Dutch Disease.</p>
+    <p>Beneath the cobblestones and canals lies what was once the largest natural gas field in western Europe, estimated at 2,800 billion cubic metres. The Groningen gas field, discovered in 1959, generated over 363 billion euros in revenue for the Dutch state over six decades. It transformed the Netherlands from a modest post-war economy into one of Europe's wealthiest nations. But it also hollowed out Dutch manufacturing, inflated the currency, and created a dependency that took decades to unwind.</p>
+    <p>Now, with the field officially shut down and decommissioning underway at an estimated cost of 2 billion euros, the question is no longer about Groningen. It is about who might be next.</p>
+    <h2>The Dutch Disease, Explained</h2>
+    <p>The term "Dutch Disease" was coined by <em>The Economist</em> in 1977 to describe a counterintuitive problem: how the discovery of a valuable natural resource can actually harm an economy. The mechanism is straightforward. When a country begins exporting a high-value resource, foreign currency flows in. This strengthens the domestic currency, making the country's other exports, such as manufactured goods, more expensive on the global market. Those industries lose competitiveness, shrink, and eventually decline.</p>
+    <p>In the Netherlands, gas revenues funded an expansion of the welfare state and public spending through the 1970s. Dutch labour costs rose, the guilder strengthened, and manufacturing firms found themselves unable to compete internationally. By the early 1980s, the country was in a deep financial crisis. The disease was named retrospectively, but the pattern was unmistakable: a one-dimensional economy built on a single dominant export sector, vulnerable to the moment that sector falters.</p>
+    <h2>Taiwan's Silicon Shield</h2>
+    <p>Six thousand kilometres east of Groningen, Taiwan presents a strikingly parallel situation, though with silicon wafers rather than natural gas.</p>
+    <p>Taiwan Semiconductor Manufacturing Company (TSMC) is responsible for approximately 8% of Taiwan's total economic output and 12% of its exports. The company produces over 90% of the world's most advanced semiconductors, the chips that power everything from smartphones to artificial intelligence systems. Taiwan's stock market has surged to repeated record highs on the back of the AI boom, with TSMC at the centre of the rally.</p>
+    <p>This dominance has been described as Taiwan's "Silicon Shield," the theory that the world's dependence on Taiwanese chips provides a form of strategic protection against Chinese aggression, since any disruption to TSMC's operations would send shockwaves through the entire global economy.</p>
+    <p>But there is another way to read Taiwan's situation: as a textbook case of resource concentration risk, not unlike the Netherlands in the 1970s.</p>
+    <h2>The Two-Dimensional Problem</h2>
+    <p>Taiwan's economy is increasingly two-dimensional. On one side sits a globally dominant semiconductor sector, attracting investment, talent, and government attention. On the other sits everything else: traditional manufacturing, services, agriculture, and small businesses that struggle to compete for resources and skilled workers in an economy oriented around one industry.</p>
+    <p>The parallels to the Dutch Disease are not exact. Taiwan's "resource" is not extracted from the ground but manufactured through extraordinary technological capability. TSMC's dominance is the product of decades of strategic investment, engineering excellence, and government policy, not geological luck. But the structural vulnerability is similar.</p>
+    <p>When a single sector dominates an economy to this degree, several risks emerge. Talent concentration means the best engineers and graduates are drawn to semiconductors, starving other industries of human capital. Currency effects mirror the classic Dutch Disease: strong demand for Taiwanese exports in semiconductors strengthens the New Taiwan Dollar, making other exports less competitive. And strategic dependency means that any disruption, whether from geopolitical conflict, technological disruption, or a shift in global supply chains, would have outsized consequences for the entire economy.</p>
+    <h2>The Geopolitical Dimension</h2>
+    <p>What makes Taiwan's situation more acute than the Netherlands' is the geopolitical overlay. The Dutch Disease was an economic problem with economic consequences. Taiwan's semiconductor concentration is both an economic vulnerability and a geopolitical flashpoint.</p>
+    <p>China's claims over Taiwan are not merely territorial; they are geoeconomic. Control of TSMC's fabrication facilities would give Beijing extraordinary leverage over the global technology supply chain. Meanwhile, the United States has responded by investing heavily in domestic chip manufacturing through the CHIPS Act, seeking to reduce dependence on Taiwanese production. Both moves, in different ways, threaten to erode Taiwan's position.</p>
+    <p>If the world successfully diversifies semiconductor manufacturing away from Taiwan, the Silicon Shield weakens. And if China were ever to disrupt TSMC's operations, even through measures short of invasion such as a naval quarantine, the economic shock would cascade through every sector of the global economy that depends on advanced computing.</p>
+    <h2>Lessons from Groningen</h2>
+    <p>Standing in Groningen, you can see what happens when a one-resource economy reaches the end of its cycle. The gas is gone. The earthquakes caused by extraction have damaged thousands of homes. The region that produced the wealth is now one of the poorest in the Netherlands, awaiting compensation and reinvention.</p>
+    <p>Taiwan is not there yet. Its semiconductor industry is thriving, and TSMC's technological lead remains formidable. But the lesson from Groningen is that the time to diversify is when the resource is still flowing, not after it stops. The Netherlands spent its gas revenues on welfare rather than building alternative industries. The question for Taiwan is whether it will use its semiconductor boom to build economic resilience or allow the same structural dependency to calcify.</p>
+    <p>The Dutch Disease teaches us that economic strength built on a single pillar is not strength at all. It is fragility dressed up as prosperity. Whether that lesson applies to silicon as much as it did to natural gas is a question Taiwan cannot afford to answer too late.</p>
+  </div>
+  <div class="article-footer">
+    <a class="back-btn" href="/" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</a>
+  </div>
+</div>
+
+  <footer>
+    <p class="footer-title">Intersect<span class="logo-sub">by Henry Mao</span></p>
+    <p class="footer-copy">&copy; 2026 Henry Mao. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

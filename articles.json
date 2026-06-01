@@ -1,5 +1,17 @@
 [
   {
+    "slug": "dutch-disease",
+    "url": "/articles/dutch-disease",
+    "title": "From Groningen to Taipei: What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency",
+    "blurb": "Walking through Groningen, it is hard to imagine this quiet city was the epicentre of an economic phenomenon so significant it gave rise to its own term: the Dutch Disease. What can it teach us about Taiwan today?",
+    "image": "https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?w=800&q=80",
+    "tag": "Economics & Geopolitics",
+    "category": "economics",
+    "author": "Henry Mao",
+    "readTime": "9 min read",
+    "date": "2026-05-15"
+  },
+  {
     "slug": "behavioural-consumption",
     "url": "/articles/behavioural-consumption",
     "title": "Behavioural Determinants of Consumption",
