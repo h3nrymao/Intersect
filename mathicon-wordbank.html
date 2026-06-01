@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathicon · Word Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1622;--ink-2:#0f1d2c;--panel:#122537;--panel-2:#16293c;
+    --line:rgba(120,200,220,.10);--line-strong:rgba(120,200,220,.18);
+    --cream:#ece7d8;--muted:#8aa2b0;--gold:#e6b84a;--cyan:#6fd6e6;--bad:#c45a4a;--ok:#2f9e57;
+    --c-alg:#6fd6e6;--c-cal:#e6b84a;--c-geo:#8fce6a;--c-rea:#c98ae0;--c-num:#e6896f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Spectral',Georgia,serif;color:var(--cream);
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(111,214,230,.07), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(230,184,74,.06), transparent 55%),
+      var(--ink);
+    min-height:100vh;position:relative;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:34px 34px;mask-image:radial-gradient(circle at 50% 0%,#000 70%,transparent 100%);
+  }
+  .wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:34px 20px 90px}
+
+  header{margin-bottom:22px}
+  .topline{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+  .brand{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(34px,6vw,54px);line-height:.9;letter-spacing:-.03em}
+  .brand .accent{color:var(--gold)}
+  .brand small{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;
+    letter-spacing:.22em;color:var(--cyan);text-transform:uppercase;margin-top:8px}
+  a.pill{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid var(--line-strong);border-radius:999px;padding:9px 16px;
+    background:rgba(111,214,230,.05);text-decoration:none;transition:.16s background,.16s border;white-space:nowrap;
+  }
+  a.pill:hover{background:rgba(111,214,230,.12);border-color:var(--cyan)}
+  .lede{font-style:italic;color:var(--muted);margin-top:14px;font-size:16px;max-width:640px;line-height:1.55}
+
+  /* toolbar */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 12px}
+  .search{
+    flex:1;min-width:200px;font-family:'Spectral',serif;font-size:16px;color:var(--cream);
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;outline:none;
+  }
+  .search:focus{border-color:var(--cyan)}
+  .search::placeholder{color:var(--muted);font-style:italic}
+  .filters{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line-strong);border-radius:999px;padding:8px 13px;
+    background:transparent;cursor:pointer;transition:.15s all;
+  }
+  .chip:hover{color:var(--cream)}
+  .chip.on{background:var(--cyan);color:var(--ink);border-color:var(--cyan);font-weight:600}
+
+  .counter{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin:0 0 8px 2px;letter-spacing:.05em}
+  .counter b{color:var(--gold)}
+
+  /* table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line-strong);border-radius:14px;background:rgba(15,29,44,.6)}
+  table{width:100%;border-collapse:collapse;min-width:760px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+  th{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);cursor:pointer;user-select:none;white-space:nowrap;position:sticky;top:0;
+    background:var(--ink-2);
+  }
+  th.sortable:hover{color:var(--cream)}
+  th .ar{color:var(--cyan)}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(111,214,230,.04)}
+  td.concept{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--cream)}
+  td.blurb{color:var(--muted);font-size:13px;font-style:italic;max-width:300px;line-height:1.4}
+  .cat{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.04em;
+    padding:3px 9px;border-radius:999px;border:1px solid;display:inline-block;white-space:nowrap}
+  .cat.Algebra{color:var(--c-alg);border-color:var(--c-alg)}
+  .cat.Calculus{color:var(--c-cal);border-color:var(--c-cal)}
+  .cat.Geometry{color:var(--c-geo);border-color:var(--c-geo)}
+  .cat[class*="Real"]{color:var(--c-rea);border-color:var(--c-rea)}
+  .cat[class*="Number"]{color:var(--c-num);border-color:var(--c-num)}
+  .mono{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cream)}
+  .yes{color:var(--ok);font-weight:600}.no{color:var(--muted)}
+  .del{background:none;border:1px solid var(--line-strong);color:var(--muted);border-radius:7px;
+    width:28px;height:28px;cursor:pointer;font-size:15px;line-height:1;transition:.15s all}
+  .del:hover{color:#fff;border-color:var(--bad);background:var(--bad)}
+
+  /* add form */
+  .card{margin-top:24px;border:1px solid var(--line-strong);border-radius:14px;
+    background:linear-gradient(180deg,var(--panel),var(--ink-2));padding:20px 20px 22px}
+  .card h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin-bottom:4px}
+  .card .hint{color:var(--muted);font-style:italic;font-size:14px;margin-bottom:16px}
+  .formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  input,select{width:100%;font-family:'Spectral',serif;font-size:15px;color:var(--cream);
+    background:var(--ink);border:1px solid var(--line-strong);border-radius:9px;padding:10px 11px;outline:none}
+  input:focus,select:focus{border-color:var(--cyan)}
+  .erawrap{display:flex;gap:6px}.erawrap input{width:70px}.erawrap select{flex:1}
+  .full{grid-column:1/-1}
+  .formbtns{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+  button.act{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.06em;
+    text-transform:uppercase;border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:.15s filter,.15s transform}
+  button.act:active{transform:translateY(1px)}
+  .primary{background:var(--gold);color:var(--ink)}.primary:hover{filter:brightness(1.08)}
+  .ghost{background:transparent;color:var(--muted);border:1px solid var(--line-strong)}
+  .ghost:hover{color:var(--cream);border-color:var(--cyan)}
+  .formmsg{font-style:italic;font-size:14px;color:var(--bad)}
+
+  /* export */
+  .export{margin-top:24px;border:1px dashed var(--line-strong);border-radius:14px;padding:20px}
+  .export h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600}
+  .export p{color:var(--muted);font-size:14px;margin:6px 0 14px;line-height:1.6}
+  .export code{font-family:'IBM Plex Mono',monospace;color:var(--cyan);font-size:13px}
+  textarea{width:100%;height:150px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cream);
+    background:var(--ink);border:1px solid var(--line-strong);border-radius:10px;padding:12px;resize:vertical;outline:none;margin-top:12px}
+  textarea:focus{border-color:var(--cyan)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--ok);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:11px 20px;
+    border-radius:10px;transition:.25s all;pointer-events:none;z-index:5}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="topline">
+      <div class="brand">math<span class="accent">icon</span><small>Word Bank</small></div>
+      <a class="pill" href="mathicon.html">← Back to the game</a>
+    </div>
+    <p class="lede">Every concept in the pool and its five clue attributes. Search, sort, add or remove entries, then <b style="color:var(--cream);font-style:normal">export</b> the updated data and paste it back into the game.</p>
+  </header>
+
+  <div class="toolbar">
+    <input class="search" id="search" placeholder="Search concepts or blurbs…">
+    <div class="filters" id="filters"></div>
+  </div>
+  <div class="counter" id="counter"></div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th class="sortable" data-k="n">Concept</th>
+        <th class="sortable" data-k="c">Category</th>
+        <th class="sortable" data-k="t">Type</th>
+        <th class="sortable" data-k="e">Era</th>
+        <th class="sortable" data-k="p">Named after<br>mathematician?</th>
+        <th class="sortable" data-k="d">Level</th>
+        <th>Summary</th>
+        <th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- add / edit -->
+  <div class="card">
+    <h3 id="formTitle">Add a concept</h3>
+    <p class="hint">Fill in the five clue attributes plus a one-line summary (shown when a round ends).</p>
+    <div class="formgrid">
+      <div class="full"><label>Concept name</label><input id="f_n" placeholder="e.g. Cauchy-Schwarz Inequality"></div>
+      <div><label>Category</label>
+        <select id="f_c">
+          <option>Algebra</option><option>Calculus</option><option>Geometry</option>
+          <option>Real Analysis</option><option>Number Theory</option>
+        </select>
+      </div>
+      <div><label>Type</label>
+        <select id="f_t">
+          <option>Theorem</option><option>Formula</option><option>Concept</option>
+          <option>Method</option><option>Definition</option><option>Conjecture</option>
+        </select>
+      </div>
+      <div><label>Era (century)</label>
+        <div class="erawrap"><input id="f_e" type="number" min="1" value="19">
+          <select id="f_era"><option value="CE">CE</option><option value="BCE">BCE</option></select>
+        </div>
+      </div>
+      <div><label>Named after mathematician?</label>
+        <select id="f_p"><option value="false">No</option><option value="true">Yes</option></select>
+      </div>
+      <div><label>Level (1–5)</label>
+        <select id="f_d">
+          <option value="1">1 · Foundational</option><option value="2">2 · Core</option>
+          <option value="3" selected>3 · Intermediate</option><option value="4">4 · Advanced</option>
+          <option value="5">5 · Research</option>
+        </select>
+      </div>
+      <div class="full"><label>One-line summary</label><input id="f_b" placeholder="A short, factual description of the concept."></div>
+    </div>
+    <div class="formbtns">
+      <button class="act primary" id="saveBtn">Add to bank</button>
+      <button class="act ghost" id="cancelBtn" style="display:none">Cancel edit</button>
+      <span class="formmsg" id="formMsg"></span>
+    </div>
+  </div>
+
+  <!-- export -->
+  <div class="export">
+    <h3>Export / save your changes</h3>
+    <p>Changes live in this page only. To keep them, copy the block below and paste it over the
+    <code>const DATA = [ … ];</code> array near the top of the <code>&lt;script&gt;</code> in both
+    <code>mathicon.html</code> and <code>mathicon-wordbank.html</code>.</p>
+    <div class="formbtns" style="margin-top:0">
+      <button class="act primary" id="copyBtn">Copy data block</button>
+      <button class="act ghost" id="dlBtn">Download .js file</button>
+    </div>
+    <textarea id="out" readonly></textarea>
+  </div>
+</div>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+/* ===== shared data (keep identical to mathicon.html) ===== */
+let DATA = [
+  {n:"Quadratic Formula",c:"Algebra",t:"Formula",e:9,p:false,d:1,b:"Solves ax²+bx+c=0 with x = (−b ± √(b²−4ac)) / 2a."},
+  {n:"Fundamental Theorem of Algebra",c:"Algebra",t:"Theorem",e:18,p:false,d:3,b:"Every non-constant complex polynomial has at least one complex root."},
+  {n:"Binomial Theorem",c:"Algebra",t:"Theorem",e:17,p:false,d:2,b:"Expands (a+b)ⁿ using binomial coefficients."},
+  {n:"Galois Theory",c:"Algebra",t:"Concept",e:19,p:true,d:5,b:"Links field extensions to group theory, settling solvability by radicals."},
+  {n:"Vieta's Formulas",c:"Algebra",t:"Formula",e:16,p:true,d:2,b:"Relate a polynomial's coefficients to sums and products of its roots."},
+  {n:"Cramer's Rule",c:"Algebra",t:"Method",e:18,p:true,d:2,b:"Solves linear systems using ratios of determinants."},
+  {n:"Eigenvalues",c:"Algebra",t:"Concept",e:19,p:false,d:3,b:"Scalars λ satisfying Av = λv for a matrix A and nonzero vector v."},
+  {n:"Cayley-Hamilton Theorem",c:"Algebra",t:"Theorem",e:19,p:true,d:4,b:"Every square matrix satisfies its own characteristic equation."},
+  {n:"Group Theory",c:"Algebra",t:"Concept",e:19,p:false,d:4,b:"The study of groups — algebraic structures that capture symmetry."},
+  {n:"Matrix Multiplication",c:"Algebra",t:"Method",e:19,p:false,d:2,b:"The row-by-column rule combining two matrices into one."},
+  {n:"Fundamental Theorem of Calculus",c:"Calculus",t:"Theorem",e:17,p:false,d:2,b:"Differentiation and integration are inverse operations."},
+  {n:"Chain Rule",c:"Calculus",t:"Method",e:17,p:false,d:1,b:"Differentiates a composite: (f∘g)' = f'(g)·g'."},
+  {n:"Product Rule",c:"Calculus",t:"Method",e:17,p:false,d:1,b:"Differentiates a product: (fg)' = f'g + fg'."},
+  {n:"L'Hôpital's Rule",c:"Calculus",t:"Method",e:17,p:true,d:2,b:"Evaluates 0/0 or ∞/∞ limits by differentiating top and bottom."},
+  {n:"Taylor Series",c:"Calculus",t:"Concept",e:18,p:true,d:3,b:"Represents a function as an infinite sum of derivative-based terms."},
+  {n:"Integration by Parts",c:"Calculus",t:"Method",e:17,p:false,d:2,b:"∫u dv = uv − ∫v du — the integral analogue of the product rule."},
+  {n:"Mean Value Theorem",c:"Calculus",t:"Theorem",e:17,p:false,d:3,b:"A differentiable function's average rate is hit at some interior point."},
+  {n:"Stokes' Theorem",c:"Calculus",t:"Theorem",e:19,p:true,d:4,b:"Relates a surface integral of curl to a line integral on its boundary."},
+  {n:"Green's Theorem",c:"Calculus",t:"Theorem",e:19,p:true,d:4,b:"Relates a region's double integral to a line integral on its boundary."},
+  {n:"Partial Derivatives",c:"Calculus",t:"Concept",e:18,p:false,d:2,b:"Rates of change of a multivariable function in one variable at a time."},
+  {n:"Pythagorean Theorem",c:"Geometry",t:"Theorem",e:-6,p:true,d:1,b:"In a right triangle, a² + b² = c²."},
+  {n:"Euclidean Geometry",c:"Geometry",t:"Concept",e:-3,p:true,d:2,b:"Geometry built from Euclid's axioms of points, lines and planes."},
+  {n:"Law of Cosines",c:"Geometry",t:"Theorem",e:-3,p:false,d:2,b:"c² = a² + b² − 2ab·cos C, generalising Pythagoras to any triangle."},
+  {n:"Law of Sines",c:"Geometry",t:"Theorem",e:11,p:false,d:2,b:"a/sin A = b/sin B = c/sin C in any triangle."},
+  {n:"Thales' Theorem",c:"Geometry",t:"Theorem",e:-6,p:true,d:1,b:"An angle inscribed in a semicircle is a right angle."},
+  {n:"Non-Euclidean Geometry",c:"Geometry",t:"Concept",e:19,p:false,d:4,b:"Geometries that reject Euclid's parallel postulate."},
+  {n:"Heron's Formula",c:"Geometry",t:"Formula",e:1,p:true,d:2,b:"Gives a triangle's area from its three side lengths."},
+  {n:"Inscribed Angle Theorem",c:"Geometry",t:"Theorem",e:-3,p:false,d:2,b:"An inscribed angle is half the central angle on the same arc."},
+  {n:"Euler Line",c:"Geometry",t:"Concept",e:18,p:true,d:3,b:"The line through a triangle's centroid, circumcentre and orthocentre."},
+  {n:"Ceva's Theorem",c:"Geometry",t:"Theorem",e:17,p:true,d:3,b:"The condition for three cevians of a triangle to be concurrent."},
+  {n:"Bolzano-Weierstrass Theorem",c:"Real Analysis",t:"Theorem",e:19,p:true,d:4,b:"Every bounded sequence in ℝⁿ has a convergent subsequence."},
+  {n:"Cauchy Sequence",c:"Real Analysis",t:"Definition",e:19,p:true,d:3,b:"A sequence whose terms eventually grow arbitrarily close together."},
+  {n:"Heine-Borel Theorem",c:"Real Analysis",t:"Theorem",e:20,p:true,d:4,b:"In ℝⁿ, a set is compact iff it is closed and bounded."},
+  {n:"Intermediate Value Theorem",c:"Real Analysis",t:"Theorem",e:19,p:false,d:2,b:"A continuous function takes every value between its endpoints."},
+  {n:"Riemann Integral",c:"Real Analysis",t:"Concept",e:19,p:true,d:3,b:"Defines the integral as a limit of partition (Riemann) sums."},
+  {n:"Lebesgue Measure",c:"Real Analysis",t:"Concept",e:20,p:true,d:5,b:"A rigorous notion of length, area and volume for measurable sets."},
+  {n:"Epsilon-Delta Definition",c:"Real Analysis",t:"Definition",e:19,p:false,d:3,b:"The formal ε–δ definition of a limit."},
+  {n:"Squeeze Theorem",c:"Real Analysis",t:"Theorem",e:19,p:false,d:2,b:"A function trapped between two with equal limits shares that limit."},
+  {n:"Uniform Continuity",c:"Real Analysis",t:"Concept",e:19,p:false,d:4,b:"Continuity with one δ that works uniformly across the whole domain."},
+  {n:"Monotone Convergence Theorem",c:"Real Analysis",t:"Theorem",e:20,p:false,d:4,b:"A bounded monotone sequence always converges."},
+  {n:"Fermat's Little Theorem",c:"Number Theory",t:"Theorem",e:17,p:true,d:3,b:"For a prime p, aᵖ ≡ a (mod p)."},
+  {n:"Chinese Remainder Theorem",c:"Number Theory",t:"Theorem",e:5,p:false,d:3,b:"Solves simultaneous congruences with pairwise-coprime moduli."},
+  {n:"Fundamental Theorem of Arithmetic",c:"Number Theory",t:"Theorem",e:-3,p:false,d:2,b:"Every integer > 1 factors uniquely into primes."},
+  {n:"Euler's Totient Function",c:"Number Theory",t:"Concept",e:18,p:true,d:3,b:"φ(n) counts the integers up to n that are coprime to n."},
+  {n:"Wilson's Theorem",c:"Number Theory",t:"Theorem",e:18,p:true,d:3,b:"(p−1)! ≡ −1 (mod p) if and only if p is prime."},
+  {n:"Modular Arithmetic",c:"Number Theory",t:"Concept",e:19,p:false,d:2,b:"Arithmetic where numbers wrap around a fixed modulus."},
+  {n:"Prime Number Theorem",c:"Number Theory",t:"Theorem",e:19,p:false,d:5,b:"The number of primes up to x is approximately x / ln x."},
+  {n:"Goldbach's Conjecture",c:"Number Theory",t:"Conjecture",e:18,p:true,d:4,b:"Every even integer > 2 is a sum of two primes (still unproven)."},
+  {n:"Bézout's Identity",c:"Number Theory",t:"Theorem",e:18,p:true,d:3,b:"gcd(a,b) = ax + by for some integers x and y."},
+  {n:"Euclid's Lemma",c:"Number Theory",t:"Theorem",e:-3,p:true,d:2,b:"If a prime divides a product, it divides one of the factors."}
+];
+
+const CATS=["Algebra","Calculus","Geometry","Real Analysis","Number Theory"];
+const LEVELS={1:"Foundational",2:"Core",3:"Intermediate",4:"Advanced",5:"Research"};
+let filterCat="All", query="", sortKey="c", sortDir=1, editIndex=-1;
+
+function ordinal(n){const s=["th","st","nd","rd"],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function eraText(c){return c<0 ? ordinal(Math.abs(c))+" C BCE" : ordinal(c)+" C CE";}
+
+/* ---- filters ---- */
+function buildFilters(){
+  const box=document.getElementById("filters");
+  box.innerHTML="";
+  ["All",...CATS].forEach(cat=>{
+    const b=document.createElement("button");
+    b.className="chip"+(cat===filterCat?" on":"");
+    b.textContent=cat;
+    b.onclick=()=>{filterCat=cat;buildFilters();render();};
+    box.appendChild(b);
+  });
+}
+
+function visible(){
+  let rows=DATA.map((x,i)=>({x,i}));
+  if(filterCat!=="All") rows=rows.filter(r=>r.x.c===filterCat);
+  if(query){const q=query.toLowerCase();rows=rows.filter(r=>r.x.n.toLowerCase().includes(q)||r.x.b.toLowerCase().includes(q));}
+  rows.sort((a,b)=>{
+    let A=a.x[sortKey],B=b.x[sortKey];
+    if(typeof A==="string"){A=A.toLowerCase();B=B.toLowerCase();}
+    if(A<B)return -1*sortDir; if(A>B)return 1*sortDir; return 0;
+  });
+  return rows;
+}
+
+function render(){
+  const tb=document.getElementById("tbody");
+  const rows=visible();
+  tb.innerHTML="";
+  rows.forEach(({x,i})=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td class="concept">${x.n}</td>
+      <td><span class="cat ${x.c.replace(/\s/g,'')} ${x.c}">${x.c}</span></td>
+      <td class="mono">${x.t}</td>
+      <td class="mono">${eraText(x.e)}</td>
+      <td>${x.p?'<span class="yes">Yes</span>':'<span class="no">No</span>'}</td>
+      <td class="mono">${x.d} · ${LEVELS[x.d]}</td>
+      <td class="blurb">${x.b}</td>
+      <td><button class="del" title="Remove">×</button></td>`;
+    tr.querySelector(".concept").style.cursor="pointer";
+    tr.querySelector(".concept").title="Click to edit";
+    tr.querySelector(".concept").onclick=()=>loadEdit(i);
+    tr.querySelector(".del").onclick=()=>{ if(confirm(`Remove "${x.n}"?`)){DATA.splice(i,1);render();syncExport();} };
+    tb.appendChild(tr);
+  });
+  document.getElementById("counter").innerHTML=`Showing <b>${rows.length}</b> of <b>${DATA.length}</b> concepts${filterCat!=="All"?` · ${filterCat}`:""}`;
+}
+
+/* ---- sorting ---- */
+document.querySelectorAll("th.sortable").forEach(th=>{
+  th.onclick=()=>{
+    const k=th.dataset.k;
+    if(sortKey===k) sortDir*=-1; else{sortKey=k;sortDir=1;}
+    document.querySelectorAll("th .ar").forEach(a=>a.remove());
+    const ar=document.createElement("span");ar.className="ar";ar.textContent=sortDir>0?" ▲":" ▼";th.appendChild(ar);
+    render();
+  };
+});
+
+/* ---- add / edit ---- */
+function loadEdit(i){
+  editIndex=i;const x=DATA[i];
+  document.getElementById("f_n").value=x.n;
+  document.getElementById("f_c").value=x.c;
+  document.getElementById("f_t").value=x.t;
+  document.getElementById("f_e").value=Math.abs(x.e);
+  document.getElementById("f_era").value=x.e<0?"BCE":"CE";
+  document.getElementById("f_p").value=String(x.p);
+  document.getElementById("f_d").value=String(x.d);
+  document.getElementById("f_b").value=x.b;
+  document.getElementById("formTitle").textContent=`Editing: ${x.n}`;
+  document.getElementById("saveBtn").textContent="Save changes";
+  document.getElementById("cancelBtn").style.display="inline-block";
+  document.getElementById("formMsg").textContent="";
+  window.scrollTo({top:document.querySelector(".card").offsetTop-20,behavior:"smooth"});
+}
+function resetForm(){
+  editIndex=-1;
+  ["f_n","f_b"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("f_e").value=19;document.getElementById("f_era").value="CE";
+  document.getElementById("f_p").value="false";document.getElementById("f_d").value="3";
+  document.getElementById("formTitle").textContent="Add a concept";
+  document.getElementById("saveBtn").textContent="Add to bank";
+  document.getElementById("cancelBtn").style.display="none";
+  document.getElementById("formMsg").textContent="";
+}
+document.getElementById("cancelBtn").onclick=resetForm;
+document.getElementById("saveBtn").onclick=()=>{
+  const msg=document.getElementById("formMsg");
+  const n=document.getElementById("f_n").value.trim();
+  const b=document.getElementById("f_b").value.trim();
+  let e=parseInt(document.getElementById("f_e").value,10);
+  if(!n){msg.textContent="Give the concept a name.";return;}
+  if(isNaN(e)||e<1){msg.textContent="Era must be a century ≥ 1.";return;}
+  if(document.getElementById("f_era").value==="BCE") e=-e;
+  const dup=DATA.findIndex(x=>x.n.toLowerCase()===n.toLowerCase());
+  if(dup!==-1 && dup!==editIndex){msg.textContent="A concept with that name already exists.";return;}
+  const entry={
+    n, c:document.getElementById("f_c").value, t:document.getElementById("f_t").value,
+    e, p:document.getElementById("f_p").value==="true", d:parseInt(document.getElementById("f_d").value,10),
+    b:b||"(no summary yet)"
+  };
+  if(editIndex>=0) DATA[editIndex]=entry; else DATA.push(entry);
+  resetForm();render();syncExport();
+  toast(editIndex>=0?"Updated!":"Added!");
+};
+
+/* ---- export ---- */
+function exportText(){
+  const lines=DATA.map(x=>`  {n:${JSON.stringify(x.n)}, c:${JSON.stringify(x.c)}, t:${JSON.stringify(x.t)}, e:${x.e}, p:${x.p}, d:${x.d}, b:${JSON.stringify(x.b)}}`);
+  return "const DATA = [\n"+lines.join(",\n")+"\n];";
+}
+function syncExport(){document.getElementById("out").value=exportText();}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1400);}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast("Copied!")).catch(()=>fallbackCopy(txt));
+  }else fallbackCopy(txt);
+}
+function fallbackCopy(txt){
+  const ta=document.getElementById("out");ta.focus();ta.select();
+  try{document.execCommand("copy");toast("Copied!");}catch(e){toast("Select the box & copy");}
+}
+document.getElementById("copyBtn").onclick=()=>copyText(exportText());
+document.getElementById("dlBtn").onclick=()=>{
+  const blob=new Blob([exportText()],{type:"text/javascript"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mathicon-data.js";a.click();
+  toast("Downloaded");
+};
+
+/* ---- search ---- */
+document.getElementById("search").addEventListener("input",e=>{query=e.target.value;render();});
+
+/* ---- init ---- */
+buildFilters();render();syncExport();
+</script>
+</body>
+</html>

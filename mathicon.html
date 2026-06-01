@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathicon · Math Revision Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b1622;--ink-2:#0f1d2c;--panel:#122537;--panel-2:#16293c;
+    --line:rgba(120,200,220,.10);--line-strong:rgba(120,200,220,.18);
+    --cream:#ece7d8;--muted:#8aa2b0;--gold:#e6b84a;--cyan:#6fd6e6;
+    --hit:#2f9e57;--hit-deep:#1d6f3d;--close:#c99a2e;--close-deep:#8a6716;
+    --miss:#27384a;--miss-line:#33485d;--bad:#c45a4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Spectral',Georgia,serif;color:var(--cream);
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(111,214,230,.07), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(230,184,74,.06), transparent 55%),
+      var(--ink);
+    min-height:100%;position:relative;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:34px 34px;
+    mask-image:radial-gradient(circle at 50% 30%,#000 60%,transparent 100%);
+  }
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:36px 20px 80px}
+
+  header{text-align:center;margin-bottom:18px}
+  .brand{
+    font-family:'Fraunces',serif;font-weight:900;
+    font-size:clamp(44px,9vw,78px);line-height:.9;letter-spacing:-.03em;color:var(--cream);
+  }
+  .brand .accent{color:var(--gold)}
+  .tagline{font-style:italic;color:var(--muted);font-size:clamp(15px,2.6vw,18px);margin-top:10px;font-weight:400}
+  .tagline b{color:var(--cream);font-style:normal;font-weight:500}
+
+  .mode-row{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:16px;flex-wrap:wrap}
+  .pill{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid var(--line-strong);border-radius:999px;
+    padding:7px 14px;background:rgba(111,214,230,.05);text-decoration:none;display:inline-block;
+  }
+  .pill b{color:var(--cream)}
+  a.pill{transition:.16s background,.16s border}
+  a.pill:hover{background:rgba(111,214,230,.12);border-color:var(--cyan)}
+
+  .guesser{display:flex;gap:10px;margin:22px 0 6px}
+  #guess{
+    flex:1;font-family:'Spectral',serif;font-size:18px;color:var(--cream);
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;padding:15px 16px;
+    outline:none;transition:.18s border,.18s box-shadow;
+  }
+  #guess::placeholder{color:var(--muted);font-style:italic}
+  #guess:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(111,214,230,.12)}
+  #submit{
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;letter-spacing:.06em;
+    color:var(--ink);background:var(--gold);border:none;border-radius:12px;padding:0 24px;cursor:pointer;
+    transition:.16s transform,.16s filter;text-transform:uppercase;
+  }
+  #submit:hover{filter:brightness(1.08)}
+  #submit:active{transform:translateY(1px)}
+  #submit:disabled{opacity:.4;cursor:not-allowed;filter:none}
+  .msg{min-height:22px;font-style:italic;color:var(--gold);font-size:15px;margin:4px 2px 0;text-align:center}
+  .msg.bad{color:var(--bad)}
+
+  .board{margin-top:4px;display:flex;flex-direction:column;gap:8px}
+  .grid6{display:grid;grid-template-columns:1.55fr .95fr .9fr .95fr 1.1fr .75fr;gap:6px}
+  .row{animation:drop .35s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  .cell{
+    border-radius:9px;padding:11px 6px 9px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    min-height:62px;border:1px solid transparent;
+  }
+  .cell .v{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;line-height:1.15;color:var(--cream)}
+  .cell .sub{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+  .cell.name{
+    background:var(--panel);border-color:var(--line-strong);
+    font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--cream);
+    text-align:left;align-items:flex-start;padding-left:14px;
+  }
+  .cell.name .idx{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:.1em}
+  .cell.hit{background:linear-gradient(180deg,var(--hit),var(--hit-deep));border-color:rgba(255,255,255,.08)}
+  .cell.close{background:linear-gradient(180deg,var(--close),var(--close-deep));border-color:rgba(255,255,255,.08)}
+  .cell.close .v,.cell.hit .v{color:#fff}
+  .cell.close .sub,.cell.hit .sub{color:rgba(255,255,255,.7)}
+  .cell.miss{background:var(--miss);border-color:var(--miss-line)}
+  .cell .arrow{font-size:15px;line-height:1;color:#fff;opacity:.95}
+
+  .head{
+    margin-bottom:2px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;
+    color:var(--muted);text-transform:uppercase;text-align:center;align-items:end;
+  }
+  .head div{padding-bottom:5px;line-height:1.25}
+  .head div:first-child{text-align:left;padding-left:14px}
+
+  .result{
+    margin-top:22px;padding:22px;border-radius:16px;border:1px solid var(--line-strong);
+    background:linear-gradient(180deg,var(--panel),var(--ink-2));text-align:center;animation:drop .4s both;
+  }
+  .result h2{font-family:'Fraunces',serif;font-size:26px;font-weight:900;letter-spacing:-.01em}
+  .result .ans{color:var(--gold)}
+  .result .blurb{font-style:italic;color:var(--cream);margin-top:10px;font-size:16px;line-height:1.5}
+  .result .tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
+  .result .tags span{border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .again{
+    margin-top:18px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink);background:var(--cyan);border:none;border-radius:10px;
+    padding:12px 22px;cursor:pointer;transition:.16s filter,.16s transform;
+  }
+  .again:hover{filter:brightness(1.08)}
+  .again:active{transform:translateY(1px)}
+
+  footer{text-align:center;margin-top:34px;color:var(--muted);font-size:13px;font-style:italic}
+  footer code{font-family:'IBM Plex Mono',monospace;font-style:normal;color:var(--cyan);font-size:12px}
+
+  @media(max-width:560px){
+    .grid6{grid-template-columns:1.4fr .9fr .85fr .9fr 1fr .7fr}
+    .cell .v{font-size:11px}
+    .cell.name{font-size:13px}
+    #submit{padding:0 16px}
+    .head{font-size:9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">math<span class="accent">icon</span></div>
+    <p class="tagline">A daily <b>math revision</b> game. Guess the concept in <b>8 tries</b> — every clue narrows it down.</p>
+    <div class="mode-row">
+      <span class="pill" id="modePill">Daily · <b id="modeLabel">loading</b></span>
+      <span class="pill">Pool · <b id="poolCount">50</b></span>
+      <a class="pill" href="mathicon-wordbank.html">▦ Word bank →</a>
+    </div>
+  </header>
+
+  <div class="guesser">
+    <input id="guess" list="concepts" autocomplete="off" placeholder="Type a math concept… (e.g. Chain Rule)">
+    <datalist id="concepts"></datalist>
+    <button id="submit">Guess</button>
+  </div>
+  <div class="msg" id="msg"></div>
+
+  <div class="head grid6">
+    <div>Guess</div><div>Category</div><div>Type</div><div>Era</div><div>Named after mathematician?</div><div>Level</div>
+  </div>
+  <div class="board" id="board"></div>
+
+  <div id="endzone"></div>
+
+  <footer>
+    🟩 exact · 🟨 close · ⬛ no match &nbsp;•&nbsp; arrows on <code>Era</code> &amp; <code>Level</code> point toward the answer.
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   MATHICON word bank.  Edit this list in the Word Bank portal and paste
+   the exported block back here (replace the whole `const DATA = [...]`).
+   e = century (negative = BCE)  ·  p = named after a mathematician  ·  d = level 1–5
+   ===================================================================== */
+const DATA = [
+  {n:"Quadratic Formula",c:"Algebra",t:"Formula",e:9,p:false,d:1,b:"Solves ax²+bx+c=0 with x = (−b ± √(b²−4ac)) / 2a."},
+  {n:"Fundamental Theorem of Algebra",c:"Algebra",t:"Theorem",e:18,p:false,d:3,b:"Every non-constant complex polynomial has at least one complex root."},
+  {n:"Binomial Theorem",c:"Algebra",t:"Theorem",e:17,p:false,d:2,b:"Expands (a+b)ⁿ using binomial coefficients."},
+  {n:"Galois Theory",c:"Algebra",t:"Concept",e:19,p:true,d:5,b:"Links field extensions to group theory, settling solvability by radicals."},
+  {n:"Vieta's Formulas",c:"Algebra",t:"Formula",e:16,p:true,d:2,b:"Relate a polynomial's coefficients to sums and products of its roots."},
+  {n:"Cramer's Rule",c:"Algebra",t:"Method",e:18,p:true,d:2,b:"Solves linear systems using ratios of determinants."},
+  {n:"Eigenvalues",c:"Algebra",t:"Concept",e:19,p:false,d:3,b:"Scalars λ satisfying Av = λv for a matrix A and nonzero vector v."},
+  {n:"Cayley-Hamilton Theorem",c:"Algebra",t:"Theorem",e:19,p:true,d:4,b:"Every square matrix satisfies its own characteristic equation."},
+  {n:"Group Theory",c:"Algebra",t:"Concept",e:19,p:false,d:4,b:"The study of groups — algebraic structures that capture symmetry."},
+  {n:"Matrix Multiplication",c:"Algebra",t:"Method",e:19,p:false,d:2,b:"The row-by-column rule combining two matrices into one."},
+  {n:"Fundamental Theorem of Calculus",c:"Calculus",t:"Theorem",e:17,p:false,d:2,b:"Differentiation and integration are inverse operations."},
+  {n:"Chain Rule",c:"Calculus",t:"Method",e:17,p:false,d:1,b:"Differentiates a composite: (f∘g)' = f'(g)·g'."},
+  {n:"Product Rule",c:"Calculus",t:"Method",e:17,p:false,d:1,b:"Differentiates a product: (fg)' = f'g + fg'."},
+  {n:"L'Hôpital's Rule",c:"Calculus",t:"Method",e:17,p:true,d:2,b:"Evaluates 0/0 or ∞/∞ limits by differentiating top and bottom."},
+  {n:"Taylor Series",c:"Calculus",t:"Concept",e:18,p:true,d:3,b:"Represents a function as an infinite sum of derivative-based terms."},
+  {n:"Integration by Parts",c:"Calculus",t:"Method",e:17,p:false,d:2,b:"∫u dv = uv − ∫v du — the integral analogue of the product rule."},
+  {n:"Mean Value Theorem",c:"Calculus",t:"Theorem",e:17,p:false,d:3,b:"A differentiable function's average rate is hit at some interior point."},
+  {n:"Stokes' Theorem",c:"Calculus",t:"Theorem",e:19,p:true,d:4,b:"Relates a surface integral of curl to a line integral on its boundary."},
+  {n:"Green's Theorem",c:"Calculus",t:"Theorem",e:19,p:true,d:4,b:"Relates a region's double integral to a line integral on its boundary."},
+  {n:"Partial Derivatives",c:"Calculus",t:"Concept",e:18,p:false,d:2,b:"Rates of change of a multivariable function in one variable at a time."},
+  {n:"Pythagorean Theorem",c:"Geometry",t:"Theorem",e:-6,p:true,d:1,b:"In a right triangle, a² + b² = c²."},
+  {n:"Euclidean Geometry",c:"Geometry",t:"Concept",e:-3,p:true,d:2,b:"Geometry built from Euclid's axioms of points, lines and planes."},
+  {n:"Law of Cosines",c:"Geometry",t:"Theorem",e:-3,p:false,d:2,b:"c² = a² + b² − 2ab·cos C, generalising Pythagoras to any triangle."},
+  {n:"Law of Sines",c:"Geometry",t:"Theorem",e:11,p:false,d:2,b:"a/sin A = b/sin B = c/sin C in any triangle."},
+  {n:"Thales' Theorem",c:"Geometry",t:"Theorem",e:-6,p:true,d:1,b:"An angle inscribed in a semicircle is a right angle."},
+  {n:"Non-Euclidean Geometry",c:"Geometry",t:"Concept",e:19,p:false,d:4,b:"Geometries that reject Euclid's parallel postulate."},
+  {n:"Heron's Formula",c:"Geometry",t:"Formula",e:1,p:true,d:2,b:"Gives a triangle's area from its three side lengths."},
+  {n:"Inscribed Angle Theorem",c:"Geometry",t:"Theorem",e:-3,p:false,d:2,b:"An inscribed angle is half the central angle on the same arc."},
+  {n:"Euler Line",c:"Geometry",t:"Concept",e:18,p:true,d:3,b:"The line through a triangle's centroid, circumcentre and orthocentre."},
+  {n:"Ceva's Theorem",c:"Geometry",t:"Theorem",e:17,p:true,d:3,b:"The condition for three cevians of a triangle to be concurrent."},
+  {n:"Bolzano-Weierstrass Theorem",c:"Real Analysis",t:"Theorem",e:19,p:true,d:4,b:"Every bounded sequence in ℝⁿ has a convergent subsequence."},
+  {n:"Cauchy Sequence",c:"Real Analysis",t:"Definition",e:19,p:true,d:3,b:"A sequence whose terms eventually grow arbitrarily close together."},
+  {n:"Heine-Borel Theorem",c:"Real Analysis",t:"Theorem",e:20,p:true,d:4,b:"In ℝⁿ, a set is compact iff it is closed and bounded."},
+  {n:"Intermediate Value Theorem",c:"Real Analysis",t:"Theorem",e:19,p:false,d:2,b:"A continuous function takes every value between its endpoints."},
+  {n:"Riemann Integral",c:"Real Analysis",t:"Concept",e:19,p:true,d:3,b:"Defines the integral as a limit of partition (Riemann) sums."},
+  {n:"Lebesgue Measure",c:"Real Analysis",t:"Concept",e:20,p:true,d:5,b:"A rigorous notion of length, area and volume for measurable sets."},
+  {n:"Epsilon-Delta Definition",c:"Real Analysis",t:"Definition",e:19,p:false,d:3,b:"The formal ε–δ definition of a limit."},
+  {n:"Squeeze Theorem",c:"Real Analysis",t:"Theorem",e:19,p:false,d:2,b:"A function trapped between two with equal limits shares that limit."},
+  {n:"Uniform Continuity",c:"Real Analysis",t:"Concept",e:19,p:false,d:4,b:"Continuity with one δ that works uniformly across the whole domain."},
+  {n:"Monotone Convergence Theorem",c:"Real Analysis",t:"Theorem",e:20,p:false,d:4,b:"A bounded monotone sequence always converges."},
+  {n:"Fermat's Little Theorem",c:"Number Theory",t:"Theorem",e:17,p:true,d:3,b:"For a prime p, aᵖ ≡ a (mod p)."},
+  {n:"Chinese Remainder Theorem",c:"Number Theory",t:"Theorem",e:5,p:false,d:3,b:"Solves simultaneous congruences with pairwise-coprime moduli."},
+  {n:"Fundamental Theorem of Arithmetic",c:"Number Theory",t:"Theorem",e:-3,p:false,d:2,b:"Every integer > 1 factors uniquely into primes."},
+  {n:"Euler's Totient Function",c:"Number Theory",t:"Concept",e:18,p:true,d:3,b:"φ(n) counts the integers up to n that are coprime to n."},
+  {n:"Wilson's Theorem",c:"Number Theory",t:"Theorem",e:18,p:true,d:3,b:"(p−1)! ≡ −1 (mod p) if and only if p is prime."},
+  {n:"Modular Arithmetic",c:"Number Theory",t:"Concept",e:19,p:false,d:2,b:"Arithmetic where numbers wrap around a fixed modulus."},
+  {n:"Prime Number Theorem",c:"Number Theory",t:"Theorem",e:19,p:false,d:5,b:"The number of primes up to x is approximately x / ln x."},
+  {n:"Goldbach's Conjecture",c:"Number Theory",t:"Conjecture",e:18,p:true,d:4,b:"Every even integer > 2 is a sum of two primes (still unproven)."},
+  {n:"Bézout's Identity",c:"Number Theory",t:"Theorem",e:18,p:true,d:3,b:"gcd(a,b) = ax + by for some integers x and y."},
+  {n:"Euclid's Lemma",c:"Number Theory",t:"Theorem",e:-3,p:true,d:2,b:"If a prime divides a product, it divides one of the factors."}
+];
+
+const MAX = 8;
+let answer, guesses, over;
+
+function ordinal(n){const s=["th","st","nd","rd"],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function eraText(c){return c<0 ? ordinal(Math.abs(c))+" C BCE" : ordinal(c)+" C CE";}
+const LEVELS={1:"Foundational",2:"Core",3:"Intermediate",4:"Advanced",5:"Research"};
+
+function dailyIndex(){
+  const d=new Date();
+  const key=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  let x=key,h=2166136261;
+  while(x>0){h^=x&255;h=Math.imul(h,16777619);x=Math.floor(x/256);}
+  return Math.abs(h)%DATA.length;
+}
+
+function setup(mode){
+  if(mode==="daily"){
+    answer=DATA[dailyIndex()];
+    document.getElementById("modePill").firstChild.textContent="Daily · ";
+    document.getElementById("modeLabel").textContent=new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"});
+  }else{
+    answer=DATA[Math.floor(Math.random()*DATA.length)];
+    document.getElementById("modePill").firstChild.textContent="Practice · ";
+    document.getElementById("modeLabel").textContent="random";
+  }
+  guesses=[];over=false;
+  document.getElementById("board").innerHTML="";
+  document.getElementById("endzone").innerHTML="";
+  const msg=document.getElementById("msg");msg.textContent="";msg.className="msg";
+  const inp=document.getElementById("guess");
+  inp.value="";inp.disabled=false;
+  document.getElementById("submit").disabled=false;
+  inp.focus();
+}
+
+function buildRow(item){
+  const row=document.createElement("div");
+  row.className="row grid6";
+  const idx=guesses.length+1;
+  let html=`<div class="cell name"><span class="idx">#${idx}</span>${item.n}</div>`;
+
+  html+=`<div class="cell ${item.c===answer.c?'hit':'miss'}"><span class="v">${item.c}</span></div>`;
+  html+=`<div class="cell ${item.t===answer.t?'hit':'miss'}"><span class="v">${item.t}</span></div>`;
+
+  let eCls="miss",eArrow="";const diff=item.e-answer.e;
+  if(diff===0) eCls="hit"; else{eArrow=diff<0?"↑":"↓"; if(Math.abs(diff)<=2) eCls="close";}
+  html+=`<div class="cell ${eCls}"><span class="v">${eraText(item.e)}</span>${eArrow?`<span class="arrow">${eArrow}</span>`:""}</div>`;
+
+  html+=`<div class="cell ${item.p===answer.p?'hit':'miss'}"><span class="v">${item.p?'Yes':'No'}</span></div>`;
+
+  let dCls="miss",dArrow="";const dd=item.d-answer.d;
+  if(dd===0) dCls="hit"; else{dArrow=dd<0?"↑":"↓"; if(Math.abs(dd)===1) dCls="close";}
+  html+=`<div class="cell ${dCls}"><span class="v">Lv ${item.d}</span><span class="sub">${LEVELS[item.d]}</span>${dArrow?`<span class="arrow">${dArrow}</span>`:""}</div>`;
+
+  row.innerHTML=html;return row;
+}
+
+function endGame(won){
+  over=true;
+  document.getElementById("guess").disabled=true;
+  document.getElementById("submit").disabled=true;
+  const z=document.getElementById("endzone");
+  const head=won
+    ?`<h2>Solved in ${guesses.length} ${guesses.length===1?'try':'tries'}! 🎉</h2><h2 style="margin-top:6px"><span class="ans">${answer.n}</span></h2>`
+    :`<h2>Out of guesses — it was <span class="ans">${answer.n}</span></h2>`;
+  z.innerHTML=`
+    <div class="result">
+      ${head}
+      <p class="blurb">${answer.b}</p>
+      <div class="tags">
+        <span>${answer.c}</span><span>${answer.t}</span><span>${eraText(answer.e)}</span>
+        <span>${answer.p?'Named after a mathematician':'Not eponymous'}</span>
+        <span>Level ${answer.d} · ${LEVELS[answer.d]}</span>
+      </div>
+      <button class="again" id="again">Play a random concept →</button>
+    </div>`;
+  document.getElementById("again").onclick=()=>setup("practice");
+}
+
+function submit(){
+  if(over) return;
+  const inp=document.getElementById("guess");
+  const raw=inp.value.trim();
+  const msg=document.getElementById("msg");
+  if(!raw) return;
+  const item=DATA.find(x=>x.n.toLowerCase()===raw.toLowerCase());
+  if(!item){msg.className="msg bad";msg.textContent=`"${raw}" isn't in the pool — pick from the suggestions.`;return;}
+  if(guesses.some(g=>g.n===item.n)){msg.className="msg bad";msg.textContent="You've already guessed that one.";return;}
+  msg.className="msg";msg.textContent="";
+  guesses.push(item);
+  document.getElementById("board").appendChild(buildRow(item));
+  inp.value="";
+  if(item.n===answer.n) endGame(true);
+  else if(guesses.length>=MAX) endGame(false);
+  else{msg.textContent=`${MAX-guesses.length} ${MAX-guesses.length===1?'guess':'guesses'} left.`;inp.focus();}
+}
+
+(function(){
+  const dl=document.getElementById("concepts");
+  DATA.slice().sort((a,b)=>a.n.localeCompare(b.n)).forEach(x=>{
+    const o=document.createElement("option");o.value=x.n;dl.appendChild(o);
+  });
+  document.getElementById("poolCount").textContent=DATA.length;
+  document.getElementById("submit").addEventListener("click",submit);
+  document.getElementById("guess").addEventListener("keydown",e=>{if(e.key==="Enter")submit();});
+  setup("daily");
+})();
+</script>
+</body>
+</html>
