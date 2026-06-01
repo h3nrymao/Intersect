@@ -1,5 +1,17 @@
 [
   {
+    "slug": "dutch-disease",
+    "url": "/articles/dutch-disease",
+    "title": "What the Dutch Disease Tells Us About Taiwan's Semiconductor Dependency",
+    "blurb": "Six decades of gas wealth hollowed out Dutch manufacturing. Walking through Groningen, the parallels with Taiwan's reliance on TSMC are hard to miss.",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "tag": "Economics",
+    "category": "economics",
+    "author": "Henry Mao",
+    "readTime": "5 min read",
+    "date": "2026-06-01"
+  },
+  {
     "slug": "behavioural-consumption",
     "url": "/articles/behavioural-consumption",
     "title": "Behavioural Determinants of Consumption",
