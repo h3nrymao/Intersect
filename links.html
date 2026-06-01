@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Links — Henry Mao</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <style>
   @font-face {
     font-family: 'Century Schoolbook';
@@ -59,41 +60,21 @@
     justify-content: center;
     align-items: center;
     gap: 1.4rem;
+    font-size: 26px;
   }
   .link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 1em;
+    height: 1em;
     color: var(--ink);
+    text-decoration: none;
     transition: color 0.2s ease, transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
   }
   .link:hover { color: var(--accent); transform: translateY(-2px); }
-
-  .icon {
-    width: 26px;
-    height: 26px;
-    background-color: currentColor;
-    -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-            mask-position: center;
-    -webkit-mask-size: contain;
-            mask-size: contain;
-    display: block;
-  }
-  .icon-email     { -webkit-mask-image: url(https://cdn.simpleicons.org/gmail);      mask-image: url(https://cdn.simpleicons.org/gmail); }
-  .icon-linkedin  { -webkit-mask-image: url(https://cdn.simpleicons.org/linkedin);   mask-image: url(https://cdn.simpleicons.org/linkedin); }
-  .icon-x         { -webkit-mask-image: url(https://cdn.simpleicons.org/x);          mask-image: url(https://cdn.simpleicons.org/x); }
-  .icon-github    { -webkit-mask-image: url(https://cdn.simpleicons.org/github);     mask-image: url(https://cdn.simpleicons.org/github); }
-  .icon-instagram { -webkit-mask-image: url(https://cdn.simpleicons.org/instagram);  mask-image: url(https://cdn.simpleicons.org/instagram); }
-  .icon-tiktok    { -webkit-mask-image: url(https://cdn.simpleicons.org/tiktok);     mask-image: url(https://cdn.simpleicons.org/tiktok); }
-  .icon-youtube   { -webkit-mask-image: url(https://cdn.simpleicons.org/youtube);    mask-image: url(https://cdn.simpleicons.org/youtube); }
-  .icon-spotify   { -webkit-mask-image: url(https://cdn.simpleicons.org/spotify);    mask-image: url(https://cdn.simpleicons.org/spotify); }
-  .icon-letterboxd{ -webkit-mask-image: url(https://cdn.simpleicons.org/letterboxd); mask-image: url(https://cdn.simpleicons.org/letterboxd); }
-  .icon-strava    { -webkit-mask-image: url(https://cdn.simpleicons.org/strava);     mask-image: url(https://cdn.simpleicons.org/strava); }
-  .icon-pinterest { -webkit-mask-image: url(https://cdn.simpleicons.org/pinterest);  mask-image: url(https://cdn.simpleicons.org/pinterest); }
-  .icon-facebook  { -webkit-mask-image: url(https://cdn.simpleicons.org/facebook);   mask-image: url(https://cdn.simpleicons.org/facebook); }
-  .icon-snapchat  { -webkit-mask-image: url(https://cdn.simpleicons.org/snapchat);   mask-image: url(https://cdn.simpleicons.org/snapchat); }
+  .link i, .link svg { font-size: 1em; width: 1em; height: 1em; display: block; line-height: 1; }
+  .link svg { fill: currentColor; }
 
   footer {
     margin-top: 2.6rem;
@@ -113,19 +94,21 @@
     <div class="divider"></div>
 
     <nav class="links" aria-label="Social links">
-      <a class="link" href="mailto:henrymaohl@gmail.com" aria-label="Email"><span class="icon icon-email"></span></a>
-      <a class="link" href="https://www.linkedin.com/in/maohenry/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><span class="icon icon-linkedin"></span></a>
-      <a class="link" href="https://x.com/h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="X"><span class="icon icon-x"></span></a>
-      <a class="link" href="https://github.com/h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><span class="icon icon-github"></span></a>
-      <a class="link" href="https://www.instagram.com/h3nrymao/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><span class="icon icon-instagram"></span></a>
-      <a class="link" href="https://www.tiktok.com/@maohenry" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><span class="icon icon-tiktok"></span></a>
-      <a class="link" href="https://www.youtube.com/@h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><span class="icon icon-youtube"></span></a>
-      <a class="link" href="https://open.spotify.com/user/21fjkyrp24vy6mwiizjf4xiqq" target="_blank" rel="noopener noreferrer" aria-label="Spotify"><span class="icon icon-spotify"></span></a>
-      <a class="link" href="https://letterboxd.com/henrymao/" target="_blank" rel="noopener noreferrer" aria-label="Letterboxd"><span class="icon icon-letterboxd"></span></a>
-      <a class="link" href="https://www.strava.com/athletes/henrymao" target="_blank" rel="noopener noreferrer" aria-label="Strava"><span class="icon icon-strava"></span></a>
-      <a class="link" href="https://au.pinterest.com/h3nrymao/" target="_blank" rel="noopener noreferrer" aria-label="Pinterest"><span class="icon icon-pinterest"></span></a>
-      <a class="link" href="https://www.facebook.com/henry.mao.975010/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><span class="icon icon-facebook"></span></a>
-      <a class="link" href="https://snapchat.com/t/nwby3CkC" target="_blank" rel="noopener noreferrer" aria-label="Snapchat"><span class="icon icon-snapchat"></span></a>
+      <a class="link" href="mailto:henrymaohl@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a class="link" href="https://www.linkedin.com/in/maohenry/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a class="link" href="https://x.com/h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a class="link" href="https://github.com/h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a class="link" href="https://www.instagram.com/h3nrymao/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a class="link" href="https://www.tiktok.com/@maohenry" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a class="link" href="https://www.youtube.com/@h3nrymao" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a class="link" href="https://open.spotify.com/user/21fjkyrp24vy6mwiizjf4xiqq" target="_blank" rel="noopener noreferrer" aria-label="Spotify"><i class="fa-brands fa-spotify"></i></a>
+      <a class="link" href="https://letterboxd.com/henrymao/" target="_blank" rel="noopener noreferrer" aria-label="Letterboxd">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="3.4"/><circle cx="12" cy="12" r="3.4"/><circle cx="19" cy="12" r="3.4"/></svg>
+      </a>
+      <a class="link" href="https://www.strava.com/athletes/henrymao" target="_blank" rel="noopener noreferrer" aria-label="Strava"><i class="fa-brands fa-strava"></i></a>
+      <a class="link" href="https://au.pinterest.com/h3nrymao/" target="_blank" rel="noopener noreferrer" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+      <a class="link" href="https://www.facebook.com/henry.mao.975010/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a class="link" href="https://snapchat.com/t/nwby3CkC" target="_blank" rel="noopener noreferrer" aria-label="Snapchat"><i class="fa-brands fa-snapchat"></i></a>
     </nav>
 
     <footer>© Henry Mao</footer>
