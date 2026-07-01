@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Owns the Cryptocurrency? Recalibrating Custody Regulation for Insolvency Risk and Proprietary Protection &mdash; Intersect by Henry Mao</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Century Schoolbook';
+    src: local('Century Schoolbook'), local('CenturySchoolbook'), local('Century Schoolbook L');
+  }
+  :root {
+    --ink: #1a1a1a; --cream: #fafaf7; --accent: #c45830; --muted: #999;
+    --border: #e8e5de; --parchment: #eeeae3;
+    --body-font: 'Century Schoolbook', Georgia, serif;
+    --ui-font: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--body-font); background: var(--cream); color: var(--ink); line-height: 1.75; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,247,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; }
+  .logo { font-family: var(--body-font); font-size: 1.5rem; font-weight: 800; color: var(--ink); cursor: pointer; letter-spacing: -0.02em; text-decoration: none; }
+  .logo-sub { color: var(--accent); font-weight: 400; font-style: italic; margin-left: 6px; font-size: 1.1rem; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-link { font-family: var(--ui-font); font-size: 0.82rem; font-weight: 700; text-decoration: none; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.2s; }
+  .nav-link:hover { color: var(--accent); }
+
+  .hero { padding: 7rem 1.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%); }
+  .hero-line-v { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100%; background: #ddd8cf; opacity: 0.3; }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tagline { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 1.8rem; }
+  .hero h1 { font-family: var(--body-font); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 0.5rem; letter-spacing: -0.04em; color: var(--ink); }
+  .hero h1 .byline { display: block; font-weight: 400; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.8rem); color: var(--accent); margin-top: 0.6rem; padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .hero-desc { font-family: var(--body-font); font-size: 1.2rem; color: #888; max-width: 520px; margin: 0 auto 3rem; line-height: 1.7; font-style: italic; }
+  .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .hero-tag { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.4rem 1rem; border: 1.5px solid #ddd; border-radius: 2px; color: var(--muted); }
+
+  .cat-bar { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  .cat-btn { font-family: var(--ui-font); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.5rem 1.1rem; border: 1.5px solid #ddd; border-radius: 2px; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s ease; }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .section { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
+  .section-label { font-family: var(--ui-font); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #e0ddd6; }
+
+  .card { background: white; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s ease; cursor: pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .card-static { background: white; border-radius: 6px; overflow: hidden; border: 2px dashed #ddd; }
+
+  .tag-pill { font-family: var(--ui-font); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 0.4rem 1rem; border-radius: 2px; display: inline-block; }
+  .meta-text { font-family: var(--ui-font); font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+  .meta-text .author { font-weight: 800; color: #555; }
+  .meta-text .divider { color: #ddd; margin: 0 0.5rem; }
+
+  .featured-grid { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .featured-thumb { min-height: 340px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .featured-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+  .featured-thumb .tag-pill { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--accent); color: white; z-index: 1; }
+  .featured-body { padding: 2.8rem; }
+  .featured-body h2 { font-family: var(--body-font); font-size: 1.7rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .featured-body p { color: #777; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.8; }
+
+  .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+  .article-thumb { height: 180px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .article-thumb .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .article-thumb .tag-pill { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.92); color: var(--ink); z-index: 1; }
+  .article-body { padding: 1.8rem; }
+  .article-body h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+  .article-body p { font-size: 0.9rem; color: #888; line-height: 1.7; margin-bottom: 1rem; }
+
+  .newsletter { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 3rem; }
+  .newsletter-inner { background: var(--ink); border-radius: 6px; padding: 4rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .newsletter-grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 44px 44px; }
+  .newsletter-content { position: relative; }
+  .newsletter-content h2 { font-family: var(--body-font); color: var(--cream); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .newsletter-content p { color: rgba(250,250,247,0.45); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--body-font); }
+  .newsletter-form { display: flex; gap: 0.7rem; max-width: 440px; margin: auto; }
+  .newsletter-form input { flex: 1; padding: 0.9rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: var(--cream); font-family: var(--ui-font); font-size: 0.9rem; font-weight: 600; border-radius: 3px; outline: none; }
+  .newsletter-form input::placeholder { color: rgba(250,250,247,0.35); }
+  .newsletter-form input:focus { border-color: var(--accent); }
+  .newsletter-form button { padding: 0.9rem 1.8rem; background: var(--accent); color: white; border: none; font-family: var(--ui-font); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .newsletter-form button:hover { background: #a84a28; }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; }
+  .footer-title { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .footer-copy { font-family: var(--ui-font); font-size: 0.72rem; color: #bbb; font-weight: 600; }
+
+  .article-page { max-width: 720px; margin: auto; padding: 3rem 1.5rem 5rem; display: none; }
+  .back-btn { background: none; border: none; cursor: pointer; font-family: var(--ui-font); font-size: 0.88rem; font-weight: 700; color: #888; display: flex; align-items: center; gap: 0.5rem; padding: 0; margin-bottom: 2.5rem; transition: color 0.2s; text-decoration: none; }
+  .back-btn:hover { color: var(--accent); }
+  .article-page h1 { font-family: var(--body-font); font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin: 0.8rem 0 1.2rem; letter-spacing: -0.025em; }
+  .article-page .accent-bar { height: 4px; width: 55px; background: var(--accent); border-radius: 2px; margin-bottom: 2.5rem; }
+  .article-hero-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; margin-bottom: 2rem; }
+  .article-content h2 { font-family: var(--body-font); font-size: 1.6rem; font-weight: 800; margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.02em; line-height: 1.25; }
+  .article-content h2:first-child { margin-top: 0; }
+  .article-content h3 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 800; margin: 2rem 0 0.8rem; color: var(--accent); letter-spacing: -0.01em; line-height: 1.3; }
+  html { scroll-behavior: smooth; }
+  sup.fn { font-family: var(--ui-font); font-size: 0.62em; line-height: 0; font-weight: 700; }
+  sup.fn a { color: var(--accent); text-decoration: none; padding: 0 1px; }
+  sup.fn a:hover { text-decoration: underline; }
+  sup.fn a:target, .cat-tags .tag-pill { }
+  .notes-section { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .notes-section h2 { font-family: var(--body-font); font-size: 1.4rem; font-weight: 800; margin-bottom: 1.4rem; letter-spacing: -0.02em; }
+  .notes-section ol { padding-left: 1.6rem; }
+  .notes-section li { font-family: var(--body-font); font-size: 0.92rem; line-height: 1.65; color: #555; margin-bottom: 0.7rem; scroll-margin-top: 90px; }
+  .notes-section li::marker { color: var(--accent); font-weight: 700; }
+  .notes-section em { font-style: italic; }
+  .notes-section a { color: var(--accent); text-decoration: none; word-break: break-word; }
+  .notes-section a:hover { text-decoration: underline; }
+  .fn-back { margin-left: 4px; font-family: var(--ui-font); text-decoration: none; }
+  .article-content sup.fn a:target { background: rgba(196,88,48,0.15); }
+  .article-content [id^="fnref-"] { scroll-margin-top: 90px; }
+  .cat-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .article-content p { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; color: #2a2a2a; margin-bottom: 1.4rem; }
+  .article-content strong { font-weight: 800; color: var(--ink); }
+  .article-content em { font-style: italic; }
+  .article-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .article-content a:hover { color: #a84a28; }
+  .article-content blockquote { border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 2rem 0; background: rgba(196,88,48,0.04); border-radius: 0 5px 5px 0; font-style: italic; color: #4a4a4a; font-size: 1.1rem; }
+  .article-content ol, .article-content ul { padding-left: 1.5rem; margin-bottom: 1.4rem; }
+  .article-content li { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.95; margin-bottom: 0.5rem; color: #2a2a2a; }
+  .article-footer { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; }
+
+  .about-page { max-width: 800px; margin: auto; padding: 4rem 1.5rem 5rem; display: none; }
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: start; }
+  .about-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 6px; border: 3px solid var(--border); display: block; }
+  .about-name { font-family: var(--body-font); font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .about-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .about-header .about-name { margin-bottom: 0; }
+  .about-socials { display: flex; gap: 0.55rem; }
+  .about-socials a { display: flex; color: var(--muted); transition: color 0.2s; }
+  .about-socials a:hover { color: var(--accent); }
+  .about-socials svg { width: 22px; height: 22px; }
+  .about-role { font-family: var(--ui-font); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 1.5rem; }
+  .about-text { font-family: var(--body-font); font-size: 1.1rem; line-height: 1.9; color: #444; margin-bottom: 1.2rem; }
+
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+
+  .coming-soon-body { padding: 2.5rem 1.8rem; text-align: center; }
+  .coming-soon-body .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .coming-soon-body h3 { font-family: var(--body-font); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+  .coming-soon-body p { font-size: 0.88rem; color: #bbb; }
+
+  @media (max-width: 768px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .about-photo { margin: 0 auto 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">Intersect<span class="logo-sub">by Henry Mao</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="/" style="color:var(--accent)">Articles</a>
+      <a class="nav-link" href="/about">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="article-page" style="display:block">
+  <a class="back-btn" href="/">&larr; All articles</a>
+
+  <!-- CATEGORIES -->
+  <div class="cat-tags">
+    <span class="tag-pill" style="background:#c45830;color:#fff;">LAW</span>
+    <span class="tag-pill" style="background:transparent;border:1.5px solid #ddd;color:#999;">TECHNOLOGY</span>
+    <span class="tag-pill" style="background:transparent;border:1.5px solid #ddd;color:#999;">ECONOMICS</span>
+  </div>
+
+  <!-- TITLE -->
+  <h1>Who Owns the Cryptocurrency? Recalibrating Custody Regulation for Insolvency Risk and Proprietary Protection</h1>
+
+  <!-- BYLINE: author | date | read time -->
+  <div class="meta-text" style="margin-bottom:2rem;display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+    <span class="author">Henry Mao</span><span class="divider">|</span><span>1 July 2026</span><span class="divider">|</span><span>13 min read</span>
+  </div>
+
+  <div class="accent-bar"></div>
+
+  <!-- HERO -->
+  <div class="article-hero-img" style="padding:0;overflow:hidden;">
+<svg style="width:100%;height:100%;display:block" viewBox="0 0 1200 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A digital coin secured in a keyhole, held between two institutional columns">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14110f"/>
+      <stop offset="0.55" stop-color="#241c18"/>
+      <stop offset="1" stop-color="#b34d28"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c45830" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#c45830" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="380" fill="url(#bg)"/>
+  <!-- faint texture hairlines -->
+  <g stroke="#fafaf7" stroke-opacity="0.05">
+    <line x1="150" y1="0" x2="150" y2="380"/><line x1="450" y1="0" x2="450" y2="380"/>
+    <line x1="750" y1="0" x2="750" y2="380"/><line x1="1050" y1="0" x2="1050" y2="380"/>
+  </g>
+  <!-- institutional columns (custodians) -->
+  <g stroke="#fafaf7" stroke-opacity="0.22" fill="none" stroke-width="1.5">
+    <g transform="translate(255,0)">
+      <rect x="-26" y="78" width="52" height="14"/><rect x="-30" y="290" width="60" height="16"/>
+      <line x1="-20" y1="92" x2="-20" y2="290"/><line x1="-7" y1="92" x2="-7" y2="290"/>
+      <line x1="7" y1="92" x2="7" y2="290"/><line x1="20" y1="92" x2="20" y2="290"/>
+    </g>
+    <g transform="translate(945,0)">
+      <rect x="-26" y="78" width="52" height="14"/><rect x="-30" y="290" width="60" height="16"/>
+      <line x1="-20" y1="92" x2="-20" y2="290"/><line x1="-7" y1="92" x2="-7" y2="290"/>
+      <line x1="7" y1="92" x2="7" y2="290"/><line x1="20" y1="92" x2="20" y2="290"/>
+    </g>
+  </g>
+  <!-- suspension line -->
+  <line x1="600" y1="20" x2="600" y2="118" stroke="#fafaf7" stroke-opacity="0.28" stroke-width="1.5"/>
+  <circle cx="600" cy="20" r="4" fill="#fafaf7" fill-opacity="0.4"/>
+  <!-- glow + coin -->
+  <circle cx="600" cy="192" r="120" fill="url(#glow)"/>
+  <circle cx="600" cy="192" r="74" fill="none" stroke="#fafaf7" stroke-width="2.5"/>
+  <!-- fractured custody ring (insolvency) -->
+  <path d="M 600 132 A 60 60 0 1 1 548 222" fill="none" stroke="#e8926b" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+  <!-- keyhole (not your keys, not your coins) -->
+  <circle cx="600" cy="178" r="12" fill="#fafaf7"/>
+  <path d="M 592 186 L 588 220 L 612 220 L 608 186 Z" fill="#fafaf7"/>
+  <!-- drifting tokens -->
+  <circle cx="405" cy="150" r="6" fill="none" stroke="#e8926b" stroke-width="1.5" stroke-opacity="0.7"/>
+  <circle cx="800" cy="250" r="5" fill="none" stroke="#fafaf7" stroke-width="1.5" stroke-opacity="0.4"/>
+  <circle cx="770" cy="120" r="3.5" fill="#e8926b" fill-opacity="0.6"/>
+  <circle cx="430" cy="255" r="3.5" fill="#fafaf7" fill-opacity="0.35"/>
+</svg>
+
+  </div>
+
+  <div class="article-content">
+    <h2>I. Introduction</h2>
+    <p>The global cryptocurrency market capitalisation sits at US$2.3 trillion.<sup class="fn"><a id="fnref-1" href="#fn-1">1</a></sup> But cryptocurrencies like Bitcoin only have 12% held in exchanges and have been in gradual decline since 2019.<sup class="fn"><a id="fnref-2" href="#fn-2">2</a></sup> This is likely attributed to the collapse of Celsius, Voyager, FTX, BlockFi and Genesis in 2022, which left customers unable to access their funds, leading to product distrust.<sup class="fn"><a id="fnref-3" href="#fn-3">3</a></sup> The exchange FTX alone owed more than US$3 billion to unsecured creditors.<sup class="fn"><a id="fnref-4" href="#fn-4">4</a></sup> The critical question in these scenarios is: when the platform has collapsed, who owns the cryptocurrency?</p>
+    <p>In the <em>Corporations Amendment (Digital Assets Framework) Act 2026</em> (Cth) (CADAF), Australia is modernising its digital asset regulatory framework by including digital asset and tokenised custody platforms as financial products,<sup class="fn"><a id="fnref-5" href="#fn-5">5</a></sup> bringing operators within the Australian Financial Services (AFS) regime,<sup class="fn"><a id="fnref-6" href="#fn-6">6</a></sup> and allowing ASIC to make standards on the activities and conduct of these platforms.<sup class="fn"><a id="fnref-7" href="#fn-7">7</a></sup> However, the proprietary question of whether a customer has a personal claim or retains ownership in cryptocurrency held on an exchange remains comparatively unexplored.</p>
+    <p>Australian reforms are miscalibrated on consumer protection. By regulating platform conduct while leaving the property question uncharacterised, CADAF and ASIC set the protective standard too low. Cryptocurrency held on an exchange should warrant a higher bar than a fiat currency in a bank; it is more volatile, exchanges are more prone to insolvency, and customers enjoy no equivalent safety net. Therefore, it is proposed that cryptocurrency held in exchanges should be held on trust by statutory default.</p>
+    <p>This essay proceeds as follows. Section II sets out the framework and its silence on ownership. Section III argues this silence matters most in insolvency, where proprietary rights better protect customers. Section IV contends a trust is doctrinally available, drawing on <em>Re Blockchain Tech</em> and <em>China Life</em>, while confronting <em>Re Taylor</em>. Section V rebuts the banking analogy. Section VI proposes the default trust model.</p>
+    <h2>II. Australia's Digital Asset Framework</h2>
+    <h3>A. CADAF: Regulating Conduct but Not Ownership</h3>
+    <p>The CADAF brings digital asset platforms (DAP) and tokenised custody platforms (TCP) within the definition of a financial product through introducing s764A(1)(la)-(lb) of the <em>Corporations Act 2001</em> (Cth).<sup class="fn"><a id="fnref-8" href="#fn-8">8</a></sup> A DAP is a facility where an operator holds digital tokens for others, like a centralised exchange or a brokerage platform.<sup class="fn"><a id="fnref-9" href="#fn-9">9</a></sup> A TCP is a facility in which an operator holds a tokenised non-monetary asset that grants the right to redeem or deliver, like tokenised securities.<sup class="fn"><a id="fnref-10" href="#fn-10">10</a></sup> Operators of either must hold an AFS license and comply with the general obligations unless they are for non-financial purposes.<sup class="fn"><a id="fnref-11" href="#fn-11">11</a></sup> This includes allowing ASIC to set standards for the activity and conduct of these platforms under s912BE.<sup class="fn"><a id="fnref-12" href="#fn-12">12</a></sup></p>
+    <p>These are conduct obligations. They manage what platforms must comply with while they operate, which includes general obligations under s912A,<sup class="fn"><a id="fnref-13" href="#fn-13">13</a></sup> platform rules,<sup class="fn"><a id="fnref-14" href="#fn-14">14</a></sup> asset-holding standards,<sup class="fn"><a id="fnref-15" href="#fn-15">15</a></sup> transactional and settlement standards,<sup class="fn"><a id="fnref-16" href="#fn-16">16</a></sup> etc. Although CADAF states that any money held under a DAP or TCP is to be held on trust on behalf of the client,<sup class="fn"><a id="fnref-17" href="#fn-17">17</a></sup> this does not extend to cryptocurrencies. Section 761GC and 761GD explain that DAP and TCP include an underlying asset where an operator acts as a trustee, bailee or dealt with by instruction.<sup class="fn"><a id="fnref-18" href="#fn-18">18</a></sup> Effectively, CADAF contemplates trust, bailment or mere instruction, but makes no distinction, leaving the proprietary relationship uncharacterised.<sup class="fn"><a id="fnref-19" href="#fn-19">19</a></sup></p>
+    <h3>B. ASIC Regulation and Trust Within Limits</h3>
+    <p>ASIC’s current custody regime already require their licensed asset holders to hold client assets on trust, separated from the holder’s own property.<sup class="fn"><a id="fnref-20" href="#fn-20">20</a></sup> However, when cryptocurrencies are held under a platform, that trust obligation only extends to where the cryptocurrency is a financial product.<sup class="fn"><a id="fnref-21" href="#fn-21">21</a></sup> ASIC treats the custody of digital asset to be a financial service when ‘some or all of them are financial products’;<sup class="fn"><a id="fnref-22" href="#fn-22">22</a></sup> therefore, any cryptocurrency that is a non-financial product falls outside this trust regime. For example, Bitcoin is held on exchanges, but it is not considered a financial product and sits outside the trust scheme.<sup class="fn"><a id="fnref-23" href="#fn-23">23</a></sup></p>
+    <p>For these digital assets, ASIC has merely suggested that AFS licensees may consider the operational requirements in RG 133.<sup class="fn"><a id="fnref-24" href="#fn-24">24</a></sup> This includes measures for ‘good practice’ under RG 133.141, like segregation on the blockchain.<sup class="fn"><a id="fnref-25" href="#fn-25">25</a></sup> Even where there is a trust obligation, RG 133 exempts omnibus accounts from the duty to hold client assets separately, permitting the client’s assets to commingle.<sup class="fn"><a id="fnref-26" href="#fn-26">26</a></sup> The trust survives, but the clients each hold beneficial interests in a commingled pool, making portions harder to identify. Australia’s digital asset framework is therefore binding on conduct, but merely suggestive on ownership.</p>
+    <p>ASIC’s trust obligations only extend to money and financial product crypto,<sup class="fn"><a id="fnref-27" href="#fn-27">27</a></sup> while CADAF leaves ownership up to general law,<sup class="fn"><a id="fnref-28" href="#fn-28">28</a></sup> which decides proprietary status case-by-case with reference to each platform’s conduct, causing identically regulated platforms to fail their customers in entirely different ways, as Section III explains.</p>
+    <h2>III. The Insolvency Test</h2>
+    <h3>A. Why We Need Proprietary Rights Not Conduct Regulation</h3>
+    <p>Conduct regulation protects customers only when a platform is solvent. It regulates how digital assets are stored, disclosed and transacted, but it has no use when the platform fails and goes into insolvency. When a platform goes insolvent, and there is a need for liquidation, remaining assets get paid out in the order established under s556 of the <em>Corporations Act 2001</em> (Cth), where it lists out debts and claims that must be paid out before all other unsecured debts.<sup class="fn"><a id="fnref-29" href="#fn-29">29</a></sup> However, if the cryptocurrency on the platform is held on trust, it does not form part of the pool distributed to creditors, and gets returned to the customer before the winding-up procedures listed above.<sup class="fn"><a id="fnref-30" href="#fn-30">30</a></sup> If it is not, the customer is merely an unsecured creditor, and they will only get compensated after what survives the secured and priority claims, which in most cases is minimal.<sup class="fn"><a id="fnref-31" href="#fn-31">31</a></sup> In an unpredictable market, the distinction between a proprietary right or merely a personal right decides whether the customer gets compensated or not.</p>
+    <h3>B. Lessons from the Collapses</h3>
+    <p>Although these examples are in different jurisdictions, the concept remains unchanged; recent collapses confirm this proposition. When FTX collapsed, there was a shortfall or more than US$3 Billion to unsecured creditors, where customers were left uncompensated.<sup class="fn"><a id="fnref-32" href="#fn-32">32</a></sup> In Celsius, the US Bankruptcy Court held the platform’s terms of use had passed title in ‘Earn’ account deposits to Celsius itself, which meant the assets fell into the estate and customers were unsecured creditors.<sup class="fn"><a id="fnref-33" href="#fn-33">33</a></sup> In <em>Re Gatecoin</em>,<sup class="fn"><a id="fnref-34" href="#fn-34">34</a></sup> the court in Hong Kong accepted that cryptocurrency is capable of being held on trust,<sup class="fn"><a id="fnref-35" href="#fn-35">35</a></sup> and the exchange’s earlier terms had created one,<sup class="fn"><a id="fnref-36" href="#fn-36">36</a></sup> but found the updated terms in 2018 created none,<sup class="fn"><a id="fnref-37" href="#fn-37">37</a></sup> taking out the previous trust language and disclaiming fiduciary obligations,<sup class="fn"><a id="fnref-38" href="#fn-38">38</a></sup> which meant that the customer’s cryptocurrencies fell into the pool of general creditors.<sup class="fn"><a id="fnref-39" href="#fn-39">39</a></sup></p>
+    <p>Each platform was differently operated and structured, but the outcome was decided on the same principle, whether the property is owned by the platform or by the customer. If a court deems there to not be a trust relationship, the ownership stays with the platform, and the customer is an unsecured creditor.<sup class="fn"><a id="fnref-40" href="#fn-40">40</a></sup> This is the risk conduct regulation leaves up to interpretation, which is what a statutory trust aims to remove.</p>
+    <h2>IV. Trust Over Customer Crypto: Doctrine and Its Limits</h2>
+    <h3>A. The Three Certainties </h3>
+    <p>A trust requires three certainties: intention, subject matter and objects.<sup class="fn"><a id="fnref-41" href="#fn-41">41</a></sup> For cryptocurrencies held on an exchange, subject matter and objects are likely non-contentious. Cryptocurrencies are considered ‘property’, whether it is recorded on a public ledger like the blockchain or, as in <em>Ruscoe</em>, on a platform’s internal SQL database,<sup class="fn"><a id="fnref-42" href="#fn-42">42</a></sup> and the beneficiaries are the account holders with their respective positive balances.<sup class="fn"><a id="fnref-43" href="#fn-43">43</a></sup> The main contention is certainty of intention, which asks the question of whether there could be a manifestation of intent to hold the cryptocurrencies for the customer or merely to owe it back.<sup class="fn"><a id="fnref-44" href="#fn-44">44</a></sup></p>
+    <h3>B. Cryptocurrency as Trust Property</h3>
+    <p>Certainty of intention only matters if cryptocurrency can be considered trust property. <em>Re Blockchain Tech</em> held that an interest in Bitcoin is property, classifying it as a chose in action capable of being held on trust.<sup class="fn"><a id="fnref-45" href="#fn-45">45</a></sup> This conclusion rests on settled High Court authority, as Justice Jackman states,<sup class="fn"><a id="fnref-46" href="#fn-46">46</a></sup> <em>Cain’s Case</em> established that a chose in action need not be enforceable by court action;<sup class="fn"><a id="fnref-47" href="#fn-47">47</a></sup> therefore, cryptocurrency could be recognised as property without reference to the UK ‘third category’ of personal property.<sup class="fn"><a id="fnref-48" href="#fn-48">48</a></sup></p>
+    <h3>C. Certainty of Intention and the Objective Test</h3>
+    <p>Intention to create a trust is objectively assessed, from ‘language or conduct showing a sufficiently clear intention’ drawing from the whole circumstance.<sup class="fn"><a id="fnref-49" href="#fn-49">49</a></sup> The foundation of which comes from Lord Millet in <em>Twinsectra</em>, where a trust was found from the purpose for which money was transferred rather than an expressed declaration.<sup class="fn"><a id="fnref-50" href="#fn-50">50</a></sup> The Hong Kong Court of Final Appeal case <em>China Life</em> explained this further, holding that a <em>Quistclose</em> trust arises where the parties objectively intended that the property is not to be at the recipient’s free disposal,<sup class="fn"><a id="fnref-51" href="#fn-51">51</a></sup> and that even when the parties did not intend the transferor to retain a beneficial interest,<sup class="fn"><a id="fnref-52" href="#fn-52">52</a></sup> the trust is still in effect. This matters for digital assets because a customer who deposits cryptocurrency on the objective understanding it is held for their account may still invite a resulting trust even in the absence of express trust language.<sup class="fn"><a id="fnref-53" href="#fn-53">53</a></sup></p>
+    <h3>D. The Danger: <em>Re Taylor</em></h3>
+    <p>The difficulty is that courts generally have refused to infer such intention where documents point in the other direction. In <em>Re Taylor</em>, the Singapore High Court declined to find any trust, express, resulting or <em>Quistclose</em>, over unclaimed customer cryptocurrency held by an insolvent exchange.<sup class="fn"><a id="fnref-54" href="#fn-54">54</a></sup> The court decided that certainty of intention failed for three reasons.<sup class="fn"><a id="fnref-55" href="#fn-55">55</a></sup> Firstly, ‘custodial assets’ is undefined in Singapore law and assets may be held on a pledge, not necessarily proprietary.<sup class="fn"><a id="fnref-56" href="#fn-56">56</a></sup> Secondly, clauses in the terms and conditions suggested legal title rested with the customer.<sup class="fn"><a id="fnref-57" href="#fn-57">57</a></sup> Thirdly, segregation of individual wallets may be for security or accounting purposes and does not evince an intention to create a trust.<sup class="fn"><a id="fnref-58" href="#fn-58">58</a></sup> <em>Re Taylor </em>believed segregation and custodial language are too ambiguous to evince a trust.<sup class="fn"><a id="fnref-59" href="#fn-59">59</a></sup></p>
+    <h3>E. The Escape: <em>Ruscoe</em> and Conduct</h3>
+    <p><em>Re Taylor</em> is not the only outcome. Intention could be inferred from conduct as well as terms.<sup class="fn"><a id="fnref-60" href="#fn-60">60</a></sup> In <em>Ruscoe</em>, the New Zealand High Court found a trust precisely from the platform’s conduct.<sup class="fn"><a id="fnref-61" href="#fn-61">61</a></sup> Cryptopia (the platform) created the exchange, held private keys and maintained a database recording each account holder’s entitlement, manifesting intention through their conduct.<sup class="fn"><a id="fnref-62" href="#fn-62">62</a></sup> <em>Re Gatecoin</em> accepted the proprietary nature of cryptocurrency and ability to be held on trust,<sup class="fn"><a id="fnref-63" href="#fn-63">63</a></sup> and agreed the previous terms and conditions would have created one,<sup class="fn"><a id="fnref-64" href="#fn-64">64</a></sup> only to be superseded by later terms disclaiming fiduciary obligation,<sup class="fn"><a id="fnref-65" href="#fn-65">65</a></sup> defeating the trust.</p>
+    <h3>F. Consequence for Regulation</h3>
+    <p>This shows a trust over customer cryptocurrencies is available doctrinally, the asset qualifies, and the objective-intention test in <em>China Life</em> may capture the ordinary depositing customer.<sup class="fn"><a id="fnref-66" href="#fn-66">66</a></sup> However, currently, whether a trust arises largely depends on drafting, where the difference between <em>Ruscoe</em> and <em>Re Taylor</em> was wording in a user agreement. Leaving this consequential distinction up to a contractual agreement that most users do not even read is precisely what consumer-protection regulation should not do. By establishing a statutory default trust, it converts an uncertain litigated outcome into a predictable one, which is the policy calibration CADAF and ASIC lack.</p>
+    <h2>V. The Banking Analogy and Its Limits</h2>
+    <h3>A. The Banking Creditor Model </h3>
+    <p>The strongest objection is that exchanges should be treated like banks. When a customer deposits money with a bank, they take title and owe only a personal debt; as Lord Cottenham held, it ‘ceases altogether to be the money of the customer’ and becomes the banker’s, leaving the customer a creditor, not a beneficiary.<sup class="fn"><a id="fnref-67" href="#fn-67">67</a></sup> Banking has operated on this basis since the 1800s without proprietary protection for depositors. A cryptocurrency depositor of an exchange, on this view, should be treated the same, and should bear the risk of its insolvency and inability to pay all creditors back. Further, Levitin argues that because commingled coins are fungible and not serialised,<sup class="fn"><a id="fnref-68" href="#fn-68">68</a></sup> a court likely analogises the relationship to a general bank deposit, a loan, leaving customers as unsecured creditors.<sup class="fn"><a id="fnref-69" href="#fn-69">69</a></sup> The argument would be that a trust singles out cryptocurrency for protection bank depositors do not enjoy, which may unsettle exchanges or bank customers.</p>
+    <h3>B. Why the Banking Analogy Fails</h3>
+    <p>The objection’s loan framing is not fatal. A <em>Quistclose</em> trust could arise out of a loan;<sup class="fn"><a id="fnref-70" href="#fn-70">70</a></sup> characterisation of the deposit as a loan does not make the customer a mere creditor. However, this analogy fails for three further reasons.</p>
+    <p>Firstly, the creditor model works well for banks because it sits inside a prudential regulation that crypto platforms lack. Authorised deposit-taking institutions (ADIs) are supervised by APRA under the <em>Banking Act 1959</em> (Cth),<sup class="fn"><a id="fnref-71" href="#fn-71">71</a></sup> and their depositors are protected by the Financial Claims Scheme,<sup class="fn"><a id="fnref-72" href="#fn-72">72</a></sup> which guarantees deposits for up to AU$250,000 per account holder per ADI.<sup class="fn"><a id="fnref-73" href="#fn-73">73</a></sup> The depositor may be an unsecured creditor at law, but a protected one in practice. Cryptocurrency customers do not enjoy this benefit; there are no regulated structures, protective schemes, nor customer guarantees. To import the bank’s creditor model without its protection leaves customers bearing the risk while stripped of the remedy.</p>
+    <p>Secondly, the analogy does not fit when looking at customer expectation. <em>Foley</em> relied on the depositor knowingly allowing the bank to use the deposited money as its own, which a trustee never could.<sup class="fn"><a id="fnref-74" href="#fn-74">74</a></sup> The cryptocurrency exchange customer expect the opposite, that the coins are held for them, not given for the platform to, in Lord Cottenham’s words, ‘do with it as he pleases’.<sup class="fn"><a id="fnref-75" href="#fn-75">75</a></sup></p>
+    <p>Thirdly, a default trust does not abolish commercial flexibility. The main function of a cryptocurrency exchange is acting as an intermediary, allowing users to trade and convert digital assets, remains untouched.<sup class="fn"><a id="fnref-76" href="#fn-76">76</a></sup> The trade-off is minimal: customers will still be able to execute trades as usual, but platforms that lend cannot do so unless customers express their consent. In return, customers gain proprietary protection,<sup class="fn"><a id="fnref-77" href="#fn-77">77</a></sup> and in the event of insolvency, customers recover their assets more readily.<sup class="fn"><a id="fnref-78" href="#fn-78">78</a></sup></p>
+    <h2>VI. Concluding Remarks: A Proposal for a Trust-by-Default Model</h2>
+    <p>This essay has argued that Australia’s digital asset reforms are miscalibrated on consumer protection. By regulating conduct while leaving ownership uncharacterised, they fail to address the insolvency question adequately. The remedy is to legislate the solution. Regulators have three options. The first, the current model, is sticking to the status quo and leaving the proprietary status to the platform’s terms and courts. The second, the disclosure model, is to require platforms to state explicitly whether a customer’s given asset is held on trust. The third, the trust by default model, holds the customer’s cryptocurrency on trust unless the customer expressly and separately agrees otherwise.</p>
+    <p>The analysis does not explicitly suggest that Parliament must mandate the third model but aims to consider all options and their consequences, arguing the trust by default model best answers policy calibration. The current model has already failed, as the collapses show. The disclosure model improves transparency between consumers and exchanges but leaves the proprietary categorisation untouched; a passive customer remains exposed to unsuccessful outcomes in <em>Re Taylor</em> and <em>Re Gatecoin</em>.<sup class="fn"><a id="fnref-79" href="#fn-79">79</a></sup> Only a default trust model protects idle customers, while preserving flexibility for platforms, from custodial TCPs, where trust is natural, <sup class="fn"><a id="fnref-80" href="#fn-80">80</a></sup> to pooled DAPs, where the risk is most prominent<sup class="fn"><a id="fnref-81" href="#fn-81">81</a></sup>.</p>
+    <p>The practical implications would be immediate: platforms would review terms against <em>China Life</em>’s objectively inferred trust,<sup class="fn"><a id="fnref-82" href="#fn-82">82</a></sup> regulators would address the proprietary characterisation, not just conduct, and customers would be protected. ASIC’s standard-making power under s912BE provides a starting point for regulators,<sup class="fn"><a id="fnref-83" href="#fn-83">83</a></sup> and <em>China Life</em>‘s persuasive framing will likely be accepted into Australia’s court,<sup class="fn"><a id="fnref-84" href="#fn-84">84</a></sup> because former High Court of Australia justice Gummow J contributed to the decision. Still strong persuasive authority must await the right case before the right court before it becomes binding precedent. That uncertainty is precisely why regulators should legislate now rather than wait. Australia already accepts cryptocurrency as property; it should now decide whose.</p>
+  </div>
+
+  <div class="notes-section">
+    <h2>Notes</h2>
+    <ol>
+      <li id="fn-1">'Cryptocurrency Prices Today by Market Cap', <em>Forbes</em> (Web Page, 2026) &lt;<a href="https://www.forbes.com/digital-assets/crypto-prices/" target="_blank" rel="noopener">https://www.forbes.com/digital-assets/crypto-prices/</a>&gt;. <a href="#fnref-1" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-2">Lai T Hoang and Dirk G Baur, 'Loaded for Bear: Bitcoin Private Wallets, Exchange Reserves and Prices' (2022) 144 <em>Journal of Banking &amp; Finance</em> 106622, 2–3. <a href="#fnref-2" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-3">See, eg, Bank for International Settlements, <em>The Crypto Ecosystem: Key Elements and Risks</em> (Report, July 2023) 11 (‘<em>The Crypto Ecosystem</em>’). <a href="#fnref-3" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-4">Ibid. <a href="#fnref-4" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-5">Explanatory Memorandum, Corporations Amendment (Digital Assets Framework) Bill 2025 (Cth) [1.38]. <a href="#fnref-5" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-6">Ibid. <a href="#fnref-6" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-7">Ibid [1.169]. <a href="#fnref-7" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-8">Explanatory Memorandum (n 5) [1.111], citing Corporations Amendment (Digital Assets Framework) Bill 2025 (Cth) s 764A(1). <a href="#fnref-8" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-9">See ‘Australia Passes Highly Anticipated Digital Asset Regulation', <em>Gilbert + Tobin</em> (Web Page, 2026) &lt;<a href="https://www.gtlaw.com.au/insights/key-topics/regulation-in-motion/australia-passes-highly-anticipated-digital-asset-regulation" target="_blank" rel="noopener">https://www.gtlaw.com.au/insights/key-topics/regulation-in-motion/australia-passes-highly-anticipated-digital-asset-regulation</a>&gt;. <a href="#fnref-9" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-10">Ibid. <a href="#fnref-10" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-11">Ibid. <a href="#fnref-11" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-12"><em>Corporations Amendment (Digital Assets Framework) Act 2026</em> (Cth) s 912BE (‘<em>CADAF’</em>). <a href="#fnref-12" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-13"><em>Corporations Act 2001</em> (Cth)<em> </em>s 912A. <a href="#fnref-13" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-14"><em>CADAF </em>ss 912BC, 912BG. <a href="#fnref-14" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-15">Ibid 912BE. <a href="#fnref-15" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-16">Ibid 912BF. <a href="#fnref-16" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-17">Ibid 912BE(2)(b). <a href="#fnref-17" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-18">Ibid ss 761GC, 761GD. <a href="#fnref-18" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-19">Ibid. <a href="#fnref-19" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-20">See Australian Securities and Investments Commission, <em>Funds Management and Custodial Services: Holding Assets</em> (Regulatory Guide 133, December 2024) [133.22(d)], [133.51], [133.53] ('<em>RG 133</em>'). <a href="#fnref-20" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-21">See Australian Securities and Investments Commission, <em>Digital Assets: Financial Products and Services</em> (Information Sheet 225, October 2025) ('<em>INFO 225</em>'). <a href="#fnref-21" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-22">Ibid. <a href="#fnref-22" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-23">Ibid. <a href="#fnref-23" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-24"><em>INFO 225</em> (n 20), citing <em>RG 133</em> (n 19). <a href="#fnref-24" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-25"><em>RG 133</em> (n 19) [133.141(b)]. <a href="#fnref-25" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-26">Ibid [133.51(c)], [133.159]. <a href="#fnref-26" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-27"><em>INFO 225</em> (n 20), citing <em>RG 133</em> (n 19). <a href="#fnref-27" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-28"><em>CADAF</em> (n 12)<em> </em>ss 912BE(2)(b), 761GC(1)(b)(i). <a href="#fnref-28" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-29"><em>Corporations Act 2001</em> (Cth)<em> </em>s 556. <a href="#fnref-29" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-30">Kreltszheim, David, 'Trustless No More: Law Changes to Enhance Rights of Crypto Customers on an Exchange’s Insolvency' (2023) 39(2) <em>Australian Banking and Finance Law Bulletin</em> 28, 28, citing <em>Ruscoe v Cryptopia Ltd</em> [2020] 2 NZLR 809, 814 [7]–[9]. <a href="#fnref-30" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-31">Kreltszheim (n 30) 29. <a href="#fnref-31" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-32"><em>The Crypto Ecosystem </em>(n 3) 11. <a href="#fnref-32" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-33">'Celsius Bankruptcy Court Holds Customer Deposits in "Earn Accounts" Are Estate Property', <em>Morrison Foerster</em> (Web Page, 9 January 2023) &lt;<a href="https://www.mofo.com/resources/insights/230109-celsius-bankruptcy-court-customer-deposits-earn-accounts" target="_blank" rel="noopener">https://www.mofo.com/resources/insights/230109-celsius-bankruptcy-court-customer-deposits-earn-accounts</a>&gt;. <a href="#fnref-33" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-34"><em>Re Gatecoin Ltd</em> [2023] HKCFI 914 ('<em>Re Gatecoin</em>'). <a href="#fnref-34" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-35">Ibid [59], [82(3)]. <a href="#fnref-35" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-36">Ibid [70]. <a href="#fnref-36" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-37">Ibid [71]. <a href="#fnref-37" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-38">Ibid. <a href="#fnref-38" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-39">Ibid [41]. <a href="#fnref-39" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-40">Ibid. <a href="#fnref-40" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-41"><em>Knight v Knight</em> (1840) 3 Beav 148, 160; 49 ER 58, 63. <a href="#fnref-41" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-42"><em>Ruscoe v Cryptopia Ltd</em> [2020] 2 NZLR 809, 843 [120], 849 [147] (‘<em>Ruscoe’</em>). <a href="#fnref-42" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-43">Ibid 849 [148]–[150]. <a href="#fnref-43" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-44">Ibid 849 [151]–852 [166]. <a href="#fnref-44" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-45"><em>Re Blockchain Tech Pty Ltd</em> (2024) 76 VR 578, 602 [389]. <a href="#fnref-45" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-46">Ian Jackman, 'Is Cryptocurrency Property?' (Speech, Commercial Law Association of Australia, 21 June 2024) &lt;<a href="https://www.fedcourt.gov.au/digital-law-library/judges-speeches/justice-jackman/jackman-j-20240621" target="_blank" rel="noopener">https://www.fedcourt.gov.au/digital-law-library/judges-speeches/justice-jackman/jackman-j-20240621</a>&gt;. <a href="#fnref-46" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-47"><em>National Trustees Executors and Agency Co of Australasia Ltd v Federal Commissioner of Taxation</em> (1954) 91 CLR 540, 584 ('<em>Cain's Case</em>'), cited in Jackman (n 46). <a href="#fnref-47" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-48">Jackman (n 46). <a href="#fnref-48" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-49"><em>China Life Trustees Ltd v China Energy Reserve and Chemicals Group Overseas Co Ltd</em> [2024] HKCFA 15, [145]–[146] (Gummow NPJ) ('<em>China Life</em>'). <a href="#fnref-49" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-50"><em>Twinsectra Ltd v Yardley</em> [2002] 2 AC 164, 183 [68]–[72]. <a href="#fnref-50" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-51"><em>China Life</em>, [57], discussing <em>Barclays Bank Ltd v Quistclose Investments Ltd</em> [1970] AC 567. <a href="#fnref-51" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-52"><em>China Life</em>, [58]. <a href="#fnref-52" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-53">See generally China Life, [43]–[45], [122]. <a href="#fnref-53" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-54">But see <em>Taylor v Official Receiver</em> [2025] SGHC 104, [4], [37], [42] ('<em>Re Taylor</em>'). <a href="#fnref-54" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-55">But see <em>Re Taylor</em>, [30]. <a href="#fnref-55" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-56">Ibid [16]. <a href="#fnref-56" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-57">Ibid [17], [27]. <a href="#fnref-57" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-58">Ibid [24]. <a href="#fnref-58" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-59">Ibid [24], [30]. <a href="#fnref-59" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-60"><em>Ruscoe</em>, [153]. <a href="#fnref-60" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-61">Ibid. <a href="#fnref-61" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-62">Ibid. <a href="#fnref-62" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-63"><em>Re Gatecoin</em>, [59], [82(3)]. <a href="#fnref-63" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-64">Ibid [70]. <a href="#fnref-64" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-65">Ibid [42]–[43], [71]. <a href="#fnref-65" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-66"><em>China Life</em>, [9], [57]. <a href="#fnref-66" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-67"><em>Foley v Hill</em> (1848) 2 HL Cas 28, 36; 9 ER 1002, 1005. <a href="#fnref-67" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-68">Adam J Levitin, 'Not Your Keys, Not Your Coins: Unpriced Credit Risk in Cryptocurrency' (2023) 101(4) <em>Texas Law Review</em> 877, 928. <a href="#fnref-68" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-69">Levitin (n 68) 930–1. <a href="#fnref-69" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-70">See generally <em>China Life</em>, [113]–[116]. <a href="#fnref-70" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-71"><em>Banking Act 1959</em> (Cth) div 2AA. <a href="#fnref-71" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-72">Ibid. <a href="#fnref-72" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-73">Australian Prudential Regulation Authority, 'The Financial Claims Scheme (FCS)' (Web Page, 20 July 2020) &lt;<a href="https://www.apra.gov.au/financial-claims-scheme-fcs" target="_blank" rel="noopener">https://www.apra.gov.au/financial-claims-scheme-fcs</a>&gt;. <a href="#fnref-73" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-74"><em>Foley v Hill</em>, 1005. <a href="#fnref-74" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-75">Ibid 1006. <a href="#fnref-75" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-76">See generally <em>Ruscoe</em>, [5]. <a href="#fnref-76" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-77">Levitin (n 68) 902–3. <a href="#fnref-77" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-78">Ibid. <a href="#fnref-78" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-79">See generally <em>Re Taylor</em>, <em>Re Gatecoin</em>. <a href="#fnref-79" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-80">See generally Explanatory Memorandum (n 5) [1.102], [1.122]–[1.123]. <a href="#fnref-80" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-81">Ibid [1.21]–[1.22]. <a href="#fnref-81" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-82"><em>China Life</em>, [20]. <a href="#fnref-82" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-83"><em>CADAF </em>s 912BE. <a href="#fnref-83" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+      <li id="fn-84">See generally <em>China Life</em>. <a href="#fnref-84" class="fn-back" aria-label="Back to text">&#8617;</a></li>
+    </ol>
+  </div>
+
+  <div class="article-footer">
+    <a class="back-btn" href="/" style="margin:0 auto;justify-content:center;">&larr; Back to Intersect</a>
+  </div>
+</div>
+
+  <footer>
+    <p class="footer-title">Intersect<span class="logo-sub">by Henry Mao</span></p>
+    <p class="footer-copy">&copy; 2026 Henry Mao. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
